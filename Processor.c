@@ -164,14 +164,14 @@ void Processor_DecodeAndExecuteInstruction() {
 		case HALT_INST: 
 			registerPSW_CPU=POWEROFF;
 			break;
-			
+		
 		case MEMADD_INST:
 			// Tell the main memory controller from where
-			registerMAR_CPU=operand2;//De donde leo
+			registerMAR_CPU=operand2;//De donde leo (operando 1)
 			Buses_write_AddressBus_From_To(CPU, MAINMEMORY);//Indicar donde tengo que leer, usando bus de escritura
 			registerCTRL_CPU=CTRLREAD;//Indicar que lea de forma controlada
 			Buses_write_ControlBus_From_To(CPU,MAINMEMORY);//Enviar la operacion a la memoria
-			registerAccumulator_CPU= registerMBR_CPU.cell+operand1;
+			registerAccumulator_CPU= registerMBR_CPU.cell+operand1;//Sumar el resultado al operador 1
 			registerPC_CPU++;
 			break;
 

@@ -1,14 +1,8 @@
 // Mi primer programa
 55  // Tamanio del programa en posiciones de memoria
-MEMMADD 9 100
-MEMMADD 10 100
-MEMMADD 11 100
-MEMMADD 12 100
-MEMMADD 13 100
-MEMMADD 14 100
-MEMMADD 15 100
-MEMMADD 16 100
-MEMMADD 17 100
-MEMMADD 18 100
-MEMMADD 19 100
+MEMADD 40 99
+INC -2
+MEMADD 2 99
+ZJUMP 2  // Si el registro acumulador==0, saltar dos posiciones de memoria hacia adelante
+JUMP -3  // Saltar dos posiciones de memoria hacia atras
 HALT
