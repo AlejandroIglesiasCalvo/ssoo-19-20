@@ -1,0 +1,8 @@
+//potencias de 2 de forma ascendente, desde 1 (2^0) hasta 1024 (2^10),
+//en la celda de memoria de la posición 64
+55  
+MEMADD 1024 64
+SHIFT 1
+ZJUMP 2  // Si el registro acumulador==0, saltar dos posiciones de memoria hacia adelante
+JUMP -2  // Saltar dos posiciones de memoria hacia atras
+HALT
