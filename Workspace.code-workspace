@@ -5,6 +5,7 @@
 		}
 	],
 	"settings": {
-		"terminal.integrated.automationShell.linux": "Ubuntu",
+		"terminal.integrated.automationShell.linux": "C:\\WINDOWS\\System32\\bash.exe",
+		"terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\bash.exe",
 	}
 }
