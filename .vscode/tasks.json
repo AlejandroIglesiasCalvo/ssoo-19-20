@@ -4,13 +4,15 @@
     "tasks": [
         {
             "type": "shell",
-            "label": "g++ build active file",    
+            "label": "g++ build active file",
             "command": "make",
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            
+            "problemMatcher": [
+                "$gcc"
+            ]
         }
     ]
   }
