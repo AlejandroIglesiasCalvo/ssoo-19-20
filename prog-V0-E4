@@ -1,5 +1,5 @@
 // Mi primer programa
-55  // Tamanio del programa en posiciones de memoria
+55  // Tamanio del programa en posiciones de memoria 
 MEMMADD 9 100
 MEMMADD 10 100
 MEMMADD 11 100
