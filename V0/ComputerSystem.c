@@ -46,13 +46,40 @@ void ComputerSystem_PowerOn(int argc, char *argv[]) {
 	// Initialize processor registers
 	Processor_InitializeRegisters(initialValueForPCRegister, initialValueForAccumulatorRegister, initialValueForPSWRegister);
 	
-	// If PROGRAM_TO_BE_EXECUTED exists, is executed
-	programFile= fopen(PROGRAM_TO_BE_EXECUTED, "r");
+	// // If PROGRAM_TO_BE_EXECUTED exists, is executed
+	// programFile= fopen(PROGRAM_TO_BE_EXECUTED, "r");
 	
-	// Check if programFile exists, if not, poweroff system
-	if (programFile==NULL)
-		ComputerSystem_PowerOff();
+	// // Check if programFile exists, if not, poweroff system
+	// if (programFile==NULL)
+	// 	ComputerSystem_PowerOff();
 	
+// If NAME_OF_THE_PROGRAM_TO_BE_EXECUTED exists, is executed
+	programFile = fopen(NAME_OF_THE_PROGRAM_TO_BE_EXECUTED, "r");
+	char lineRead[LINEMAXIMUMLENGTH];
+
+	if (programFile == NULL || fgets(lineRead, LINEMAXIMUMLENGTH, programFile) == NULL)
+	{
+		// If PROGRAM_TO_BE_EXECUTED exists, is executed
+		programFile = fopen(PROGRAM_TO_BE_EXECUTED, "r");
+
+		// Check if programFile exists, if not, poweroff system
+		if (programFile == NULL)
+			ComputerSystem_PowerOff();
+	}
+	else
+	{
+		if (lineRead[0] != ' ')
+			programFile = fopen(lineRead, "r");
+		if (programFile == NULL)
+		{
+			programFile = fopen(PROGRAM_TO_BE_EXECUTED, "r");
+
+			// Check if programFile exists, if not, poweroff system
+			if (programFile == NULL)
+				ComputerSystem_PowerOff();
+		}
+	}
+
 	// Load the program in main memory, beginning at the address given by the second argument
 	OperatingSystem_LoadProgram(programFile, initialValueForPCRegister);
 	

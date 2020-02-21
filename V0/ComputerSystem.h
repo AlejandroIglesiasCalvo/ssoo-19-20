@@ -14,7 +14,8 @@ void ComputerSystem_DebugMessage(int , char,  ...);
 // Main memory size (number of memory cells)
 #define MAINMEMORYSIZE 256
 
-
+// General parameters of the global Computer System
+#define NAME_OF_THE_PROGRAM_TO_BE_EXECUTED "programToBeExecuted"
 // Sections in which we divide our simulator in terms of
 // debugging messages that show its internal working details
 

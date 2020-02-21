@@ -4,9 +4,9 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build",
+            "label": "BuildV0",
             "type": "shell",
-            "command": "make",
+            "command": "cd V0 && make",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -16,17 +16,17 @@
             ]
         },
         {
-            "label": "Run",
+            "label": "RunV0",
             "type": "shell",
-            "command": "./Simulator",
+            "command": "cd V0 && ./Simulator",
             "problemMatcher": [
                 "$gcc"
             ]
         },
         {
-            "label": "Clean",
+            "label": "CleanV0",
             "type": "shell",
-            "command": "make clean",
+            "command": "cd V0 && make clean",
             "problemMatcher": [
                 "$gcc"
             ]
