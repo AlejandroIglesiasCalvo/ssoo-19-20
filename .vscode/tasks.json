@@ -30,6 +30,37 @@
             "problemMatcher": [
                 "$gcc"
             ]
+        },
+        {
+            "label": "BuildV1",
+            "type": "shell",
+            "command": "cd V1 && make",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "RunV1",
+            "type": "shell",
+            "command": "cd V1 && ./Simulator",
+            "args": [
+                "A " , "Ejercicio_1" //Parametros de entrada             
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "CleanV1",
+            "type": "shell",
+            "command": "cd V1 && make clean",
+            "problemMatcher": [
+                "$gcc"
+            ]
         }
     ]
 }

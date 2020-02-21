@@ -1,0 +1,22 @@
+// Mi primer programa
+//55  // Tamanio del programa en posiciones de memoria
+//MEMADD 42 99
+//INC -2
+//ZJUMP 2  // Si el registro acumulador==0, saltar dos posiciones de memoria hacia adelante
+//JUMP -2  // Saltar dos posiciones de memoria hacia atras
+//HALT
+
+55//TAMAÑO
+ADD 19 1
+WRITE 99 //Guardamos en la pusicion 99 el numero 20
+READ 99
+INC 1
+WRITE 98 //Guarda el contador en la posicion 98
+MEMADD 2 99
+WRITE 99 //guarda en la 99
+MEMADD 2 98
+WRITE 98 //Lo guarda en la 99
+MEMADD -41 98 // Empieza desde los negativos 
+ZJUMP 2
+JUMP -9
+HALT
