@@ -45,9 +45,8 @@
             "type": "shell",
             "command": "cd V1 && ./Simulator",
             "args": [
-                "A ",
-                "Ejercicio_1"
-            ],
+                " programVerySimple",
+                ],
             "problemMatcher": [
                 "$gcc"
             ]
