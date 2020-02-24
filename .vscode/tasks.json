@@ -7,10 +7,7 @@
             "label": "BuildV0",
             "type": "shell",
             "command": "cd V0 && make",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "group": "build",
             "problemMatcher": [
                 "$gcc"
             ]
@@ -48,7 +45,8 @@
             "type": "shell",
             "command": "cd V1 && ./Simulator",
             "args": [
-                "A " , "Ejercicio_1" //Parametros de entrada             
+                "A ",
+                "Ejercicio_1"
             ],
             "problemMatcher": [
                 "$gcc"
