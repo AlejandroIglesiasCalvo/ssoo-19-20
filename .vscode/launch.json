@@ -12,7 +12,7 @@
             "program": "${workspaceFolder}/V1/Simulator",
             "args": ["programVerySimple"],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/V1/",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
