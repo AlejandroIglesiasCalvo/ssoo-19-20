@@ -8,7 +8,7 @@ PROGRAM = 	Simulator
 # Compilation Details
 SHELL = /bin/sh
 CC = cc
-STDCFLAGS = -g -c -Wall -std=gnu90 
+STDCFLAGS = -g3 -c -Wall -std=gnu90 
 INCLUDES =
 LIBRERIAS =
 ACC = /usr/share/ACC/bin/acc
