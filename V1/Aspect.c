@@ -34,9 +34,8 @@ extern void * __utac__error_stack_mgt(void * env , int mode, int count) ;
 # 1 "MyAspect.c" 
 # 1 "<built-in>" 
 # 1 "<command-line>" 
-# 31 "<command-line>" 
 # 1 "/usr/include/stdc-predef.h" 1 3 4
-# 32 "<command-line>" 2
+# 1 "<command-line>" 2
 # 1 "MyAspect.c" 
 # 5 "Clock.h" 1
 void Clock_Update(); 
