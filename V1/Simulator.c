@@ -134,7 +134,7 @@ int main(int argc, char *argv[]) {
 
 
 
-	// The simulation starts
+	// The simulation starts 
 	ComputerSystem_PowerOn(argc, argv, paramIndex);
 	// The simulation ends
 	ComputerSystem_PowerOff();
