@@ -215,8 +215,17 @@ void Processor_DecodeAndExecuteInstruction() {
 		case IRET_INST: // Return from a interrupt handle manager call
 			registerPC_CPU=Processor_CopyFromSystemStack(MAINMEMORYSIZE-1);
 			registerPSW_CPU=Processor_CopyFromSystemStack(MAINMEMORYSIZE-2);
-			break;		
-
+			break;	
+			
+		case MEMADD_INST:
+			// Tell the main memory controller from where
+			registerMAR_CPU=operand2;//De donde leo (operando 1)
+			Buses_write_AddressBus_From_To(CPU, MMU);//Indicar donde tengo que leer, usando bus de escritura
+			registerCTRL_CPU=CTRLREAD;//Indicar que lea de forma controlada
+			Buses_write_ControlBus_From_To(CPU,MMU);//Enviar la operacion a la memoria
+			registerAccumulator_CPU= registerMBR_CPU.cell+operand1;//Sumar el resultado al operador 1
+			registerPC_CPU++;
+			break;
 		// Unknown instruction
 		default : 
 			registerPC_CPU++;
