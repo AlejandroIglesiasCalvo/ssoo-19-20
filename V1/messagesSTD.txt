@@ -5,3 +5,4 @@
 //
 101,User program list:\n
 102,\tProgram [@C%s@@] with arrival time [@C%d@@]\n
+103,ERROR: There are not free entrie in the process table for the program [@C%s@@]\n
