@@ -5,5 +5,6 @@
 //
 101,User program list:\n
 102,\tProgram [@C%s@@] with arrival time [@C%d@@]\n
-103,ERROR: There are not free entrie in the process table for the program [@C%s@@]\n
-104,ERROR:_Program_[@C%s@@]_is_not_valid_[--- @C%s@@ ---]\n
+103,@RERROR: There are not free entrie in the process table for the program [%s]@@\n
+104,@RERROR: Program [%s] is not valid [--- %s ---]@@\n
+105,@RERROR: Program [%s] is too big@@\n

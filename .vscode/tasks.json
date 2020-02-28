@@ -43,7 +43,7 @@
         {
             "label": "RunV1",
             "type": "shell",
-            "command": "cd V1 && ./Simulator programVerySimple  prog-V1-E3",
+            "command": "cd V1 && ./Simulator prog-V1-E3",
             "problemMatcher": [
                 "$gcc"
             ]

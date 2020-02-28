@@ -131,21 +131,24 @@ int OperatingSystem_LongTermScheduler()
 		{
 		case NOFREEENTRY:
 			ComputerSystem_DebugMessage(103, ERROR, programList[i]->executableName);
-			break;
+			continue;
 		case PROGRAMDOESNOTEXIST:
-			ComputerSystem_DebugMessage(103, ERROR, programList[i]->executableName, "it does not exist");
-			break;
+			ComputerSystem_DebugMessage(104, ERROR, programList[i]->executableName, "it does not exist");
+			continue;
 		case PROGRAMNOTVALID:
-			ComputerSystem_DebugMessage(103, ERROR, programList[i]->executableName, "invalid priority or size");
-			break;
+			ComputerSystem_DebugMessage(104, ERROR, programList[i]->executableName, "invalid priority or size");
+			continue;
+		case TOOBIGPROCESS:
+			ComputerSystem_DebugMessage(105, ERROR, programList[i]->executableName);
+			continue;
 		default:
-			break;
+			numberOfSuccessfullyCreatedProcesses++;
+			if (programList[i]->type == USERPROGRAM)
+				numberOfNotTerminatedUserProcesses++;
+			// Move process to the ready state
+			OperatingSystem_MoveToTheREADYState(PID);
+			continue;
 		}
-		numberOfSuccessfullyCreatedProcesses++;
-		if (programList[i]->type == USERPROGRAM)
-			numberOfNotTerminatedUserProcesses++;
-		// Move process to the ready state
-		OperatingSystem_MoveToTheREADYState(PID);
 	}
 
 	// Return the number of succesfully created processes
@@ -183,10 +186,17 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 	}
 	// Obtain enough memory space
 	loadingPhysicalAddress = OperatingSystem_ObtainMainMemory(processSize, PID);
-
+	if (loadingPhysicalAddress == TOOBIGPROCESS)
+	{
+		return PROGRAMNOTVALID;
+	}
 	// Load program in the allocated memory
-	OperatingSystem_LoadProgram(programFile, loadingPhysicalAddress, processSize);
-
+	int Mierda;
+	Mierda = OperatingSystem_LoadProgram(programFile, loadingPhysicalAddress, processSize);
+	if (Mierda == TOOBIGPROCESS)
+	{
+		return TOOBIGPROCESS;
+	}
 	// PCB initialization
 	OperatingSystem_PCBInitialization(PID, loadingPhysicalAddress, processSize, priority, indexOfExecutableProgram);
 

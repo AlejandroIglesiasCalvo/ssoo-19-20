@@ -1,0 +1,32 @@
+for (i = 0; programList[i] != NULL && i < PROGRAMSMAXNUMBER; i++)
+	{
+		PID = OperatingSystem_CreateProcess(i);
+		switch (PID)
+		{
+		// V1 Ejercicio 4b
+		case NOFREEENTRY:
+			ComputerSystem_DebugMessage(103, ERROR, programList[i]->executableName);
+			continue;
+		// V1 Ejercicio 5b
+		case PROGRAMDOESNOTEXIST:
+			ComputerSystem_DebugMessage(104, ERROR, programList[i]->executableName,
+										"it does not exist");
+			continue;
+		// V1 Ejercicio 5c
+		case PROGRAMNOTVALID:
+			ComputerSystem_DebugMessage(104, ERROR, programList[i]->executableName,
+										"invalid priority or size");
+			continue;
+		// V1 Ejercicio 6
+		case TOOBIGPROCESS:
+			ComputerSystem_DebugMessage(105, ERROR, programList[i]->executableName);
+			continue;
+		default:
+			numberOfSuccessfullyCreatedProcesses++;
+			if (programList[i]->type == USERPROGRAM)
+				numberOfNotTerminatedUserProcesses++;
+			// Move process to the ready state
+			OperatingSystem_MoveToTheREADYState(PID);
+			break;
+		}
+	}
