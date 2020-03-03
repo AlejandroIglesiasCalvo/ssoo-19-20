@@ -43,7 +43,15 @@
         {
             "label": "RunV1",
             "type": "shell",
-            "command": "cd V1 && ./Simulator prog-V1-E3",
+            "command": "cd V1 && ./Simulator programVerySimple",
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "RunV1 max 50",
+            "type": "shell",
+            "command": "cd V1 && ./Simulator programVerySimple | head -n 50",
             "problemMatcher": [
                 "$gcc"
             ]

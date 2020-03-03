@@ -39,7 +39,9 @@ int executingProcessID = NOPROCESS;
 int sipID;
 
 // Initial PID for assignation
-int initialPID = 0;
+int initialPID = PROCESSTABLEMAXSIZE -1;
+// Esta movida es para el ejercicio 8, 
+//tiene que ser el ultimo de la tabla de procesos
 
 // Begin indes for daemons in programList
 int baseDaemonsInProgramList;
