@@ -48,6 +48,7 @@ extern int sipID;
 // Functions prototypes
 void OperatingSystem_Initialize();
 void OperatingSystem_InterruptLogic(int);
-
+//Funciones mias
+void OperatingSystem_PrintReadyToRunQueue();//V1-E9
 
 #endif

@@ -39,8 +39,8 @@ int executingProcessID = NOPROCESS;
 int sipID;
 
 // Initial PID for assignation
-int initialPID = PROCESSTABLEMAXSIZE -1;
-// Esta movida es para el ejercicio 8, 
+int initialPID = PROCESSTABLEMAXSIZE - 1;
+// Esta movida es para el ejercicio 8,
 //tiene que ser el ultimo de la tabla de procesos
 
 // Begin indes for daemons in programList
@@ -251,6 +251,7 @@ void OperatingSystem_MoveToTheREADYState(int PID)
 	{
 		processTable[PID].state = READY;
 	}
+	OperatingSystem_PrintReadyToRunQueue();
 }
 
 // The STS is responsible of deciding which process to execute when specific events occur.
@@ -402,5 +403,24 @@ void OperatingSystem_InterruptLogic(int entryPoint)
 	case EXCEPTION_BIT: // EXCEPTION_BIT=6
 		OperatingSystem_HandleException();
 		break;
+	}
+}
+
+void OperatingSystem_PrintReadyToRunQueue()
+{
+	ComputerSystem_DebugMessage(106, SHORTTERMSCHEDULE, "");
+	int CuentaMierda;
+	for (CuentaMierda = 0; CuentaMierda < PROCESSTABLEMAXSIZE; CuentaMierda++)
+	{
+		if (processTable[CuentaMierda].state == READY)
+		{
+			ComputerSystem_DebugMessage(107, SHORTTERMSCHEDULE, processTable[CuentaMierda].state, processTable[CuentaMierda].priority);
+			if (CuentaMierda == PROCESSTABLEMAXSIZE - 1)
+			{
+				ComputerSystem_DebugMessage(109, SHORTTERMSCHEDULE);
+			}else{
+				ComputerSystem_DebugMessage(108, SHORTTERMSCHEDULE);
+			}
+		}
 	}
 }
