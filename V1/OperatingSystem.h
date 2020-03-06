@@ -50,5 +50,5 @@ void OperatingSystem_Initialize();
 void OperatingSystem_InterruptLogic(int);
 //Funciones mias
 void OperatingSystem_PrintReadyToRunQueue();//V1-E9
-
+void Change_State(int, int, int);
 #endif

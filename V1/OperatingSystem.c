@@ -53,6 +53,9 @@ int numberOfReadyToRunProcesses = 0;
 // Variable containing the number of not terminated user processes
 int numberOfNotTerminatedUserProcesses = 0;
 
+//Ejercicio 10 V1
+char *statesNames[5] = {"NEW", "READY", "EXECUTING", "BLOCKED", "EXIT"};
+
 // Initial set of tasks of the OS
 void OperatingSystem_Initialize(int daemonsIndex)
 {
@@ -190,7 +193,7 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 	loadingPhysicalAddress = OperatingSystem_ObtainMainMemory(processSize, PID);
 	if (loadingPhysicalAddress == TOOBIGPROCESS)
 	{
-		return PROGRAMNOTVALID;
+		return TOOBIGPROCESS;
 	}
 	// Load program in the allocated memory
 	int Mierda;
@@ -204,7 +207,7 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 
 	// Show message "Process [PID] created from program [executableName]\n"
 	ComputerSystem_DebugMessage(70, INIT, PID, executableProgram->executableName);
-
+	Change_State(PID, 0,-1);
 	return PID;
 }
 
@@ -240,6 +243,7 @@ void OperatingSystem_PCBInitialization(int PID, int initialPhysicalAddress, int 
 		processTable[PID].copyOfPCRegister = 0;
 		processTable[PID].copyOfPSWRegister = 0;
 	}
+
 }
 
 // Move a process to the READY state: it will be inserted, depending on its priority, in
@@ -250,6 +254,7 @@ void OperatingSystem_MoveToTheREADYState(int PID)
 	if (Heap_add(PID, readyToRunQueue, QUEUE_PRIORITY, &numberOfReadyToRunProcesses, PROCESSTABLEMAXSIZE) >= 0)
 	{
 		processTable[PID].state = READY;
+		Change_State(PID, 0,1);
 	}
 	OperatingSystem_PrintReadyToRunQueue();
 }
@@ -287,6 +292,7 @@ void OperatingSystem_Dispatch(int PID)
 	executingProcessID = PID;
 	// Change the process' state
 	processTable[PID].state = EXECUTING;
+	Change_State(PID, 1,2);
 	// Modify hardware registers with appropriate values for the process identified by PID
 	OperatingSystem_RestoreContext(PID);
 }
@@ -342,9 +348,10 @@ void OperatingSystem_TerminateProcess()
 {
 
 	int selectedProcess;
+Change_State(executingProcessID, 2,4);
 
 	processTable[executingProcessID].state = EXIT;
-
+	
 	if (programList[processTable[executingProcessID].programListIndex]->type == USERPROGRAM)
 		// One more user process that has terminated
 		numberOfNotTerminatedUserProcesses--;
@@ -418,9 +425,24 @@ void OperatingSystem_PrintReadyToRunQueue()
 			if (CuentaMierda == PROCESSTABLEMAXSIZE - 1)
 			{
 				ComputerSystem_DebugMessage(109, SHORTTERMSCHEDULE);
-			}else{
+			}
+			else
+			{
 				ComputerSystem_DebugMessage(108, SHORTTERMSCHEDULE);
 			}
 		}
+	}
+}
+
+void Change_State(PID1, antiguo, nuevo)
+{
+	
+	if (statesNames[antiguo] == statesNames[0] && nuevo == -1)
+	{
+		ComputerSystem_DebugMessage(111, statesNames, PID1, programList[processTable[PID1].programListIndex]->executableName, statesNames[antiguo]);
+	}
+	else
+	{
+		ComputerSystem_DebugMessage(110, statesNames, PID1, programList[processTable[PID1].programListIndex]->executableName, statesNames[antiguo], statesNames[nuevo]);
 	}
 }
