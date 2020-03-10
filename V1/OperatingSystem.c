@@ -47,15 +47,26 @@ int initialPID = PROCESSTABLEMAXSIZE - 1;
 int baseDaemonsInProgramList;
 
 // Array that contains the identifiers of the READY processes
-heapItem readyToRunQueue[PROCESSTABLEMAXSIZE];
-int numberOfReadyToRunProcesses = 0;
+//heapItem readyToRunQueue[PROCESSTABLEMAXSIZE];
+//int numberOfReadyToRunProcesses = 0;
 
 // Variable containing the number of not terminated user processes
 int numberOfNotTerminatedUserProcesses = 0;
 
 //Ejercicio 10 V1
 char *statesNames[5] = {"NEW", "READY", "EXECUTING", "BLOCKED", "EXIT"};
-
+//Ejercicio 11 V1
+// In OperatingSystem.h
+#define NUMBEROFQUEUES 2
+enum TypeOfReadyToRunProcessQueues
+{
+	USERPROCESSQUEUE,
+	DAEMONSQUEUE
+};
+// In OperatingSystem.c
+heapItem readyToRunQueue[NUMBEROFQUEUES][PROCESSTABLEMAXSIZE];
+int numberOfReadyToRunProcesses[NUMBEROFQUEUES] = {0, 0};
+char *queueNames[NUMBEROFQUEUES] = {"USER", "DAEMONS"};
 // Initial set of tasks of the OS
 void OperatingSystem_Initialize(int daemonsIndex)
 {
@@ -149,7 +160,14 @@ int OperatingSystem_LongTermScheduler()
 		default:
 			numberOfSuccessfullyCreatedProcesses++;
 			if (programList[i]->type == USERPROGRAM)
+			{
 				numberOfNotTerminatedUserProcesses++;
+			}
+			else
+			{
+				//numberOfReadyToRunProcesses[DAEMONSQUEUE]++;
+			}
+
 			// Move process to the ready state
 			OperatingSystem_MoveToTheREADYState(PID);
 			continue;
@@ -207,7 +225,7 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 
 	// Show message "Process [PID] created from program [executableName]\n"
 	ComputerSystem_DebugMessage(70, INIT, PID, executableProgram->executableName);
-	Change_State(PID, 0,-1);
+	Change_State(PID, 0, -1);
 	return PID;
 }
 
@@ -237,24 +255,36 @@ void OperatingSystem_PCBInitialization(int PID, int initialPhysicalAddress, int 
 	{
 		processTable[PID].copyOfPCRegister = initialPhysicalAddress;
 		processTable[PID].copyOfPSWRegister = ((unsigned int)1) << EXECUTION_MODE_BIT;
+		processTable[PID].queueID = DAEMONSQUEUE;
 	}
 	else
 	{
 		processTable[PID].copyOfPCRegister = 0;
 		processTable[PID].copyOfPSWRegister = 0;
+		processTable[PID].queueID = USERPROCESSQUEUE;
 	}
-
 }
 
 // Move a process to the READY state: it will be inserted, depending on its priority, in
 // a queue of identifiers of READY processes
+// Heap_add(int info, heapItem heap[], int queueType, int *numElem, int limit)
 void OperatingSystem_MoveToTheREADYState(int PID)
 {
-
-	if (Heap_add(PID, readyToRunQueue, QUEUE_PRIORITY, &numberOfReadyToRunProcesses, PROCESSTABLEMAXSIZE) >= 0)
+	if (processTable[PID].queueID == USERPROCESSQUEUE)
 	{
-		processTable[PID].state = READY;
-		Change_State(PID, 0,1);
+		if (Heap_add(PID, readyToRunQueue[USERPROCESSQUEUE], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[USERPROCESSQUEUE], PROCESSTABLEMAXSIZE) >= 0)
+		{
+			processTable[PID].state = READY;
+			Change_State(PID, 0, 1);
+		}
+	}
+	if (processTable[PID].queueID == DAEMONSQUEUE)
+	{
+		if (Heap_add(PID, readyToRunQueue[DAEMONSQUEUE], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[DAEMONSQUEUE], PROCESSTABLEMAXSIZE) >= 0)
+		{
+			processTable[PID].state = READY;
+			Change_State(PID, 0, 1);
+		}
 	}
 	OperatingSystem_PrintReadyToRunQueue();
 }
@@ -278,8 +308,19 @@ int OperatingSystem_ExtractFromReadyToRun()
 
 	int selectedProcess = NOPROCESS;
 
-	selectedProcess = Heap_poll(readyToRunQueue, QUEUE_PRIORITY, &numberOfReadyToRunProcesses);
-
+	//selectedProcess = Heap_poll(readyToRunQueue, QUEUE_PRIORITY, &numberOfReadyToRunProcesses);
+	if (numberOfReadyToRunProcesses[USERPROCESSQUEUE] > 0)
+	{
+		selectedProcess = Heap_poll(readyToRunQueue[USERPROCESSQUEUE], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[USERPROCESSQUEUE]);
+	}
+	else if (numberOfReadyToRunProcesses[DAEMONSQUEUE] > 0)
+	{
+		selectedProcess = Heap_poll(readyToRunQueue[DAEMONSQUEUE], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[DAEMONSQUEUE]);
+	}
+	else
+	{
+		OperatingSystem_ReadyToShutdown();
+	}
 	// Return most priority process or NOPROCESS if empty queue
 	return selectedProcess;
 }
@@ -292,7 +333,7 @@ void OperatingSystem_Dispatch(int PID)
 	executingProcessID = PID;
 	// Change the process' state
 	processTable[PID].state = EXECUTING;
-	Change_State(PID, 1,2);
+	Change_State(PID, 1, 2);
 	// Modify hardware registers with appropriate values for the process identified by PID
 	OperatingSystem_RestoreContext(PID);
 }
@@ -348,13 +389,19 @@ void OperatingSystem_TerminateProcess()
 {
 
 	int selectedProcess;
-Change_State(executingProcessID, 2,4);
-
+	Change_State(executingProcessID, 2, 4);
 	processTable[executingProcessID].state = EXIT;
-	
+
 	if (programList[processTable[executingProcessID].programListIndex]->type == USERPROGRAM)
+	{
 		// One more user process that has terminated
 		numberOfNotTerminatedUserProcesses--;
+		//numberOfReadyToRunProcesses[USERPROCESSQUEUE]--;
+	}
+	else if (programList[processTable[executingProcessID].programListIndex]->type == DAEMONPROGRAM)
+	{
+		//numberOfReadyToRunProcesses[DAEMONSQUEUE]--;
+	}
 
 	if (numberOfNotTerminatedUserProcesses == 0)
 	{
@@ -394,6 +441,7 @@ void OperatingSystem_HandleSystemCall()
 	case SYSCALL_END:
 		// Show message: "Process [executingProcessID] has requested to terminate\n"
 		ComputerSystem_DebugMessage(73, SYSPROC, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName);
+
 		OperatingSystem_TerminateProcess();
 		break;
 	}
@@ -415,34 +463,48 @@ void OperatingSystem_InterruptLogic(int entryPoint)
 
 void OperatingSystem_PrintReadyToRunQueue()
 {
-	ComputerSystem_DebugMessage(106, SHORTTERMSCHEDULE, "");
+	ComputerSystem_DebugMessage(112, SHORTTERMSCHEDULE, "");
 	int CuentaMierda;
-	for (CuentaMierda = 0; CuentaMierda < PROCESSTABLEMAXSIZE; CuentaMierda++)
+	ComputerSystem_DebugMessage(113, SHORTTERMSCHEDULE, "");
+	for (CuentaMierda = 0; CuentaMierda < numberOfReadyToRunProcesses[USERPROCESSQUEUE]; CuentaMierda++)
 	{
-		if (processTable[CuentaMierda].state == READY)
+		int proceso = readyToRunQueue[USERPROCESSQUEUE][CuentaMierda].info;
+		ComputerSystem_DebugMessage(107, SHORTTERMSCHEDULE, processTable[proceso].state, processTable[proceso].priority);
+		if (CuentaMierda == numberOfReadyToRunProcesses[USERPROCESSQUEUE] - 1)
 		{
-			ComputerSystem_DebugMessage(107, SHORTTERMSCHEDULE, processTable[CuentaMierda].state, processTable[CuentaMierda].priority);
-			if (CuentaMierda == PROCESSTABLEMAXSIZE - 1)
-			{
-				ComputerSystem_DebugMessage(109, SHORTTERMSCHEDULE);
-			}
-			else
-			{
-				ComputerSystem_DebugMessage(108, SHORTTERMSCHEDULE);
-			}
+			ComputerSystem_DebugMessage(109, SHORTTERMSCHEDULE);
+		}
+		else
+		{
+			ComputerSystem_DebugMessage(108, SHORTTERMSCHEDULE);
+		}
+	}
+
+	ComputerSystem_DebugMessage(114, SHORTTERMSCHEDULE, "");
+	for (CuentaMierda = 0; CuentaMierda < numberOfReadyToRunProcesses[DAEMONSQUEUE]; CuentaMierda++)
+	{
+
+		int proceso = readyToRunQueue[DAEMONSQUEUE][CuentaMierda].info;
+		ComputerSystem_DebugMessage(107, SHORTTERMSCHEDULE, processTable[proceso].state, processTable[proceso].priority);
+		if (CuentaMierda == numberOfReadyToRunProcesses[DAEMONSQUEUE] - 1)
+		{
+			ComputerSystem_DebugMessage(109, SHORTTERMSCHEDULE);
+		}
+		else
+		{
+			ComputerSystem_DebugMessage(108, SHORTTERMSCHEDULE);
 		}
 	}
 }
-
 void Change_State(PID1, antiguo, nuevo)
 {
-	
+
 	if (statesNames[antiguo] == statesNames[0] && nuevo == -1)
 	{
-		ComputerSystem_DebugMessage(111, statesNames, PID1, programList[processTable[PID1].programListIndex]->executableName, statesNames[antiguo]);
+		ComputerSystem_DebugMessage(111, SYSPROC, PID1, programList[processTable[PID1].programListIndex]->executableName, statesNames[antiguo]);
 	}
 	else
 	{
-		ComputerSystem_DebugMessage(110, statesNames, PID1, programList[processTable[PID1].programListIndex]->executableName, statesNames[antiguo], statesNames[nuevo]);
+		ComputerSystem_DebugMessage(110, SYSPROC, PID1, programList[processTable[PID1].programListIndex]->executableName, statesNames[antiguo], statesNames[nuevo]);
 	}
 }
