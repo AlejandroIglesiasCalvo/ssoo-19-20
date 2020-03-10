@@ -270,21 +270,10 @@ void OperatingSystem_PCBInitialization(int PID, int initialPhysicalAddress, int 
 // Heap_add(int info, heapItem heap[], int queueType, int *numElem, int limit)
 void OperatingSystem_MoveToTheREADYState(int PID)
 {
-	if (processTable[PID].queueID == USERPROCESSQUEUE)
+	if (Heap_add(PID, readyToRunQueue[processTable[PID].queueID], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[PID].queueID], PROCESSTABLEMAXSIZE) >= 0)
 	{
-		if (Heap_add(PID, readyToRunQueue[USERPROCESSQUEUE], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[USERPROCESSQUEUE], PROCESSTABLEMAXSIZE) >= 0)
-		{
-			processTable[PID].state = READY;
-			Change_State(PID, 0, 1);
-		}
-	}
-	if (processTable[PID].queueID == DAEMONSQUEUE)
-	{
-		if (Heap_add(PID, readyToRunQueue[DAEMONSQUEUE], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[DAEMONSQUEUE], PROCESSTABLEMAXSIZE) >= 0)
-		{
-			processTable[PID].state = READY;
-			Change_State(PID, 0, 1);
-		}
+		processTable[PID].state = READY;
+		Change_State(PID, 0, 1);
 	}
 	OperatingSystem_PrintReadyToRunQueue();
 }
@@ -444,6 +433,9 @@ void OperatingSystem_HandleSystemCall()
 
 		OperatingSystem_TerminateProcess();
 		break;
+	case SYSCALL_YIELD: //v1 E12
+		la_Magia_Del_Yield(executingProcessID);
+		break;
 	}
 }
 
@@ -464,36 +456,25 @@ void OperatingSystem_InterruptLogic(int entryPoint)
 void OperatingSystem_PrintReadyToRunQueue()
 {
 	ComputerSystem_DebugMessage(112, SHORTTERMSCHEDULE, "");
-	int CuentaMierda;
-	ComputerSystem_DebugMessage(113, SHORTTERMSCHEDULE, "");
-	for (CuentaMierda = 0; CuentaMierda < numberOfReadyToRunProcesses[USERPROCESSQUEUE]; CuentaMierda++)
+	int cuentaColas;
+	for (cuentaColas = 0; cuentaColas < NUMBEROFQUEUES; cuentaColas++)
 	{
-		int proceso = readyToRunQueue[USERPROCESSQUEUE][CuentaMierda].info;
-		ComputerSystem_DebugMessage(107, SHORTTERMSCHEDULE, processTable[proceso].state, processTable[proceso].priority);
-		if (CuentaMierda == numberOfReadyToRunProcesses[USERPROCESSQUEUE] - 1)
+		int CuentaMierda;
+		ComputerSystem_DebugMessage(113, SHORTTERMSCHEDULE, queueNames[cuentaColas]);
+		for (CuentaMierda = 0; CuentaMierda < numberOfReadyToRunProcesses[cuentaColas]; CuentaMierda++)
 		{
-			ComputerSystem_DebugMessage(109, SHORTTERMSCHEDULE);
+			int proceso = readyToRunQueue[cuentaColas][CuentaMierda].info;
+			ComputerSystem_DebugMessage(107, SHORTTERMSCHEDULE, processTable[proceso].state, processTable[proceso].priority);
+			if (CuentaMierda == numberOfReadyToRunProcesses[cuentaColas] - 1)
+			{
+				//ComputerSystem_DebugMessage(109, SHORTTERMSCHEDULE);
+			}
+			else
+			{
+				ComputerSystem_DebugMessage(108, SHORTTERMSCHEDULE);
+			}
 		}
-		else
-		{
-			ComputerSystem_DebugMessage(108, SHORTTERMSCHEDULE);
-		}
-	}
-
-	ComputerSystem_DebugMessage(114, SHORTTERMSCHEDULE, "");
-	for (CuentaMierda = 0; CuentaMierda < numberOfReadyToRunProcesses[DAEMONSQUEUE]; CuentaMierda++)
-	{
-
-		int proceso = readyToRunQueue[DAEMONSQUEUE][CuentaMierda].info;
-		ComputerSystem_DebugMessage(107, SHORTTERMSCHEDULE, processTable[proceso].state, processTable[proceso].priority);
-		if (CuentaMierda == numberOfReadyToRunProcesses[DAEMONSQUEUE] - 1)
-		{
-			ComputerSystem_DebugMessage(109, SHORTTERMSCHEDULE);
-		}
-		else
-		{
-			ComputerSystem_DebugMessage(108, SHORTTERMSCHEDULE);
-		}
+		ComputerSystem_DebugMessage(109, SHORTTERMSCHEDULE);
 	}
 }
 void Change_State(PID1, antiguo, nuevo)
@@ -507,4 +488,24 @@ void Change_State(PID1, antiguo, nuevo)
 	{
 		ComputerSystem_DebugMessage(110, SYSPROC, PID1, programList[processTable[PID1].programListIndex]->executableName, statesNames[antiguo], statesNames[nuevo]);
 	}
+}
+
+void la_Magia_Del_Yield(executingProcessID)
+{
+	int prioridadEjecutando = processTable[executingProcessID].priority;
+	int colaEjecutando = processTable[executingProcessID].queueID;
+	//Heap_getFirst(heapItem heap[], int numElem)
+	//-1 si peta
+	int cadidatoOoOoOo = Heap_getFirst(readyToRunQueue[colaEjecutando], numberOfReadyToRunProcesses[colaEjecutando]);
+	if (cadidatoOoOoOo != -1)
+	{
+		int prioridadCandidato=processTable[cadidatoOoOoOo].priority;
+		if(prioridadEjecutando==prioridadCandidato){
+			ceder_voluntariamente_el_control_del_procesador(executingProcessID, cadidatoOoOoOo);
+		}
+	}
+}
+void ceder_voluntariamente_el_control_del_procesador(executingProcessID, cadidatoOoOoOo){
+	ComputerSystem_DebugMessage(115, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, cadidatoOoOoOo, programList[processTable[cadidatoOoOoOo].programListIndex]->executableName);
+	OperatingSystem_PreemptRunningProcess();
 }

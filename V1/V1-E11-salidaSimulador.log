@@ -1,0 +1,26 @@
+User program list:
+	Program [prog-V1-E11] with arrival time [0]
+	Program [programVerySimple] with arrival time [0]
+Process [3] created from program [SystemIdleProcess]
+New process [3 - SystemIdleProcess] moving to the [NEW] state
+Process [3 - SystemIdleProcess] moving from the [NEW] state to the [READY] state
+Ready-to-run processes queues:
+	USER:
+	DAEMONS:[1,100]
+Process [0] created from program [prog-V1-E11]
+New process [0 - prog-V1-E11] moving to the [NEW] state
+Process [0 - prog-V1-E11] moving from the [NEW] state to the [READY] state
+Ready-to-run processes queues:
+	USER:[1,0]
+	DAEMONS:[1,100]
+Process [1] created from program [programVerySimple]
+New process [1 - programVerySimple] moving to the [NEW] state
+Process [1 - programVerySimple] moving from the [NEW] state to the [READY] state
+Ready-to-run processes queues:
+	USER:[1,0], [1,5]
+	DAEMONS:[1,100]
+Process [0 - prog-V1-E11] moving from the [READY] state to the [EXECUTING] state
+Process [0 - prog-V1-E11] has requested to terminate
+Process [0 - prog-V1-E11] moving from the [EXECUTING] state to the [EXIT] state
+Process [1 - programVerySimple] moving from the [READY] state to the [EXECUTING] state
+END of the simulation

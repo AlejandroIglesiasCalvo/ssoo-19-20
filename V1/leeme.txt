@@ -1,1 +1,3 @@
-Porque la instruccion HALT fuerza al SO a apagarse, entonces el SO se apaga obligatoriamente, aunque existan mas programas
+Pues llegue al 11, y van N colas ordenadas por prioridad.
+La ejecucion: 
+./Simulator --debugSections=tpsld prog-V1-E11 programVerySimple | head -n 200 > V1-E11-salidaSimulador.log

@@ -38,6 +38,7 @@ enum ProcessStates
 enum SystemCallIdentifiers
 {
 	SYSCALL_END = 3,
+	SYSCALL_YIELD = 4,
 	SYSCALL_PRINTEXECPID = 5
 };
 
@@ -67,4 +68,6 @@ void OperatingSystem_InterruptLogic(int);
 //Funciones mias
 void OperatingSystem_PrintReadyToRunQueue(); //V1-E9
 void Change_State(int, int, int);
+void la_Magia_Del_Yield(int);
+void ceder_voluntariamente_el_control_del_procesador(int, int);
 #endif
