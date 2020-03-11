@@ -92,8 +92,12 @@ void OperatingSystem_Initialize(int daemonsIndex)
 	OperatingSystem_PrepareDaemons(daemonsIndex);
 
 	// Create all user processes from the information given in the command line
-	OperatingSystem_LongTermScheduler();
-
+	//Ejercicio 15 V1
+	int ProcesosLYS = OperatingSystem_LongTermScheduler();
+	if (ProcesosLYS == 1)
+	{
+		OperatingSystem_ReadyToShutdown();
+	}
 	if (strcmp(programList[processTable[sipID].programListIndex]->executableName, "SystemIdleProcess"))
 	{
 		// Show red message "FATAL ERROR: Missing SIP program!\n"
@@ -338,6 +342,9 @@ void OperatingSystem_RestoreContext(int PID)
 	// Same thing for the MMU registers
 	MMU_SetBase(processTable[PID].initialPhysicalAddress);
 	MMU_SetLimit(processTable[PID].processSize);
+
+	//Ejercicio 13 V1
+	Processor_SetAccumulator(processTable[PID].copyOfAccumulator);
 }
 
 // Function invoked when the executing process leaves the CPU
@@ -361,6 +368,8 @@ void OperatingSystem_SaveContext(int PID)
 
 	// Load PSW saved for interrupt manager
 	processTable[PID].copyOfPSWRegister = Processor_CopyFromSystemStack(MAINMEMORYSIZE - 2);
+	//Ejercicio 13 V1
+	processTable[PID].copyOfAccumulator = Processor_GetAccumulator();
 }
 
 // Exception management routine
@@ -499,13 +508,15 @@ void la_Magia_Del_Yield(executingProcessID)
 	int cadidatoOoOoOo = Heap_getFirst(readyToRunQueue[colaEjecutando], numberOfReadyToRunProcesses[colaEjecutando]);
 	if (cadidatoOoOoOo != -1)
 	{
-		int prioridadCandidato=processTable[cadidatoOoOoOo].priority;
-		if(prioridadEjecutando==prioridadCandidato){
+		int prioridadCandidato = processTable[cadidatoOoOoOo].priority;
+		if (prioridadEjecutando == prioridadCandidato)
+		{
 			ceder_voluntariamente_el_control_del_procesador(executingProcessID, cadidatoOoOoOo);
 		}
 	}
 }
-void ceder_voluntariamente_el_control_del_procesador(executingProcessID, cadidatoOoOoOo){
+void ceder_voluntariamente_el_control_del_procesador(executingProcessID, cadidatoOoOoOo)
+{
 	ComputerSystem_DebugMessage(115, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, cadidatoOoOoOo, programList[processTable[cadidatoOoOoOo].programListIndex]->executableName);
 	OperatingSystem_PreemptRunningProcess();
 }

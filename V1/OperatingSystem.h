@@ -54,6 +54,7 @@ typedef struct
 	unsigned int copyOfPSWRegister;
 	int programListIndex;
 	int queueID;
+	int copyOfAccumulator;//Ejercicio 13 V1
 } PCB;
 
 // These "extern" declaration enables other source code files to gain access
