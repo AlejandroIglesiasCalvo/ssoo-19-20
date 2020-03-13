@@ -226,10 +226,10 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 	}
 	// PCB initialization
 	OperatingSystem_PCBInitialization(PID, loadingPhysicalAddress, processSize, priority, indexOfExecutableProgram);
-
+	Change_State(PID, 0, -1);
 	// Show message "Process [PID] created from program [executableName]\n"
 	ComputerSystem_DebugMessage(70, INIT, PID, executableProgram->executableName);
-	Change_State(PID, 0, -1);
+
 	return PID;
 }
 
@@ -472,8 +472,8 @@ void OperatingSystem_PrintReadyToRunQueue()
 		ComputerSystem_DebugMessage(113, SHORTTERMSCHEDULE, queueNames[cuentaColas]);
 		for (CuentaMierda = 0; CuentaMierda < numberOfReadyToRunProcesses[cuentaColas]; CuentaMierda++)
 		{
-			int proceso = readyToRunQueue[cuentaColas][CuentaMierda].info;
-			ComputerSystem_DebugMessage(107, SHORTTERMSCHEDULE, processTable[proceso].state, processTable[proceso].priority);
+			int proceso = readyToRunQueue[cuentaColas][CuentaMierda].info;//Proceso es el PID
+			ComputerSystem_DebugMessage(107, SHORTTERMSCHEDULE,proceso, processTable[proceso].priority);
 			if (CuentaMierda == numberOfReadyToRunProcesses[cuentaColas] - 1)
 			{
 				//ComputerSystem_DebugMessage(109, SHORTTERMSCHEDULE);
