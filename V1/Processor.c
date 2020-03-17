@@ -99,7 +99,6 @@ int Processor_FetchInstruction()
 void Processor_DecodeAndExecuteInstruction()
 {
 	int tempAcc;		  // for save accumulator if necesary
-	int ModoPriviligiado; //Eje 16 V1
 	// Decode
 	int operationCode = Processor_DecodeOperationCode(registerIR_CPU);
 	int operand1 = Processor_DecodeOperand1(registerIR_CPU);
@@ -206,8 +205,7 @@ void Processor_DecodeAndExecuteInstruction()
 
 	// Instruction HALT
 	case HALT_INST:
-		ModoPriviligiado = Processor_PSW_BitState(EXECUTION_MODE_BIT);
-		if (ModoPriviligiado == EXECUTION_MODE_BIT)
+		if (Processor_PSW_BitState(EXECUTION_MODE_BIT))
 		{
 			Processor_ActivatePSW_Bit(POWEROFF_BIT);
 		}
@@ -219,8 +217,7 @@ void Processor_DecodeAndExecuteInstruction()
 
 	// Instruction OS
 	case OS_INST: // Make a operating system routine in entry point indicated by operand1
-		ModoPriviligiado = Processor_PSW_BitState(EXECUTION_MODE_BIT);
-		if (ModoPriviligiado == EXECUTION_MODE_BIT)
+		if (Processor_PSW_BitState(EXECUTION_MODE_BIT))
 		{
 			// Show final part of HARDWARE message with CPU registers
 			// Show message: " (PC: registerPC_CPU, Accumulator: registerAccumulator_CPU, PSW: registerPSW_CPU [Processor_ShowPSW()]\n
@@ -239,8 +236,7 @@ void Processor_DecodeAndExecuteInstruction()
 
 	// Instruction IRET
 	case IRET_INST: // Return from a interrupt handle manager call
-		ModoPriviligiado = Processor_PSW_BitState(EXECUTION_MODE_BIT);
-		if (ModoPriviligiado == EXECUTION_MODE_BIT)
+		if (Processor_PSW_BitState(EXECUTION_MODE_BIT))
 		{
 			registerPC_CPU = Processor_CopyFromSystemStack(MAINMEMORYSIZE - 1);
 			registerPSW_CPU = Processor_CopyFromSystemStack(MAINMEMORYSIZE - 2);
