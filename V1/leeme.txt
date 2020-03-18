@@ -1,3 +1,2 @@
-Pues llegue al 11, y van N colas ordenadas por prioridad.
 La ejecucion: 
-./Simulator --debugSections=tpsld prog-V1-E11 programVerySimple | head -n 200 > V1-E11-salidaSimulador.log
+./Simulator --debugSections=a  prog-V1-E12 prog-V1-E12 | head -n 200 >  V1-4-salidaSimulador.log
