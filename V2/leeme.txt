@@ -1,0 +1,2 @@
+La ejecucion: 
+./Simulator --debugSections=a  prog-V1-E12 prog-V1-E12 | head -n 200 >  V1-4-salidaSimulador.log

@@ -32,10 +32,6 @@
             "label": "BuildV1",
             "type": "shell",
             "command": "cd V1 && make",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
             "problemMatcher": [
                 "$gcc"
             ]
@@ -49,7 +45,7 @@
             ]
         },
         {
-            "label": "RunV1 max 50",
+            "label": "RunV1 max 400",
             "type": "shell",
             "command": "cd V1 && ./Simulator prog-V1-E12 prog-V1-E12 programVerySimple | head -n 400",
             "problemMatcher": [
@@ -60,6 +56,41 @@
             "label": "CleanV1",
             "type": "shell",
             "command": "cd V1 && make clean",
+            "problemMatcher": [
+                "$gcc"
+            ]
+        }, {
+            "label": "BuildV2",
+            "type": "shell",
+            "command": "cd V2 && make",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "RunV2",
+            "type": "shell",
+            "command": "cd V2 && ./Simulator prog-V1-E12 programVerySimple",
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "RunV2 max 400",
+            "type": "shell",
+            "command": "cd V2 && ./Simulator prog-V1-E12 prog-V1-E12 programVerySimple | head -n 400",
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "CleanV2",
+            "type": "shell",
+            "command": "cd V2 && make clean",
             "problemMatcher": [
                 "$gcc"
             ]
