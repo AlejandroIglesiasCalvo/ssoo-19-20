@@ -1,5 +1,6 @@
 #include "Clock.h"
 #include "Asserts.h"
+#include "OperatingSystemBase.h"
 
 
 before(): execution(int Processor_FetchInstruction()) {
@@ -12,6 +13,10 @@ after(): execution(void Processor_DecodeAndExecuteInstruction()){
 
 before(): execution(void OperatingSystem_InterruptLogic(int)){
 	Clock_Update();
+}
+
+after(): execution(void OperatingSystem_PrepareDaemons(int)){
+    OperatingSystem_PrepareTeachersDaemons();
 }
 
 after(): execution(void Processor_InstructionCycleLoop()){

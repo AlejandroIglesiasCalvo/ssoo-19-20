@@ -2,6 +2,7 @@
 #include "OperatingSystem.h"
 #include "Processor.h"
 #include "Buses.h"
+#include "Clock.h"
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
@@ -10,9 +11,17 @@
 
 // Functions prototypes
 int OperatingSystem_lineBeginsWithANumber(char *);
+void OperatingSystem_PrintSleepingProcessQueue();
+void OperatingSystem_PrintExecutingProcessInformation();
+void OperatingSystem_PrintProcessTableAssociation();
 
 extern int initialPID;
 
+extern int executingProcessID;
+#ifdef SLEEPINGQUEUE
+	extern char * queueNames []; 
+#endif
+	
 // Search for a free entry in the process table. The index of the selected entry
 // will be used as the process identifier
 int OperatingSystem_ObtainAnEntryInTheProcessTable() {
@@ -109,7 +118,7 @@ int OperatingSystem_LoadProgram(FILE *programFile, int initialAddress, int size)
 		// REMARK: if lineRead is greater than MAXLINELENGTH in number of characters, the program
 		// loading does not work
 		opCode=op1=op2=0;
-		token0=strtok(lineRead," \n\t");
+		token0=strtok(lineRead," \n\r\t");
 		if (token0!=NULL && token0[0]!='/' && token0[0]!='\n' && token0[0]!='\r') {
 			// I have an instruction with, at least, an operation code
 			opCode=Processor_ToInstruction(token0);
@@ -168,3 +177,106 @@ void OperatingSystem_ReadyToShutdown(){
 void OperatingSystem_TerminatingSIP() {
 	Processor_CopyInSystemStack(MAINMEMORYSIZE-1,OS_address_base+1);
 }
+
+// Show time messages
+void OperatingSystem_ShowTime(char section) {
+	ComputerSystem_DebugMessage(100,section,Processor_PSW_BitState(EXECUTION_MODE_BIT)?"\t":"");
+	ComputerSystem_DebugMessage(Processor_PSW_BitState(EXECUTION_MODE_BIT)?95:94,section,Clock_GetTime());
+}
+
+// Show general status
+void OperatingSystem_PrintStatus(){ 
+	OperatingSystem_PrintExecutingProcessInformation(); // Show executing process information
+	OperatingSystem_PrintReadyToRunQueue();  // Show Ready to run queues implemented for students
+	OperatingSystem_PrintSleepingProcessQueue(); // Show Sleeping process queue
+	OperatingSystem_PrintProcessTableAssociation(); // Show PID-Program's name association
+
+}
+
+ // Show Executing process information
+void OperatingSystem_PrintExecutingProcessInformation(){ 
+#ifdef SLEEPINGQUEUE
+
+	OperatingSystem_ShowTime(SHORTTERMSCHEDULE);
+	if (executingProcessID>=0)
+		// Show message "Running Process Information:\n\t\t[PID: executingProcessID, Priority: priority, WakeUp: whenToWakeUp, Queue: queueID]\n"
+		ComputerSystem_DebugMessage(74,SHORTTERMSCHEDULE,
+			executingProcessID,processTable[executingProcessID].priority,processTable[executingProcessID].whenToWakeUp
+			,queueNames[processTable[executingProcessID].queueID]);
+	else
+		ComputerSystem_DebugMessage(100,SHORTTERMSCHEDULE,"Running Process Information:\n\t\t[--- No running process ---]\n");
+
+#endif
+}
+
+// Show SleepingProcessQueue 
+void OperatingSystem_PrintSleepingProcessQueue(){ 
+#ifdef SLEEPINGQUEUE
+
+	int i;
+	OperatingSystem_ShowTime(SHORTTERMSCHEDULE);
+	//  Show message "SLEEPING Queue:\n\t\t");
+	ComputerSystem_DebugMessage(100,SHORTTERMSCHEDULE,"SLEEPING Queue:\n\t\t");
+	if (numberOfSleepingProcesses>0)
+		for (i=0; i< numberOfSleepingProcesses; i++) {
+			// Show message [PID, priority, whenToWakeUp]
+			ComputerSystem_DebugMessage(75,SHORTTERMSCHEDULE,
+			sleepingProcessesQueue[i].info,processTable[sleepingProcessesQueue[i].info].priority,processTable[sleepingProcessesQueue[i].info].whenToWakeUp);
+			if (i<numberOfSleepingProcesses-1)
+	  			ComputerSystem_DebugMessage(100,SHORTTERMSCHEDULE,", ");
+  		}
+  	else 
+	  	ComputerSystem_DebugMessage(100,SHORTTERMSCHEDULE,"[--- empty queue ---]");
+  ComputerSystem_DebugMessage(100,SHORTTERMSCHEDULE,"\n");
+
+#endif
+}
+
+void OperatingSystem_PrintProcessTableAssociation() {
+  int i;
+  OperatingSystem_ShowTime(SHORTTERMSCHEDULE);
+  //  Show message "Process table association with program's name:");
+  ComputerSystem_DebugMessage(100,SHORTTERMSCHEDULE,"PID association with program's name:\n");
+  for (i=0; i< PROCESSTABLEMAXSIZE; i++) {
+  	if (processTable[i].busy) {
+  		// Show message PID -> program's name\n
+  		ComputerSystem_DebugMessage(76,SHORTTERMSCHEDULE,i,programList[processTable[i].programListIndex]->executableName);
+  	}
+  }
+}
+
+void OperatingSystem_PrepareTeachersDaemons(){
+	FILE *daemonsFile;
+	char lineRead[MAXLINELENGTH];
+	PROGRAMS_DATA *progData;
+	char *name, *arrivalTime;
+	int time;
+
+
+	daemonsFile= fopen("teachersDaemons", "r");
+
+	// Check if programFile exists
+	if (daemonsFile==NULL)
+		return;
+
+	while (fgets(lineRead, MAXLINELENGTH, daemonsFile) != NULL
+					 && baseDaemonsInProgramList<PROGRAMSMAXNUMBER) {
+		name=strtok(lineRead,",");
+	    if (name==NULL){
+			continue;
+		}
+
+		arrivalTime=strtok(NULL,",");
+    	if (arrivalTime==NULL
+    		|| sscanf(arrivalTime,"%d",&time)==0)
+    		time=0;
+    	
+    	progData=(PROGRAMS_DATA *) malloc(sizeof(PROGRAMS_DATA));
+    	progData->executableName = (char *) malloc((strlen(name)+1)*sizeof(char));
+    	strcpy(progData->executableName,name);
+    	progData->arrivalTime=time;
+    	progData->type=DAEMONPROGRAM;
+    	programList[baseDaemonsInProgramList++]=progData;
+	}
+}
+

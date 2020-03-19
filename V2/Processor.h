@@ -3,7 +3,7 @@
 
 #include "MainMemory.h"
 #include "ProcessorBase.h"
-
+#include "Clock.h"
 #define INTERRUPTTYPES 10
 #define CPU_SUCCESS 1
 #define CPU_FAIL 0
@@ -25,4 +25,6 @@ char * Processor_ShowPSW();
 int Processor_GetCTRL();
 void Processor_SetCTRL(int);
 
+
+void OperatingSystem_ShowTime_User(char section);
 #endif

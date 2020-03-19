@@ -84,11 +84,13 @@ int Processor_FetchInstruction()
 		// Show message: operationCode operand1 operand2
 		char codedInstruction[13]; // Coded instruction with separated fields to show
 		Processor_GetCodedInstruction(codedInstruction, registerIR_CPU);
+		OperatingSystem_ShowTime_User(HARDWARE);
 		ComputerSystem_DebugMessage(68, HARDWARE, codedInstruction);
 	}
 	else
 	{
 		// Show message: "_ _ _ "
+		OperatingSystem_ShowTime_User(HARDWARE);
 		ComputerSystem_DebugMessage(100, HARDWARE, "_ _ _\n");
 		return CPU_FAIL;
 	}
@@ -221,6 +223,7 @@ void Processor_DecodeAndExecuteInstruction()
 		{
 			// Show final part of HARDWARE message with CPU registers
 			// Show message: " (PC: registerPC_CPU, Accumulator: registerAccumulator_CPU, PSW: registerPSW_CPU [Processor_ShowPSW()]\n
+			//OperatingSystem_ShowTime_User(HARDWARE);
 			ComputerSystem_DebugMessage(69, HARDWARE, InstructionNames[operationCode], operand1, operand2, registerPC_CPU, registerAccumulator_CPU, registerPSW_CPU, Processor_ShowPSW());
 			// Not all operating system code is executed in simulated processor, but really must do it...
 			OperatingSystem_InterruptLogic(operand1);
@@ -267,6 +270,7 @@ void Processor_DecodeAndExecuteInstruction()
 
 	// Show final part of HARDWARE message with	CPU registers
 	// Show message: " (PC: registerPC_CPU, Accumulator: registerAccumulator_CPU, PSW: registerPSW_CPU [Processor_ShowPSW()]\n
+	//OperatingSystem_ShowTime_User(HARDWARE);
 	ComputerSystem_DebugMessage(69, HARDWARE, InstructionNames[operationCode], operand1, operand2, registerPC_CPU, registerAccumulator_CPU, registerPSW_CPU, Processor_ShowPSW());
 }
 

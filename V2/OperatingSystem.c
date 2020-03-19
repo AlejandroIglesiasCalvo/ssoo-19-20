@@ -101,6 +101,7 @@ void OperatingSystem_Initialize(int daemonsIndex)
 	if (strcmp(programList[processTable[sipID].programListIndex]->executableName, "SystemIdleProcess"))
 	{
 		// Show red message "FATAL ERROR: Missing SIP program!\n"
+		OperatingSystem_ShowTime(SHUTDOWN);
 		ComputerSystem_DebugMessage(99, SHUTDOWN, "FATAL ERROR: Missing SIP program!\n");
 		exit(1);
 	}
@@ -150,15 +151,19 @@ int OperatingSystem_LongTermScheduler()
 		switch (PID)
 		{
 		case NOFREEENTRY:
+			OperatingSystem_ShowTime(ERROR);
 			ComputerSystem_DebugMessage(103, ERROR, programList[i]->executableName);
 			continue;
 		case PROGRAMDOESNOTEXIST:
+			OperatingSystem_ShowTime(ERROR);
 			ComputerSystem_DebugMessage(104, ERROR, programList[i]->executableName, "it does not exist");
 			continue;
 		case PROGRAMNOTVALID:
+			OperatingSystem_ShowTime(ERROR);
 			ComputerSystem_DebugMessage(104, ERROR, programList[i]->executableName, "invalid priority or size");
 			continue;
 		case TOOBIGPROCESS:
+			OperatingSystem_ShowTime(ERROR);
 			ComputerSystem_DebugMessage(105, ERROR, programList[i]->executableName);
 			continue;
 		default:
@@ -228,6 +233,7 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 	OperatingSystem_PCBInitialization(PID, loadingPhysicalAddress, processSize, priority, indexOfExecutableProgram);
 	Change_State(PID, 0, -1);
 	// Show message "Process [PID] created from program [executableName]\n"
+	OperatingSystem_ShowTime(INIT);
 	ComputerSystem_DebugMessage(70, INIT, PID, executableProgram->executableName);
 
 	return PID;
@@ -377,6 +383,7 @@ void OperatingSystem_HandleException()
 {
 
 	// Show message "Process [executingProcessID] has generated an exception and is terminating\n"
+	OperatingSystem_ShowTime(SYSPROC);
 	ComputerSystem_DebugMessage(71, SYSPROC, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName);
 
 	OperatingSystem_TerminateProcess();
@@ -407,6 +414,7 @@ void OperatingSystem_TerminateProcess()
 		{
 			// finishing sipID, change PC to address of OS HALT instruction
 			Processor_CopyInSystemStack(MAINMEMORYSIZE - 1, OS_address_base + 1);
+			OperatingSystem_ShowTime(SHUTDOWN);
 			ComputerSystem_DebugMessage(99, SHUTDOWN, "The system will shut down now...\n");
 			return; // Don't dispatch any process
 		}
@@ -433,11 +441,13 @@ void OperatingSystem_HandleSystemCall()
 	{
 	case SYSCALL_PRINTEXECPID:
 		// Show message: "Process [executingProcessID] has the processor assigned\n"
+		OperatingSystem_ShowTime(SYSPROC);
 		ComputerSystem_DebugMessage(72, SYSPROC, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName);
 		break;
 
 	case SYSCALL_END:
 		// Show message: "Process [executingProcessID] has requested to terminate\n"
+		OperatingSystem_ShowTime(SYSPROC);
 		ComputerSystem_DebugMessage(73, SYSPROC, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName);
 
 		OperatingSystem_TerminateProcess();
@@ -464,6 +474,7 @@ void OperatingSystem_InterruptLogic(int entryPoint)
 
 void OperatingSystem_PrintReadyToRunQueue()
 {
+	OperatingSystem_ShowTime(SHORTTERMSCHEDULE);
 	ComputerSystem_DebugMessage(112, SHORTTERMSCHEDULE, "");
 	int cuentaColas;
 	for (cuentaColas = 0; cuentaColas < NUMBEROFQUEUES; cuentaColas++)
@@ -472,8 +483,8 @@ void OperatingSystem_PrintReadyToRunQueue()
 		ComputerSystem_DebugMessage(113, SHORTTERMSCHEDULE, queueNames[cuentaColas]);
 		for (CuentaMierda = 0; CuentaMierda < numberOfReadyToRunProcesses[cuentaColas]; CuentaMierda++)
 		{
-			int proceso = readyToRunQueue[cuentaColas][CuentaMierda].info;//Proceso es el PID
-			ComputerSystem_DebugMessage(107, SHORTTERMSCHEDULE,proceso, processTable[proceso].priority);
+			int proceso = readyToRunQueue[cuentaColas][CuentaMierda].info; //Proceso es el PID
+			ComputerSystem_DebugMessage(107, SHORTTERMSCHEDULE, proceso, processTable[proceso].priority);
 			if (CuentaMierda == numberOfReadyToRunProcesses[cuentaColas] - 1)
 			{
 				//ComputerSystem_DebugMessage(109, SHORTTERMSCHEDULE);
@@ -491,10 +502,12 @@ void Change_State(PID1, antiguo, nuevo)
 
 	if (statesNames[antiguo] == statesNames[0] && nuevo == -1)
 	{
+		OperatingSystem_ShowTime(SYSPROC);
 		ComputerSystem_DebugMessage(111, SYSPROC, PID1, programList[processTable[PID1].programListIndex]->executableName, statesNames[antiguo]);
 	}
 	else
 	{
+		OperatingSystem_ShowTime(SYSPROC);
 		ComputerSystem_DebugMessage(110, SYSPROC, PID1, programList[processTable[PID1].programListIndex]->executableName, statesNames[antiguo], statesNames[nuevo]);
 	}
 }
@@ -517,6 +530,7 @@ void la_Magia_Del_Yield(executingProcessID)
 }
 void ceder_voluntariamente_el_control_del_procesador(executingProcessID, cadidatoOoOoOo)
 {
+	OperatingSystem_ShowTime(SHORTTERMSCHEDULE);
 	ComputerSystem_DebugMessage(115, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, cadidatoOoOoOo, programList[processTable[cadidatoOoOoOo].programListIndex]->executableName);
 	OperatingSystem_PreemptRunningProcess();
 }

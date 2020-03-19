@@ -25,6 +25,7 @@ void ComputerSystem_PowerOn(int argc, char *argv[], int paramIndex)
 	nm = Messages_Load_Messages(nm, TEACHER_MESSAGES_FILE);
 	if (nm < 0)
 	{
+		OperatingSystem_ShowTime_User(SHUTDOWN);
 		ComputerSystem_DebugMessage(64, SHUTDOWN, TEACHER_MESSAGES_FILE);
 		exit(2);
 	}
@@ -46,6 +47,7 @@ void ComputerSystem_PowerOn(int argc, char *argv[], int paramIndex)
 void ComputerSystem_PowerOff()
 {
 	// Show message in red colour: "END of the simulation\n"
+	OperatingSystem_ShowTime_User(SHUTDOWN);
 	ComputerSystem_DebugMessage(99, SHUTDOWN, "END of the simulation\n");
 	exit(0);
 }
@@ -54,6 +56,7 @@ void ComputerSystem_PowerOff()
 //  New functions below this line  //////////////////////
 void ComputerSystem_PrintProgramList()
 {
+	OperatingSystem_ShowTime_User(INIT);
 	ComputerSystem_DebugMessage(101, INIT);
 	int inicio; //Igual a 1 porque el primero es un programa del sistema
 	for (inicio = 0; inicio < PROGRAMSMAXNUMBER; inicio++)
@@ -63,4 +66,10 @@ void ComputerSystem_PrintProgramList()
 			ComputerSystem_DebugMessage(102, INIT, programList[inicio]->executableName, programList[inicio]->arrivalTime);
 		}
 	}
+}
+
+
+// Show time messages
+void OperatingSystem_ShowTime_User(char section) {
+	ComputerSystem_DebugMessage(Processor_PSW_BitState(EXECUTION_MODE_BIT)?95:94,section,Clock_GetTime());
 }

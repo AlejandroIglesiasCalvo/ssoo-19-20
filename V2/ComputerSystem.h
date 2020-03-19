@@ -3,7 +3,7 @@
 
 #include "Simulator.h"
 #include "ComputerSystemBase.h"
-
+#include "Clock.h"
 // Functions prototypes
 void ComputerSystem_PowerOn(int argc, char *argv[], int);
 void ComputerSystem_PowerOff();
@@ -39,5 +39,8 @@ typedef struct ProgramData {
 // This "extern" declarations enables other source code files to gain access
 // to the variables "programList", etc.
 extern PROGRAMS_DATA *programList[PROGRAMSMAXNUMBER];
+
+// Show time messages
+void OperatingSystem_ShowTime_User(char section);
 
 #endif

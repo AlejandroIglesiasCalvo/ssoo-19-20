@@ -8,7 +8,7 @@ PROGRAM = 	Simulator
 # Compilation Details
 SHELL = /bin/sh
 CC = cc
-STDCFLAGS = -g3 -c -Wall -std=gnu90 
+STDCFLAGS = -g -c -Wall -std=gnu90 
 INCLUDES =
 LIBRERIAS =
 ACC = /usr/share/ACC/bin/acc
@@ -70,7 +70,7 @@ ProcessorAspect.o: ProcessorAspect.mc Aspect.acc
 ProcessorAspect.mc: Processor.c Processor.h ProcessorBase.c ProcessorBase.h
 	$(CC) -E $(INCLUDES) Processor.c > ProcessorAspect.mc
 
-ProcessorBase.o: ProcessorBase.c ProcessorBase.h Processor.h
+ProcessorBase.o: ProcessorBase.c ProcessorBase.h Processor.h Instructions.def
 	$(CC) $(STDCFLAGS) $(INCLUDES) ProcessorBase.c
 
 clean:

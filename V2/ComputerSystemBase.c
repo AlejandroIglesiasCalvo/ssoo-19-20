@@ -23,6 +23,8 @@ char *debugLevel=defaultDebugLevel;
 
 int endSimulationTime=-1; // For end simulation forced by time
 
+int intervalBetweenInterrupts = DEFAULT_INTERVAL_BETWEEN_INTERRUPTS; // Default value
+
 // Only one colour messages. Set to 1 for more colours checking uppercase in debugLevel
 int COLOURED = 0 ;
 

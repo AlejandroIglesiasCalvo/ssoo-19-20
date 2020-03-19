@@ -12,6 +12,7 @@ int Simulator_GetOption(char *);
 extern int initialPID;
 extern int endSimulationTime; // For end simulation forced by time
 extern char *debugLevel;
+extern int intervalBetweenInterrupts; // For interval between interrupts parameter
 
 char *options[]={
 	"--initialPID",
@@ -19,6 +20,7 @@ char *options[]={
 	"--numAsserts",
 	"--assertsFile",
 	"--debugSections",
+	"--intervalBetweenInterrupts",
 	"--generateAsserts",
 	"--help",
 	NULL };
@@ -29,12 +31,13 @@ char *optionsDefault[]={
 	"500",
 	"asserts",
 	"A",
+	"5",
 	"No value",
 	"No value",
 	NULL
 };
 
-enum {INITIALPID, ENDSIMULATIONTIME, NUMASSERTS, ASSERTSFILE, DEBUGSECTIONS ,GENERATEASSERTS, HELP};
+enum {INITIALPID, ENDSIMULATIONTIME, NUMASSERTS, ASSERTSFILE, DEBUGSECTIONS, INTERVALBETWEENINTERRUPTS, GENERATEASSERTS, HELP};
 
 
 int main(int argc, char *argv[]) {
@@ -86,6 +89,10 @@ int main(int argc, char *argv[]) {
 				case GENERATEASSERTS:
 					GEN_ASSERTS=1; 
 					break;
+				case INTERVALBETWEENINTERRUPTS:
+					if (optionValue==NULL || sscanf(optionValue,"%d",&intervalBetweenInterrupts)==0)
+						intervalBetweenInterrupts=DEFAULT_INTERVAL_BETWEEN_INTERRUPTS;
+					break;
 				case HELP:
 					{
 						int j;
@@ -134,7 +141,7 @@ int main(int argc, char *argv[]) {
 
 
 
-	// The simulation starts 
+	// The simulation starts
 	ComputerSystem_PowerOn(argc, argv, paramIndex);
 	// The simulation ends
 	ComputerSystem_PowerOff();

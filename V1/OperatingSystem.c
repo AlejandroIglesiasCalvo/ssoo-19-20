@@ -375,7 +375,6 @@ void OperatingSystem_SaveContext(int PID)
 // Exception management routine
 void OperatingSystem_HandleException()
 {
-
 	// Show message "Process [executingProcessID] has generated an exception and is terminating\n"
 	ComputerSystem_DebugMessage(71, SYSPROC, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName);
 
