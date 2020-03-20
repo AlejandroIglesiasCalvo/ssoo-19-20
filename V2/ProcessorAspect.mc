@@ -1051,6 +1051,9 @@ void la_Magia_Del_Yield(int);
 void ceder_voluntariamente_el_control_del_procesador(int, int);
 
 void OperatingSystem_HandleClockInterrupt();
+
+
+int numberOfClockInterrupts;
 # 4 "Processor.c" 2
 
 
@@ -1376,6 +1379,7 @@ void Processor_InitializeInterruptVectorTable(int interruptVectorInitialAddress)
 
  interruptVectorTable[SYSCALL_BIT] = interruptVectorInitialAddress;
  interruptVectorTable[EXCEPTION_BIT] = interruptVectorInitialAddress + 2;
+ interruptVectorTable[CLOCKINT_BIT] = interruptVectorInitialAddress + 4;
 }
 
 
@@ -1390,7 +1394,7 @@ void Processor_InstructionCycleLoop()
   {
    Processor_DecodeAndExecuteInstruction();
   }
-  if (interruptLines_CPU && (Processor_PSW_BitState(INTERRUPT_MASKED_BIT) == 0))
+  if (interruptLines_CPU && !Processor_PSW_BitState(INTERRUPT_MASKED_BIT))
   {
    Processor_ManageInterrupts();
   }

@@ -42,6 +42,7 @@ void Processor_InitializeInterruptVectorTable(int interruptVectorInitialAddress)
 
 	interruptVectorTable[SYSCALL_BIT] = interruptVectorInitialAddress;		 // SYSCALL_BIT=2
 	interruptVectorTable[EXCEPTION_BIT] = interruptVectorInitialAddress + 2; // EXCEPTION_BIT=6
+	interruptVectorTable[CLOCKINT_BIT] = interruptVectorInitialAddress + 4; // EXCEPTION_BIT=9
 }
 
 // This is the instruction cycle loop (fetch, decoding, execution, etc.).
@@ -56,7 +57,7 @@ void Processor_InstructionCycleLoop()
 		{
 			Processor_DecodeAndExecuteInstruction();
 		}
-		if (interruptLines_CPU && (Processor_PSW_BitState(INTERRUPT_MASKED_BIT) == 0))
+		if (interruptLines_CPU && !Processor_PSW_BitState(INTERRUPT_MASKED_BIT))
 		{
 			Processor_ManageInterrupts();
 		}

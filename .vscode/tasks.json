@@ -80,9 +80,9 @@
             ]
         },
         {
-            "label": "RunV2 max 400",
+            "label": "RunV2 max 100",
             "type": "shell",
-            "command": "cd V2 && ./Simulator prog-V1-E12 prog-V1-E12 programVerySimple | head -n 400",
+            "command": "cd V2 && ./Simulator programVerySimple | head -n 100",
             "problemMatcher": [
                 "$gcc"
             ]

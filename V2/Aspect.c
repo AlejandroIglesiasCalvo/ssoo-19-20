@@ -581,6 +581,8 @@ void la_Magia_Del_Yield(int );
 void ceder_voluntariamente_el_control_del_procesador(int , int ); 
 #line 75 "OperatingSystem.h"
 void OperatingSystem_HandleClockInterrupt(); 
+#line 78 "OperatingSystem.h"
+int numberOfClockInterrupts; 
 # 6 "OperatingSystemBase.h" 2
 # 11 "Heap.h" 1
 typedef struct {int info; unsigned int insertionOrder; 

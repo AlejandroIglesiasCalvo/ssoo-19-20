@@ -965,6 +965,9 @@ void la_Magia_Del_Yield(int);
 void ceder_voluntariamente_el_control_del_procesador(int, int);
 
 void OperatingSystem_HandleClockInterrupt();
+
+
+int numberOfClockInterrupts;
 # 6 "OperatingSystemBase.h" 2
 # 1 "Heap.h" 1
 

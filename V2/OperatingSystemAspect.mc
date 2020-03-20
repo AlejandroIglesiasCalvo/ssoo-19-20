@@ -898,6 +898,9 @@ void la_Magia_Del_Yield(int);
 void ceder_voluntariamente_el_control_del_procesador(int, int);
 
 void OperatingSystem_HandleClockInterrupt();
+
+
+int numberOfClockInterrupts;
 # 2 "OperatingSystem.c" 2
 # 1 "OperatingSystemBase.h" 1
 
@@ -3326,4 +3329,9 @@ void ceder_voluntariamente_el_control_del_procesador(executingProcessID, cadidat
 }
 
 
-void OperatingSystem_HandleClockInterrupt() { return; }
+void OperatingSystem_HandleClockInterrupt()
+{
+ numberOfClockInterrupts++;
+ OperatingSystem_ShowTime('i');
+ ComputerSystem_DebugMessage(120, 'i', numberOfClockInterrupts);
+}

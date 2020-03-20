@@ -539,4 +539,9 @@ void ceder_voluntariamente_el_control_del_procesador(executingProcessID, cadidat
 }
 
 // In OperatingSystem.c Exercise 2-b of V2
-void OperatingSystem_HandleClockInterrupt() { return; }
+void OperatingSystem_HandleClockInterrupt()
+{
+	numberOfClockInterrupts++;
+	OperatingSystem_ShowTime(INTERRUPT);
+	ComputerSystem_DebugMessage(120, INTERRUPT, numberOfClockInterrupts);
+}
