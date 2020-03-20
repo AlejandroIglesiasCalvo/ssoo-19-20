@@ -10,7 +10,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/V2/Simulator",
-            "args": ["rog-V1-E12 prog-V1-E12 programVerySimple"],
+            "args": ["prog-V1-E12", "prog-V1-E12", "programVerySimple"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/V2/",
             "environment": [],
