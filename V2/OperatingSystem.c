@@ -469,6 +469,9 @@ void OperatingSystem_InterruptLogic(int entryPoint)
 	case EXCEPTION_BIT: // EXCEPTION_BIT=6
 		OperatingSystem_HandleException();
 		break;
+	case CLOCKINT_BIT: //9
+		OperatingSystem_HandleClockInterrupt();
+		break;
 	}
 }
 
@@ -534,3 +537,6 @@ void ceder_voluntariamente_el_control_del_procesador(executingProcessID, cadidat
 	ComputerSystem_DebugMessage(115, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, cadidatoOoOoOo, programList[processTable[cadidatoOoOoOo].programListIndex]->executableName);
 	OperatingSystem_PreemptRunningProcess();
 }
+
+// In OperatingSystem.c Exercise 2-b of V2
+void OperatingSystem_HandleClockInterrupt() { return; }

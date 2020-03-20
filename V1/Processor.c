@@ -98,7 +98,7 @@ int Processor_FetchInstruction()
 // Decode and execute the instruction in the IR register
 void Processor_DecodeAndExecuteInstruction()
 {
-	int tempAcc;		  // for save accumulator if necesary
+	int tempAcc; // for save accumulator if necesary
 	// Decode
 	int operationCode = Processor_DecodeOperationCode(registerIR_CPU);
 	int operand1 = Processor_DecodeOperand1(registerIR_CPU);

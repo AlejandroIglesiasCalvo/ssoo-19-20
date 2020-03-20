@@ -56,7 +56,7 @@ void Processor_InstructionCycleLoop()
 		{
 			Processor_DecodeAndExecuteInstruction();
 		}
-		if (interruptLines_CPU)
+		if (interruptLines_CPU && (Processor_PSW_BitState(INTERRUPT_MASKED_BIT) == 0))
 		{
 			Processor_ManageInterrupts();
 		}
@@ -100,7 +100,7 @@ int Processor_FetchInstruction()
 // Decode and execute the instruction in the IR register
 void Processor_DecodeAndExecuteInstruction()
 {
-	int tempAcc;		  // for save accumulator if necesary
+	int tempAcc; // for save accumulator if necesary
 	// Decode
 	int operationCode = Processor_DecodeOperationCode(registerIR_CPU);
 	int operand1 = Processor_DecodeOperand1(registerIR_CPU);
@@ -291,6 +291,8 @@ void Processor_ManageInterrupts()
 			Processor_CopyInSystemStack(MAINMEMORYSIZE - 2, registerPSW_CPU);
 			// Activate protected excution mode
 			Processor_ActivatePSW_Bit(EXECUTION_MODE_BIT);
+			//V2 E3 D
+			Processor_ActivatePSW_Bit(INTERRUPT_MASKED_BIT);
 			// Call the appropriate OS interrupt-handling routine setting PC register
 			registerPC_CPU = interruptVectorTable[i];
 			break; // Don't process another interrupt
@@ -311,6 +313,8 @@ char *Processor_ShowPSW()
 		pswmask[tam - ZERO_BIT] = 'Z';
 	if (Processor_PSW_BitState(POWEROFF_BIT))
 		pswmask[tam - POWEROFF_BIT] = 'S';
+	if (Processor_PSW_BitState(INTERRUPT_MASKED_BIT))
+		pswmask[tam - INTERRUPT_MASKED_BIT] = 'M';
 	return pswmask;
 }
 
