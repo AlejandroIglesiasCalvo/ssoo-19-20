@@ -16,7 +16,7 @@
 #define TOOBIGPROCESS -4
 
 #define NOPROCESS -1
-
+#define SLEEPINGQUEUE
 // Contains the possible type of programs
 enum ProgramTypes
 {
@@ -39,7 +39,8 @@ enum SystemCallIdentifiers
 {
 	SYSCALL_END = 3,
 	SYSCALL_YIELD = 4,
-	SYSCALL_PRINTEXECPID = 5
+	SYSCALL_PRINTEXECPID = 5,
+	SYSCALL_SLEEP=7
 };
 
 // A PCB contains all of the information about a process that is needed by the OS
@@ -55,6 +56,8 @@ typedef struct
 	int programListIndex;
 	int queueID;
 	int copyOfAccumulator;//Ejercicio 13 V1
+	int whenToWakeUp; // Exercise 5-a of V2
+
 } PCB;
 
 // These "extern" declaration enables other source code files to gain access
@@ -73,7 +76,8 @@ void la_Magia_Del_Yield(int);
 void ceder_voluntariamente_el_control_del_procesador(int, int);
 // In OperatingSystem.c Exercise 2-b of V2
 void OperatingSystem_HandleClockInterrupt();
-
+//V2 E5
+void a_dormir_ostia(int);
 //V2 E4
 int numberOfClockInterrupts;
 #endif

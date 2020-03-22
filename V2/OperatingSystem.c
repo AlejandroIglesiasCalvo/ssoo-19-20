@@ -67,6 +67,12 @@ enum TypeOfReadyToRunProcessQueues
 heapItem readyToRunQueue[NUMBEROFQUEUES][PROCESSTABLEMAXSIZE];
 int numberOfReadyToRunProcesses[NUMBEROFQUEUES] = {0, 0};
 char *queueNames[NUMBEROFQUEUES] = {"USER", "DAEMONS"};
+
+// In OperatingSystem.c Exercise 5-b of V2
+// Heap with blocked processes sort by when to wakeup
+heapItem sleepingProcessesQueue[PROCESSTABLEMAXSIZE];
+int numberOfSleepingProcesses = 0;
+
 // Initial set of tasks of the OS
 void OperatingSystem_Initialize(int daemonsIndex)
 {
@@ -231,7 +237,7 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 	}
 	// PCB initialization
 	OperatingSystem_PCBInitialization(PID, loadingPhysicalAddress, processSize, priority, indexOfExecutableProgram);
-	Change_State(PID, 0, -1);
+	Change_State(PID, NEW, -1);
 	// Show message "Process [PID] created from program [executableName]\n"
 	OperatingSystem_ShowTime(INIT);
 	ComputerSystem_DebugMessage(70, INIT, PID, executableProgram->executableName);
@@ -283,7 +289,7 @@ void OperatingSystem_MoveToTheREADYState(int PID)
 	if (Heap_add(PID, readyToRunQueue[processTable[PID].queueID], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[PID].queueID], PROCESSTABLEMAXSIZE) >= 0)
 	{
 		processTable[PID].state = READY;
-		Change_State(PID, 0, 1);
+		Change_State(PID, NEW, READY);
 	}
 	OperatingSystem_PrintReadyToRunQueue();
 }
@@ -332,7 +338,7 @@ void OperatingSystem_Dispatch(int PID)
 	executingProcessID = PID;
 	// Change the process' state
 	processTable[PID].state = EXECUTING;
-	Change_State(PID, 1, 2);
+	Change_State(PID, READY, EXECUTING);
 	// Modify hardware registers with appropriate values for the process identified by PID
 	OperatingSystem_RestoreContext(PID);
 }
@@ -394,7 +400,7 @@ void OperatingSystem_TerminateProcess()
 {
 
 	int selectedProcess;
-	Change_State(executingProcessID, 2, 4);
+	Change_State(executingProcessID, EXECUTING, EXIT);
 	processTable[executingProcessID].state = EXIT;
 
 	if (programList[processTable[executingProcessID].programListIndex]->type == USERPROGRAM)
@@ -454,6 +460,10 @@ void OperatingSystem_HandleSystemCall()
 		break;
 	case SYSCALL_YIELD: //v1 E12
 		la_Magia_Del_Yield(executingProcessID);
+		break;
+	case SYSCALL_SLEEP: //v2 E5
+		a_dormir_ostia(executingProcessID);
+		OperatingSystem_PrintStatus();
 		break;
 	}
 }
@@ -544,4 +554,15 @@ void OperatingSystem_HandleClockInterrupt()
 	numberOfClockInterrupts++;
 	OperatingSystem_ShowTime(INTERRUPT);
 	ComputerSystem_DebugMessage(120, INTERRUPT, numberOfClockInterrupts);
+}
+void a_dormir_ostia(int PID)
+{
+	//int Heap_add(int info, heapItem heap[], int queueType, int *numElem, int limit) {
+	int acc = Processor_GetAccumulator();
+	int whenToWakeUp = abs(acc) + numberOfClockInterrupts + 1;
+	if (Heap_add(PID, sleepingProcessesQueue, whenToWakeUp, &numberOfSleepingProcesses, PROCESSTABLEMAXSIZE) >= 0)
+	{
+		processTable[PID].state = BLOCKED;
+		Change_State(PID, EXECUTING, BLOCKED);
+	}
 }
