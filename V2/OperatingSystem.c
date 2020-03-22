@@ -190,6 +190,9 @@ int OperatingSystem_LongTermScheduler()
 	}
 
 	// Return the number of succesfully created processes
+	if(numberOfSuccessfullyCreatedProcesses>0){
+		OperatingSystem_PrintStatus();
+	}
 	return numberOfSuccessfullyCreatedProcesses;
 }
 
@@ -291,7 +294,7 @@ void OperatingSystem_MoveToTheREADYState(int PID)
 		processTable[PID].state = READY;
 		Change_State(PID, NEW, READY);
 	}
-	OperatingSystem_PrintReadyToRunQueue();
+	//OperatingSystem_PrintReadyToRunQueue();
 }
 
 // The STS is responsible of deciding which process to execute when specific events occur.
@@ -391,8 +394,8 @@ void OperatingSystem_HandleException()
 	// Show message "Process [executingProcessID] has generated an exception and is terminating\n"
 	OperatingSystem_ShowTime(SYSPROC);
 	ComputerSystem_DebugMessage(71, SYSPROC, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName);
-
 	OperatingSystem_TerminateProcess();
+	OperatingSystem_PrintStatus();
 }
 
 // All tasks regarding the removal of the process
@@ -450,13 +453,12 @@ void OperatingSystem_HandleSystemCall()
 		OperatingSystem_ShowTime(SYSPROC);
 		ComputerSystem_DebugMessage(72, SYSPROC, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName);
 		break;
-
 	case SYSCALL_END:
 		// Show message: "Process [executingProcessID] has requested to terminate\n"
 		OperatingSystem_ShowTime(SYSPROC);
 		ComputerSystem_DebugMessage(73, SYSPROC, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName);
-
 		OperatingSystem_TerminateProcess();
+		OperatingSystem_PrintStatus();
 		break;
 	case SYSCALL_YIELD: //v1 E12
 		la_Magia_Del_Yield(executingProcessID);
@@ -546,6 +548,7 @@ void ceder_voluntariamente_el_control_del_procesador(executingProcessID, cadidat
 	OperatingSystem_ShowTime(SHORTTERMSCHEDULE);
 	ComputerSystem_DebugMessage(115, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, cadidatoOoOoOo, programList[processTable[cadidatoOoOoOo].programListIndex]->executableName);
 	OperatingSystem_PreemptRunningProcess();
+	OperatingSystem_PrintStatus();
 }
 
 // In OperatingSystem.c Exercise 2-b of V2
@@ -554,6 +557,7 @@ void OperatingSystem_HandleClockInterrupt()
 	numberOfClockInterrupts++;
 	OperatingSystem_ShowTime(INTERRUPT);
 	ComputerSystem_DebugMessage(120, INTERRUPT, numberOfClockInterrupts);
+	VAMOS_PANDA_DE_VAGOS();
 }
 void a_dormir_ostia(int PID)
 {
@@ -564,5 +568,37 @@ void a_dormir_ostia(int PID)
 	{
 		processTable[PID].state = BLOCKED;
 		Change_State(PID, EXECUTING, BLOCKED);
+	}
+}
+void VAMOS_PANDA_DE_VAGOS()
+{
+	int vanderaAaAaA = 0;
+	int vagos;
+	for (vagos = 0; vagos < numberOfSleepingProcesses; vagos++)
+	{
+		int madrugador = Heap_getFirst(sleepingProcessesQueue, numberOfSleepingProcesses);
+		if (processTable[madrugador].whenToWakeUp == numberOfClockInterrupts)
+		{
+			vanderaAaAaA = -1;
+			int levantado = Heap_poll(sleepingProcessesQueue, QUEUE_WAKEUP, &numberOfSleepingProcesses);
+			OperatingSystem_MoveToTheREADYState(levantado);
+		}
+	}
+	if (vanderaAaAaA != 0)
+	{
+		OperatingSystem_PrintStatus();
+	}
+	procesoAlfa();
+}
+void procesoAlfa()
+{
+	int actual = processTable[executingProcessID].priority;
+	int posibleAlfa = Heap_getFirst(readyToRunQueue[processTable[executingProcessID].queueID], numberOfReadyToRunProcesses[processTable[executingProcessID].queueID]);
+	int prioridadAlfa = processTable[posibleAlfa].priority;
+	if (prioridadAlfa > actual)
+	{
+		ComputerSystem_DebugMessage(121, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, posibleAlfa, programList[processTable[posibleAlfa].programListIndex]->executableName);
+		OperatingSystem_PreemptRunningProcess(); //Se pira el actual
+		OperatingSystem_PrintStatus();
 	}
 }

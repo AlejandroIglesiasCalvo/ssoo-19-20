@@ -76,8 +76,12 @@ void la_Magia_Del_Yield(int);
 void ceder_voluntariamente_el_control_del_procesador(int, int);
 // In OperatingSystem.c Exercise 2-b of V2
 void OperatingSystem_HandleClockInterrupt();
-//V2 E5
-void a_dormir_ostia(int);
+
 //V2 E4
 int numberOfClockInterrupts;
+//V2 E5
+void a_dormir_ostia(int);
+//V2 E6
+void VAMOS_PANDA_DE_VAGOS();
+void procesoAlfa();
 #endif

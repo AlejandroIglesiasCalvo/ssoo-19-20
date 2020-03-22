@@ -74,7 +74,7 @@
         {
             "label": "RunV2",
             "type": "shell",
-            "command": "cd V2 && ./Simulator prog-V1-E12 programVerySimple",
+            "command": "cd V2 && ./Simulator prog-V1-E11 prog-V1-E11 prog-V1-E11 ",
             "problemMatcher": [
                 "$gcc"
             ]
@@ -82,7 +82,7 @@
         {
             "label": "RunV2 max 100",
             "type": "shell",
-            "command": "cd V2 && ./Simulator programVerySimple | head -n 100",
+            "command": "cd V2 && ./Simulator programVerySimple prog-V1-E11 | head -n 400",
             "problemMatcher": [
                 "$gcc"
             ]
