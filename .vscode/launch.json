@@ -10,7 +10,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/V2/Simulator",
-            "args": ["V2-ejemplo5"],
+            "args": ["V2-ejemplo5","V2-ejemplo4","programaEntrega-V2-2"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/V2/",
             "environment": [],
