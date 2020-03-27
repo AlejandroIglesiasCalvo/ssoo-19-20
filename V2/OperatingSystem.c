@@ -384,7 +384,7 @@ void OperatingSystem_SaveContext(int PID)
 	// Load PSW saved for interrupt manager
 	processTable[PID].copyOfPSWRegister = Processor_CopyFromSystemStack(MAINMEMORYSIZE - 2);
 	//Ejercicio 13 V1
-	processTable[PID].copyOfAccumulator = Processor_GetAccumulator();
+	processTable[PID].copyOfAccumulator = Processor_CopyFromSystemStack(MAINMEMORYSIZE - 3);
 }
 
 // Exception management routine
@@ -548,6 +548,7 @@ void ceder_voluntariamente_el_control_del_procesador(executingProcessID, cadidat
 	OperatingSystem_ShowTime(SHORTTERMSCHEDULE);
 	ComputerSystem_DebugMessage(115, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, cadidatoOoOoOo, programList[processTable[cadidatoOoOoOo].programListIndex]->executableName);
 	OperatingSystem_PreemptRunningProcess();
+	OperatingSystem_Dispatch(cadidatoOoOoOo);
 	OperatingSystem_PrintStatus();
 }
 
@@ -561,14 +562,19 @@ void OperatingSystem_HandleClockInterrupt()
 }
 void a_dormir_ostia(int PID)
 {
+	OperatingSystem_SaveContext(PID);
 	//int Heap_add(int info, heapItem heap[], int queueType, int *numElem, int limit) {
-	int acc = Processor_GetAccumulator();
-	int whenToWakeUp = abs(acc) + numberOfClockInterrupts + 1;
-	if (Heap_add(PID, sleepingProcessesQueue, whenToWakeUp, &numberOfSleepingProcesses, PROCESSTABLEMAXSIZE) >= 0)
+	int acc = processTable[PID].copyOfAccumulator;
+	 processTable[PID].whenToWakeUp = abs(acc) + numberOfClockInterrupts + 1;
+
+	if (Heap_add(PID, sleepingProcessesQueue, QUEUE_WAKEUP, &numberOfSleepingProcesses, PROCESSTABLEMAXSIZE) >= 0)
 	{
 		processTable[PID].state = BLOCKED;
 		Change_State(PID, EXECUTING, BLOCKED);
 	}
+	executingProcessID=NOPROCESS;
+	OperatingSystem_Dispatch(OperatingSystem_ShortTermScheduler());
+
 }
 void VAMOS_PANDA_DE_VAGOS()
 {
@@ -599,6 +605,9 @@ void procesoAlfa()
 	{
 		ComputerSystem_DebugMessage(121, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, posibleAlfa, programList[processTable[posibleAlfa].programListIndex]->executableName);
 		OperatingSystem_PreemptRunningProcess(); //Se pira el actual
+		//OperatingSystem_ShortTermScheduler();
+		int NuevoAlfa = Heap_poll(readyToRunQueue[processTable[posibleAlfa].queueID],QUEUE_PRIORITY,&numberOfReadyToRunProcesses[processTable[posibleAlfa].queueID]);
+		OperatingSystem_Dispatch(NuevoAlfa);
 		OperatingSystem_PrintStatus();
 	}
 }

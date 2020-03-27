@@ -42,7 +42,7 @@ void Processor_InitializeInterruptVectorTable(int interruptVectorInitialAddress)
 
 	interruptVectorTable[SYSCALL_BIT] = interruptVectorInitialAddress;		 // SYSCALL_BIT=2
 	interruptVectorTable[EXCEPTION_BIT] = interruptVectorInitialAddress + 2; // EXCEPTION_BIT=6
-	interruptVectorTable[CLOCKINT_BIT] = interruptVectorInitialAddress + 4; // CLOCKINT_BIT=9
+	interruptVectorTable[CLOCKINT_BIT] = interruptVectorInitialAddress + 4;	 // CLOCKINT_BIT=9
 }
 
 // This is the instruction cycle loop (fetch, decoding, execution, etc.).
@@ -124,9 +124,9 @@ void Processor_DecodeAndExecuteInstruction()
 	case SHIFT_INST:
 		if (operand1 < 0)
 		{																					// SAL do not allow more than 31 bists shift...
-			if (registerAccumulator_CPU & (-1 << (sizeof(int) * 8 - ((-operand1) & 0x1f)))) // some bit overflow...
-				Processor_ActivatePSW_Bit(OVERFLOW_BIT);
-			registerAccumulator_CPU <<= ((-operand1) & 0x1f); // unnecesary & because Intel make this way...
+		if (registerAccumulator_CPU & (-1 << (sizeof(int) * 8 - ((-operand1) & 0x1f)))) // some bit overflow...
+			Processor_ActivatePSW_Bit(OVERFLOW_BIT);
+		registerAccumulator_CPU <<= ((-operand1) & 0x1f); // unnecesary & because Intel make this way...
 		}
 		else											 // SAR do not allow more than 31 bists shift...
 			registerAccumulator_CPU >>= operand1 & 0x1f; // unnecesary & because Intel make this way...
@@ -290,6 +290,7 @@ void Processor_ManageInterrupts()
 			// Copy PC and PSW registers in the system stack
 			Processor_CopyInSystemStack(MAINMEMORYSIZE - 1, registerPC_CPU);
 			Processor_CopyInSystemStack(MAINMEMORYSIZE - 2, registerPSW_CPU);
+			Processor_CopyInSystemStack(MAINMEMORYSIZE - 3,registerAccumulator_CPU);
 			// Activate protected excution mode
 			Processor_ActivatePSW_Bit(EXECUTION_MODE_BIT);
 			//V2 E3 D
