@@ -289,10 +289,11 @@ void OperatingSystem_PCBInitialization(int PID, int initialPhysicalAddress, int 
 // Heap_add(int info, heapItem heap[], int queueType, int *numElem, int limit)
 void OperatingSystem_MoveToTheREADYState(int PID)
 {
+	int estadoAntiguo=processTable[PID].state;
 	if (Heap_add(PID, readyToRunQueue[processTable[PID].queueID], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[PID].queueID], PROCESSTABLEMAXSIZE) >= 0)
 	{
 		processTable[PID].state = READY;
-		Change_State(PID, NEW, READY);
+		Change_State(PID, estadoAntiguo, READY);
 	}
 	//OperatingSystem_PrintReadyToRunQueue();
 }
@@ -607,6 +608,13 @@ void procesoAlfa()
 		OperatingSystem_PreemptRunningProcess(); //Se pira el actual
 		//OperatingSystem_ShortTermScheduler();
 		int NuevoAlfa = Heap_poll(readyToRunQueue[processTable[posibleAlfa].queueID],QUEUE_PRIORITY,&numberOfReadyToRunProcesses[processTable[posibleAlfa].queueID]);
+		OperatingSystem_Dispatch(NuevoAlfa);
+		OperatingSystem_PrintStatus();
+	}else if(executingProcessID==sipID && numberOfReadyToRunProcesses[USERPROCESSQUEUE]>0){
+		int NuevoAlfa = Heap_poll(readyToRunQueue[processTable[posibleAlfa].queueID],QUEUE_PRIORITY,&numberOfReadyToRunProcesses[processTable[posibleAlfa].queueID]);
+		ComputerSystem_DebugMessage(121, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, NuevoAlfa, programList[processTable[NuevoAlfa].programListIndex]->executableName);
+		OperatingSystem_PreemptRunningProcess(); //Se pira el actual
+		//OperatingSystem_ShortTermScheduler();
 		OperatingSystem_Dispatch(NuevoAlfa);
 		OperatingSystem_PrintStatus();
 	}
