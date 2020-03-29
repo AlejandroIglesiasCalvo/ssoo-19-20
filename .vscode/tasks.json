@@ -80,9 +80,25 @@
             ]
         },
         {
-            "label": "RunV2 max 100",
+            "label": "RunV2 bug 2 max 400",
             "type": "shell",
-            "command": "cd V2 && ./Simulator V2-ejemplo5 | head -n 400",
+            "command": "cd V2 && ./Simulator programaEntrega-V2-3 | head -n 400",
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "RunV2 bug 3 max 400",
+            "type": "shell",
+            "command": "cd V2 && ./Simulator programFinalV1 | head -n 400",
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "RunV2 bug 4 max 400",
+            "type": "shell",
+            "command": "cd V2 && ./Simulator programV2-1a programV2-1b | head -n 400",
             "problemMatcher": [
                 "$gcc"
             ]

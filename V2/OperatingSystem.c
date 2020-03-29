@@ -190,7 +190,8 @@ int OperatingSystem_LongTermScheduler()
 	}
 
 	// Return the number of succesfully created processes
-	if(numberOfSuccessfullyCreatedProcesses>0){
+	if (numberOfSuccessfullyCreatedProcesses > 0)
+	{
 		OperatingSystem_PrintStatus();
 	}
 	return numberOfSuccessfullyCreatedProcesses;
@@ -289,7 +290,7 @@ void OperatingSystem_PCBInitialization(int PID, int initialPhysicalAddress, int 
 // Heap_add(int info, heapItem heap[], int queueType, int *numElem, int limit)
 void OperatingSystem_MoveToTheREADYState(int PID)
 {
-	int estadoAntiguo=processTable[PID].state;
+	int estadoAntiguo = processTable[PID].state;
 	if (Heap_add(PID, readyToRunQueue[processTable[PID].queueID], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[PID].queueID], PROCESSTABLEMAXSIZE) >= 0)
 	{
 		processTable[PID].state = READY;
@@ -326,9 +327,10 @@ int OperatingSystem_ExtractFromReadyToRun()
 	{
 		selectedProcess = Heap_poll(readyToRunQueue[DAEMONSQUEUE], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[DAEMONSQUEUE]);
 	}
-	else
+	else if (selectedProcess == NOPROCESS)
 	{
-		OperatingSystem_ReadyToShutdown();
+		selectedProcess = sipID;
+		//OperatingSystem_ReadyToShutdown();
 	}
 	// Return most priority process or NOPROCESS if empty queue
 	return selectedProcess;
@@ -433,7 +435,6 @@ void OperatingSystem_TerminateProcess()
 	}
 	// Select the next process to execute (sipID if no more user processes)
 	selectedProcess = OperatingSystem_ShortTermScheduler();
-
 	// Assign the processor to that process
 	OperatingSystem_Dispatch(selectedProcess);
 }
@@ -538,7 +539,7 @@ void la_Magia_Del_Yield(executingProcessID)
 	if (cadidatoOoOoOo != -1)
 	{
 		int prioridadCandidato = processTable[cadidatoOoOoOo].priority;
-		if (prioridadEjecutando == prioridadCandidato)
+		if (prioridadEjecutando == prioridadCandidato && executingProcessID != cadidatoOoOoOo)
 		{
 			ceder_voluntariamente_el_control_del_procesador(executingProcessID, cadidatoOoOoOo);
 		}
@@ -566,16 +567,15 @@ void a_dormir_ostia(int PID)
 	OperatingSystem_SaveContext(PID);
 	//int Heap_add(int info, heapItem heap[], int queueType, int *numElem, int limit) {
 	int acc = processTable[PID].copyOfAccumulator;
-	 processTable[PID].whenToWakeUp = abs(acc) + numberOfClockInterrupts + 1;
+	processTable[PID].whenToWakeUp = abs(acc) + numberOfClockInterrupts + 1;
 
 	if (Heap_add(PID, sleepingProcessesQueue, QUEUE_WAKEUP, &numberOfSleepingProcesses, PROCESSTABLEMAXSIZE) >= 0)
 	{
 		processTable[PID].state = BLOCKED;
 		Change_State(PID, EXECUTING, BLOCKED);
 	}
-	executingProcessID=NOPROCESS;
+	executingProcessID = NOPROCESS;
 	OperatingSystem_Dispatch(OperatingSystem_ShortTermScheduler());
-
 }
 void VAMOS_PANDA_DE_VAGOS()
 {
@@ -607,11 +607,13 @@ void procesoAlfa()
 		ComputerSystem_DebugMessage(121, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, posibleAlfa, programList[processTable[posibleAlfa].programListIndex]->executableName);
 		OperatingSystem_PreemptRunningProcess(); //Se pira el actual
 		//OperatingSystem_ShortTermScheduler();
-		int NuevoAlfa = Heap_poll(readyToRunQueue[processTable[posibleAlfa].queueID],QUEUE_PRIORITY,&numberOfReadyToRunProcesses[processTable[posibleAlfa].queueID]);
+		int NuevoAlfa = Heap_poll(readyToRunQueue[processTable[posibleAlfa].queueID], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[posibleAlfa].queueID]);
 		OperatingSystem_Dispatch(NuevoAlfa);
 		OperatingSystem_PrintStatus();
-	}else if(executingProcessID==sipID && numberOfReadyToRunProcesses[USERPROCESSQUEUE]>0){
-		int NuevoAlfa = Heap_poll(readyToRunQueue[processTable[posibleAlfa].queueID],QUEUE_PRIORITY,&numberOfReadyToRunProcesses[processTable[posibleAlfa].queueID]);
+	}
+	else if (executingProcessID == sipID && numberOfReadyToRunProcesses[USERPROCESSQUEUE] > 0)
+	{
+		int NuevoAlfa = Heap_poll(readyToRunQueue[processTable[posibleAlfa].queueID], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[posibleAlfa].queueID]);
 		ComputerSystem_DebugMessage(121, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, NuevoAlfa, programList[processTable[NuevoAlfa].programListIndex]->executableName);
 		OperatingSystem_PreemptRunningProcess(); //Se pira el actual
 		//OperatingSystem_ShortTermScheduler();

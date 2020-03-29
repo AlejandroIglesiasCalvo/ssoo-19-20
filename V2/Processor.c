@@ -124,9 +124,9 @@ void Processor_DecodeAndExecuteInstruction()
 	case SHIFT_INST:
 		if (operand1 < 0)
 		{																					// SAL do not allow more than 31 bists shift...
-		if (registerAccumulator_CPU & (-1 << (sizeof(int) * 8 - ((-operand1) & 0x1f)))) // some bit overflow...
-			Processor_ActivatePSW_Bit(OVERFLOW_BIT);
-		registerAccumulator_CPU <<= ((-operand1) & 0x1f); // unnecesary & because Intel make this way...
+			if (registerAccumulator_CPU & (-1 << (sizeof(int) * 8 - ((-operand1) & 0x1f)))) // some bit overflow...
+				Processor_ActivatePSW_Bit(OVERFLOW_BIT);
+			registerAccumulator_CPU <<= ((-operand1) & 0x1f); // unnecesary & because Intel make this way...
 		}
 		else											 // SAR do not allow more than 31 bists shift...
 			registerAccumulator_CPU >>= operand1 & 0x1f; // unnecesary & because Intel make this way...
@@ -253,10 +253,11 @@ void Processor_DecodeAndExecuteInstruction()
 
 	case MEMADD_INST:
 		// Tell the main memory controller from where
-		registerMAR_CPU = operand2;								   //De donde leo (operando 1)
-		Buses_write_AddressBus_From_To(CPU, MMU);				   //Indicar donde tengo que leer, usando bus de escritura
-		registerCTRL_CPU = CTRLREAD;							   //Indicar que lea de forma controlada
-		Buses_write_ControlBus_From_To(CPU, MMU);				   //Enviar la operacion a la memoria
+		registerMAR_CPU = operand2;				  //De donde leo (operando 1)
+		Buses_write_AddressBus_From_To(CPU, MMU); //Indicar donde tengo que leer, usando bus de escritura
+		registerCTRL_CPU = CTRLREAD;			  //Indicar que lea de forma controlada
+		Buses_write_ControlBus_From_To(CPU, MMU); //Enviar la operacion a la memoria
+		Processor_CheckOverflow(registerMBR_CPU.cell, operand1);
 		registerAccumulator_CPU = registerMBR_CPU.cell + operand1; //Sumar el resultado al operador 1
 		registerPC_CPU++;
 		break;
@@ -290,7 +291,7 @@ void Processor_ManageInterrupts()
 			// Copy PC and PSW registers in the system stack
 			Processor_CopyInSystemStack(MAINMEMORYSIZE - 1, registerPC_CPU);
 			Processor_CopyInSystemStack(MAINMEMORYSIZE - 2, registerPSW_CPU);
-			Processor_CopyInSystemStack(MAINMEMORYSIZE - 3,registerAccumulator_CPU);
+			Processor_CopyInSystemStack(MAINMEMORYSIZE - 3, registerAccumulator_CPU);
 			// Activate protected excution mode
 			Processor_ActivatePSW_Bit(EXECUTION_MODE_BIT);
 			//V2 E3 D
