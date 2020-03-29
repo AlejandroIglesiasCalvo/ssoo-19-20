@@ -420,7 +420,7 @@ void OperatingSystem_TerminateProcess()
 		//numberOfReadyToRunProcesses[DAEMONSQUEUE]--;
 	}
 
-	if (numberOfNotTerminatedUserProcesses == 0)
+	if (numberOfNotTerminatedUserProcesses <= 0)
 	{
 		if (executingProcessID == sipID)
 		{
