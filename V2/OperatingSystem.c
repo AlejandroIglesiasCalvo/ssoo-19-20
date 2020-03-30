@@ -547,10 +547,12 @@ void la_Magia_Del_Yield(executingProcessID)
 }
 void ceder_voluntariamente_el_control_del_procesador(executingProcessID, cadidatoOoOoOo)
 {
+	int elNUevo;
+	elNUevo=Heap_poll(readyToRunQueue[processTable[cadidatoOoOoOo].queueID],QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[cadidatoOoOoOo].queueID]);
 	OperatingSystem_ShowTime(SHORTTERMSCHEDULE);
-	ComputerSystem_DebugMessage(115, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, cadidatoOoOoOo, programList[processTable[cadidatoOoOoOo].programListIndex]->executableName);
+	ComputerSystem_DebugMessage(115, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, elNUevo, programList[processTable[elNUevo].programListIndex]->executableName);
 	OperatingSystem_PreemptRunningProcess();
-	OperatingSystem_Dispatch(cadidatoOoOoOo);
+	OperatingSystem_Dispatch(elNUevo);
 	OperatingSystem_PrintStatus();
 }
 

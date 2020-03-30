@@ -96,14 +96,6 @@
             ]
         },
         {
-            "label": "RunV2 bug 4 max 400",
-            "type": "shell",
-            "command": "cd V2 && ./Simulator programV2-1a programV2-1b | head -n 400",
-            "problemMatcher": [
-                "$gcc"
-            ]
-        },
-        {
             "label": "CleanV2",
             "type": "shell",
             "command": "cd V2 && make clean",
