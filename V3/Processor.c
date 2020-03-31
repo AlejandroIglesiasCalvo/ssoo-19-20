@@ -274,7 +274,9 @@ void Processor_DecodeAndExecuteInstruction()
 	// Show final part of HARDWARE message with	CPU registers
 	// Show message: " (PC: registerPC_CPU, Accumulator: registerAccumulator_CPU, PSW: registerPSW_CPU [Processor_ShowPSW()]\n
 	//OperatingSystem_ShowTime_User(HARDWARE);
-	ComputerSystem_DebugMessage(69, HARDWARE, InstructionNames[operationCode], operand1, operand2, registerPC_CPU, registerAccumulator_CPU, registerPSW_CPU, Processor_ShowPSW());
+	// ComputerSystem_DebugMessage(69, HARDWARE, InstructionNames[operationCode], operand1, operand2, registerPC_CPU, registerAccumulator_CPU, registerPSW_CPU, Processor_ShowPSW());
+	// ComputerSystem_DebugMessage(120, );
+	MegaMensajeMejorado(operationCode, operand1, operand2);
 }
 
 // Hardware interrupt processing
@@ -323,4 +325,9 @@ char *Processor_ShowPSW()
 }
 
 /////////////////////////////////////////////////////////
-//  New functions below this line  //////////////////////
+//  New functions below this line  /////////////////////
+void MegaMensajeMejorado(operationCode, operand1, operand2)
+{
+	int PID = OperatingSystem_GetExecutingProcessID(operationCode);
+	ComputerSystem_DebugMessage(130, HARDWARE, InstructionNames[operationCode], operand1, operand2, PID, registerPC_CPU, registerAccumulator_CPU, registerPSW_CPU, Processor_ShowPSW());
+}

@@ -72,7 +72,8 @@ char *queueNames[NUMBEROFQUEUES] = {"USER", "DAEMONS"};
 // Heap with blocked processes sort by when to wakeup
 heapItem sleepingProcessesQueue[PROCESSTABLEMAXSIZE];
 int numberOfSleepingProcesses = 0;
-
+//V3 E1
+int PID_para_Procesador = -99;
 // Initial set of tasks of the OS
 void OperatingSystem_Initialize(int daemonsIndex)
 {
@@ -98,7 +99,7 @@ void OperatingSystem_Initialize(int daemonsIndex)
 	OperatingSystem_PrepareDaemons(daemonsIndex);
 	//V3 E1
 	ComputerSystem_FillInArrivalTimeQueue();
-	OperatingSystem_PrintStatus(); 
+	OperatingSystem_PrintStatus();
 	// Create all user processes from the information given in the command line
 	//Ejercicio 15 V1
 	int ProcesosLYS = OperatingSystem_LongTermScheduler();
@@ -464,10 +465,12 @@ void OperatingSystem_HandleSystemCall()
 		OperatingSystem_TerminateProcess();
 		OperatingSystem_PrintStatus();
 		break;
-	case SYSCALL_YIELD: //v1 E12
+	case SYSCALL_YIELD:							  //v1 E12
+		PID_para_Procesador = executingProcessID; //V3 E1
 		la_Magia_Del_Yield(executingProcessID);
 		break;
-	case SYSCALL_SLEEP: //v2 E5
+	case SYSCALL_SLEEP:							  //v2 E5
+		PID_para_Procesador = executingProcessID; //V3 E1
 		a_dormir_ostia(executingProcessID);
 		OperatingSystem_PrintStatus();
 		break;
@@ -608,6 +611,7 @@ void procesoAlfa()
 	int prioridadAlfa = processTable[posibleAlfa].priority;
 	if (prioridadAlfa > actual)
 	{
+		PID_para_Procesador = posibleAlfa; //Para el procesador
 		ComputerSystem_DebugMessage(121, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, posibleAlfa, programList[processTable[posibleAlfa].programListIndex]->executableName);
 		OperatingSystem_PreemptRunningProcess(); //Se pira el actual
 		//OperatingSystem_ShortTermScheduler();
@@ -618,10 +622,25 @@ void procesoAlfa()
 	else if (executingProcessID == sipID && numberOfReadyToRunProcesses[USERPROCESSQUEUE] > 0)
 	{
 		int NuevoAlfa = Heap_poll(readyToRunQueue[processTable[posibleAlfa].queueID], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[posibleAlfa].queueID]);
+		PID_para_Procesador = NuevoAlfa; //Para el procesador
 		ComputerSystem_DebugMessage(121, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, NuevoAlfa, programList[processTable[NuevoAlfa].programListIndex]->executableName);
 		OperatingSystem_PreemptRunningProcess(); //Se pira el actual
 		//OperatingSystem_ShortTermScheduler();
 		OperatingSystem_Dispatch(NuevoAlfa);
 		OperatingSystem_PrintStatus();
 	}
+}
+int OperatingSystem_GetExecutingProcessID(operationCode)
+{
+	int ReturnPID;
+	if (PID_para_Procesador != -99)
+	{
+		ReturnPID = PID_para_Procesador;
+		PID_para_Procesador = -99;
+	}
+	else
+	{
+		ReturnPID = executingProcessID;
+	}
+	return ReturnPID;
 }
