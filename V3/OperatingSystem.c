@@ -96,7 +96,9 @@ void OperatingSystem_Initialize(int daemonsIndex)
 
 	// Include in program list  all system daemon processes
 	OperatingSystem_PrepareDaemons(daemonsIndex);
-
+	//V3 E1
+	ComputerSystem_FillInArrivalTimeQueue();
+	OperatingSystem_PrintStatus(); 
 	// Create all user processes from the information given in the command line
 	//Ejercicio 15 V1
 	int ProcesosLYS = OperatingSystem_LongTermScheduler();
@@ -548,7 +550,7 @@ void la_Magia_Del_Yield(executingProcessID)
 void ceder_voluntariamente_el_control_del_procesador(executingProcessID, cadidatoOoOoOo)
 {
 	int elNUevo;
-	elNUevo=Heap_poll(readyToRunQueue[processTable[cadidatoOoOoOo].queueID],QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[cadidatoOoOoOo].queueID]);
+	elNUevo = Heap_poll(readyToRunQueue[processTable[cadidatoOoOoOo].queueID], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[cadidatoOoOoOo].queueID]);
 	OperatingSystem_ShowTime(SHORTTERMSCHEDULE);
 	ComputerSystem_DebugMessage(115, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, elNUevo, programList[processTable[elNUevo].programListIndex]->executableName);
 	OperatingSystem_PreemptRunningProcess();

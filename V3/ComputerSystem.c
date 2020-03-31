@@ -13,6 +13,8 @@
 // and all user programs specified in the command line
 PROGRAMS_DATA *programList[PROGRAMSMAXNUMBER];
 void ComputerSystem_PrintProgramList();
+heapItem arrivalTimeQueue[PROGRAMSMAXNUMBER];
+int numberOfProgramsInArrivalTimeQueue=0;
 // Powers on of the Computer System.
 void ComputerSystem_PowerOn(int argc, char *argv[], int paramIndex)
 {
