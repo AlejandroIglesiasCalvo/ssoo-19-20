@@ -6,14 +6,11 @@ prog-V1-E6: Tamaño muy grande en memoria
 prog-V1-E7: Mas instrucciones que programa
 prog-V1-E11: 
 prog-V1-E12: El del yield
-Respuestas:
-¿Por qué hace falta salvar el valor actual del registro PC del procesador y de la PSW?
-Para que la ejecucuion sigua en el mismo lugar
-¿Sería necesario salvar algún valor más?
-Si, el del acumulador
-A la vista de lo contestado en los apartados a) y b) anteriores, ¿sería necesario realizar alguna modificación en la función OperatingSystem_RestoreContext()? ¿Por qué?
-Para continuar con el valor obtenido por el Programa hasta el momento
-¿Afectarían los cambios anteriores a la implementación de alguna otra función o a la definición de alguna estructura de datos?
-Solo save y restore context, ademas enumerado del PCB, que añade un nuevo campo.
-¿En qué momento se activa y desactiva el modo protegido?
-Cuando se ejecuta una instruccion del sistema (las 3 modificadas)
+prioridadMal: trivial 
+prog-V0-E*: funcionalidades basicas
+progV1-E*: funcionalidades de la V1
+programaEntrega-V2-3: Bucle infinito
+programFinalV1: escribe instrucciones a mano (aun no soportado) -> core fail
+los demas: programas sin mas para probar distintas formas de ejecutar y romper el SO
+
+Asumo que cuando en la entrega dices primero que el leeme es UOxxx-leeme y luego pides el leeme-uoxxx el correcto es el primero.
