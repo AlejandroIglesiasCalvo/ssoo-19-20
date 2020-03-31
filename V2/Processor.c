@@ -234,6 +234,7 @@ void Processor_DecodeAndExecuteInstruction()
 		}
 		else
 		{
+			ComputerSystem_DebugMessage(69, HARDWARE, InstructionNames[operationCode], operand1, operand2, registerPC_CPU, registerAccumulator_CPU, registerPSW_CPU, Processor_ShowPSW());
 			Processor_RaiseInterrupt(EXCEPTION_BIT);
 		}
 		return; // Note: message show before... for operating system messages after...
