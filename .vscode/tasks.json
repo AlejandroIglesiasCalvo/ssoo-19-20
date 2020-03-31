@@ -59,14 +59,11 @@
             "problemMatcher": [
                 "$gcc"
             ]
-        }, {
+        },
+        {
             "label": "BuildV2",
             "type": "shell",
             "command": "cd V2 && make",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
             "problemMatcher": [
                 "$gcc"
             ]
@@ -80,25 +77,37 @@
             ]
         },
         {
-            "label": "RunV2 bug 2 max 400",
-            "type": "shell",
-            "command": "cd V2 && ./Simulator programaEntrega-V2-3 | head -n 400",
-            "problemMatcher": [
-                "$gcc"
-            ]
-        },
-        {
-            "label": "RunV2 bug 3 max 400",
-            "type": "shell",
-            "command": "cd V2 && ./Simulator programFinalV1 | head -n 400",
-            "problemMatcher": [
-                "$gcc"
-            ]
-        },
-        {
             "label": "CleanV2",
             "type": "shell",
             "command": "cd V2 && make clean",
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "BuildV3",
+            "type": "shell",
+            "command": "cd V3 && make",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "RunV3",
+            "type": "shell",
+            "command": "cd V3 && ./Simulator prog-V1-E11 programVerySimple prog-V1-E11",
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "CleanV3",
+            "type": "shell",
+            "command": "cd V3 && make clean",
             "problemMatcher": [
                 "$gcc"
             ]
