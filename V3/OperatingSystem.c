@@ -102,11 +102,8 @@ void OperatingSystem_Initialize(int daemonsIndex)
 	OperatingSystem_PrintStatus();
 	// Create all user processes from the information given in the command line
 	//Ejercicio 15 V1
-	int ProcesosLYS = OperatingSystem_LongTermScheduler();
-	if (ProcesosLYS == 1)
-	{
-		OperatingSystem_ReadyToShutdown();
-	}
+	OperatingSystem_LongTermScheduler();
+
 	if (strcmp(programList[processTable[sipID].programListIndex]->executableName, "SystemIdleProcess"))
 	{
 		// Show red message "FATAL ERROR: Missing SIP program!\n"
@@ -151,33 +148,35 @@ void OperatingSystem_PrepareDaemons(int programListDaemonsBase)
 int OperatingSystem_LongTermScheduler()
 {
 
-	int PID, i,
-		numberOfSuccessfullyCreatedProcesses = 0;
+	int PID, nuevoProceso, numberOfSuccessfullyCreatedProcesses = 0;
 
-	for (i = 0; programList[i] != NULL && i < PROGRAMSMAXNUMBER; i++)
+	int existe = OperatingSystem_IsThereANewProgram();
+	while (existe == YES)
 	{
-		PID = OperatingSystem_CreateProcess(i);
+		nuevoProceso = llegasTarde();
+		existe = OperatingSystem_IsThereANewProgram();
+		PID = OperatingSystem_CreateProcess(nuevoProceso);
 		switch (PID)
 		{
 		case NOFREEENTRY:
 			OperatingSystem_ShowTime(ERROR);
-			ComputerSystem_DebugMessage(103, ERROR, programList[i]->executableName);
+			ComputerSystem_DebugMessage(103, ERROR, programList[nuevoProceso]->executableName);
 			continue;
 		case PROGRAMDOESNOTEXIST:
 			OperatingSystem_ShowTime(ERROR);
-			ComputerSystem_DebugMessage(104, ERROR, programList[i]->executableName, "it does not exist");
+			ComputerSystem_DebugMessage(104, ERROR, programList[nuevoProceso]->executableName, "it does not exist");
 			continue;
 		case PROGRAMNOTVALID:
 			OperatingSystem_ShowTime(ERROR);
-			ComputerSystem_DebugMessage(104, ERROR, programList[i]->executableName, "invalid priority or size");
+			ComputerSystem_DebugMessage(104, ERROR, programList[nuevoProceso]->executableName, "invalid priority or size");
 			continue;
 		case TOOBIGPROCESS:
 			OperatingSystem_ShowTime(ERROR);
-			ComputerSystem_DebugMessage(105, ERROR, programList[i]->executableName);
+			ComputerSystem_DebugMessage(105, ERROR, programList[nuevoProceso]->executableName);
 			continue;
 		default:
 			numberOfSuccessfullyCreatedProcesses++;
-			if (programList[i]->type == USERPROGRAM)
+			if (programList[nuevoProceso]->type == USERPROGRAM)
 			{
 				numberOfNotTerminatedUserProcesses++;
 			}
@@ -185,13 +184,12 @@ int OperatingSystem_LongTermScheduler()
 			{
 				//numberOfReadyToRunProcesses[DAEMONSQUEUE]++;
 			}
-
 			// Move process to the ready state
 			OperatingSystem_MoveToTheREADYState(PID);
 			continue;
 		}
+		
 	}
-
 	// Return the number of succesfully created processes
 	if (numberOfSuccessfullyCreatedProcesses > 0)
 	{
@@ -199,7 +197,6 @@ int OperatingSystem_LongTermScheduler()
 	}
 	return numberOfSuccessfullyCreatedProcesses;
 }
-
 // This function creates a process from an executable program
 int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 {
@@ -423,7 +420,7 @@ void OperatingSystem_TerminateProcess()
 		//numberOfReadyToRunProcesses[DAEMONSQUEUE]--;
 	}
 
-	if (numberOfNotTerminatedUserProcesses <= 0)
+	if (numberOfNotTerminatedUserProcesses <= 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE)
 	{
 		if (executingProcessID == sipID)
 		{
@@ -568,6 +565,8 @@ void OperatingSystem_HandleClockInterrupt()
 	OperatingSystem_ShowTime(INTERRUPT);
 	ComputerSystem_DebugMessage(120, INTERRUPT, numberOfClockInterrupts);
 	VAMOS_PANDA_DE_VAGOS();
+	OperatingSystem_LongTermScheduler();//V3 E3
+	procesoAlfa();//V3 E3b
 }
 void a_dormir_ostia(int PID)
 {
@@ -602,7 +601,6 @@ void VAMOS_PANDA_DE_VAGOS()
 	{
 		OperatingSystem_PrintStatus();
 	}
-	procesoAlfa();
 }
 void procesoAlfa()
 {
@@ -643,4 +641,10 @@ int OperatingSystem_GetExecutingProcessID(operationCode)
 		ReturnPID = executingProcessID;
 	}
 	return ReturnPID;
+}
+int llegasTarde()
+{
+	int lentoDeLosCojones;
+	lentoDeLosCojones = Heap_poll(arrivalTimeQueue, QUEUE_ARRIVAL, &numberOfProgramsInArrivalTimeQueue);
+	return lentoDeLosCojones;
 }

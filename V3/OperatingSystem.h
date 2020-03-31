@@ -84,6 +84,8 @@ void a_dormir_ostia(int);
 //V2 E6
 void VAMOS_PANDA_DE_VAGOS();
 void procesoAlfa();
-//V3 E2
+//V3 E1
 int OperatingSystem_GetExecutingProcessID(int);
+//V3 E2
+int llegasTarde();
 #endif
