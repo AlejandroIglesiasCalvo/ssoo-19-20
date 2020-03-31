@@ -99,7 +99,7 @@
         {
             "label": "RunV3",
             "type": "shell",
-            "command": "cd V3 && ./Simulator prog-V1-E11 programVerySimple prog-V1-E11",
+            "command": "cd V3 && ./Simulator prog-V1-E11 3 programVerySimple 9 prog-V1-E12 6",
             "problemMatcher": [
                 "$gcc"
             ]
