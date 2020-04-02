@@ -201,6 +201,7 @@ void OperatingSystem_TerminatingSIP() {
 	Processor_CopyInSystemStack(MAINMEMORYSIZE-1,processTable[sipID].copyOfPCRegister);
 	processTable[sipID].copyOfPSWRegister|= ((unsigned int) 1) << INTERRUPT_MASKED_BIT;
 	Processor_CopyInSystemStack(MAINMEMORYSIZE-2,processTable[sipID].copyOfPSWRegister);
+	executingProcessID=NOPROCESS;
 }
 
 // Show time messages
