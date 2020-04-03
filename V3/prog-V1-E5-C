@@ -1,5 +1,6 @@
 // Mi primer programa
-  // Tamanio del programa en posiciones de memoria
+// Tamanio del programa en posiciones de memoria
+5
 5
 ADD 16 0
 WRITE 15
