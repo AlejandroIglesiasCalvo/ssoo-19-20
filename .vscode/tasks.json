@@ -114,7 +114,7 @@
         },{
             "label": "Crea trazas GAUSS",
             "type": "shell",
-            "command": "cd V3 && ./Simulator --debugSections=tpsld programV2-1a 5 programV2-1b 3 V2-ejemplo5 12 > GAUSS.log",
+            "command": "cd V3 && ./Simulator --debugSections=tpsld programV2-1a 5 programV2-1b 3 V2-ejemplo5 12 > GAUSS-1.log && ./Simulator --debugSections=tpsld programV2-1a 3 programV2-1b 8 V2-ejemplo5 0 > GAUSS-2.log",
             "problemMatcher": [
                 "$gcc"
             ]
