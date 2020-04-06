@@ -1,0 +1,13 @@
+//Programa llamado: programaEntrega-V2-1 
+60 
+1 
+ADD 5 4 
+WRITE 50
+ADD 7 -16
+WRITE 49
+TRAP 4 
+TRAP 4 
+TRAP 4 
+TRAP 4 
+TRAP 3 
+
