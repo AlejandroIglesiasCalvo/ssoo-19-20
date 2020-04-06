@@ -1,6 +1,0 @@
-5
-5
-NOP
-ADD 10 -13
-WRITE 15
-TRAP 3

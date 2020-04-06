@@ -1,6 +1,0 @@
-cp OperatingSystem.c OperatingSystem.c~
-sed "s/Processor_CopyInSystemStack(MAINMEMORYSIZE-1,OS_address_base+1);/OperatingSystem_TerminatingSIP();/" <OperatingSystem.c~ > OperatingSystem.c
-mv OperatingSystemBase.c OperatingSystemBase.c~
-mv OperatingSystemBase.h OperatingSystemBase.h~
-mv ProcessorBase.c ProcessorBase.c~
-tar -xzvf VariosBase.tgz

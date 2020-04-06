@@ -1,2 +1,0 @@
-Porque la instruccion HALT fuerza al SO a apagarse, entonces el SO se apaga obligatoriamente, aunque existan mas programas
-Porque la funcion OperatingSystem_LoadProgram, que genera un int, no guarda ese int, y no es evaluado el resultado de la funcion.
