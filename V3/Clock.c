@@ -13,7 +13,7 @@ void Clock_Update() {
 		Processor_RaiseInterrupt(CLOCKINT_BIT);
 	}
 	//Para establecer una pausa en la depuracion cuando se quiera
-	int puntoDePausa=150;
+	int puntoDePausa=165;
 	if(tics == puntoDePausa){
 		puntoDePausa++;
 	}

@@ -622,6 +622,7 @@ void procesoAlfa()
 	if (prioridadAlfa > actual)
 	{
 		PID_para_Procesador = posibleAlfa; //Para el procesador
+		OperatingSystem_ShowTime(INTERRUPT);
 		ComputerSystem_DebugMessage(121, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, posibleAlfa, programList[processTable[posibleAlfa].programListIndex]->executableName);
 		OperatingSystem_PreemptRunningProcess(); //Se pira el actual
 		//OperatingSystem_ShortTermScheduler();
@@ -633,6 +634,7 @@ void procesoAlfa()
 	{
 		int NuevoAlfa = Heap_poll(readyToRunQueue[processTable[posibleAlfa].queueID], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[posibleAlfa].queueID]);
 		PID_para_Procesador = NuevoAlfa; //Para el procesador
+		OperatingSystem_ShowTime(INTERRUPT);
 		ComputerSystem_DebugMessage(121, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, NuevoAlfa, programList[processTable[NuevoAlfa].programListIndex]->executableName);
 		OperatingSystem_PreemptRunningProcess(); //Se pira el actual
 		//OperatingSystem_ShortTermScheduler();
