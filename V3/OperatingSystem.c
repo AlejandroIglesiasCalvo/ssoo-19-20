@@ -568,7 +568,7 @@ void OperatingSystem_HandleClockInterrupt()
 	procesoAlfa();						 //V3 E3b
 	if ((numberOfNotTerminatedUserProcesses <= 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE))
 	{
-		OperatingSystem_ReadyToShutdown();
+		apagarPorLaFuerza();
 	}
 }
 void a_dormir_ostia(int PID)
@@ -609,7 +609,16 @@ void procesoAlfa()
 {
 	int actual = processTable[executingProcessID].priority;
 	int posibleAlfa = Heap_getFirst(readyToRunQueue[processTable[executingProcessID].queueID], numberOfReadyToRunProcesses[processTable[executingProcessID].queueID]);
-	int prioridadAlfa = processTable[posibleAlfa].priority;
+	int prioridadAlfa;
+	if (posibleAlfa != -1)
+	{
+		prioridadAlfa = processTable[posibleAlfa].priority;
+	}
+	else
+	{
+		prioridadAlfa = -1;
+	}
+
 	if (prioridadAlfa > actual)
 	{
 		PID_para_Procesador = posibleAlfa; //Para el procesador
@@ -650,4 +659,23 @@ int llegasTarde()
 	int lentoDeLosCojones;
 	lentoDeLosCojones = Heap_poll(arrivalTimeQueue, QUEUE_ARRIVAL, &numberOfProgramsInArrivalTimeQueue);
 	return lentoDeLosCojones;
+}
+void apagarPorLaFuerza()
+{
+	int selectedProcess;
+	if (executingProcessID == sipID)
+	{
+		// finishing sipID, change PC to address of OS HALT instruction
+		Processor_CopyInSystemStack(MAINMEMORYSIZE - 1, OS_address_base + 1);
+		OperatingSystem_ShowTime(SHUTDOWN);
+		ComputerSystem_DebugMessage(99, SHUTDOWN, "The system will shut down now...\n");
+		return; // Don't dispatch any process
+	}
+	// Simulation must finish, telling sipID to finish
+	OperatingSystem_ReadyToShutdown();
+
+	// Select the next process to execute (sipID if no more user processes)
+	selectedProcess = OperatingSystem_ShortTermScheduler();
+	// Assign the processor to that process
+	OperatingSystem_Dispatch(selectedProcess);
 }
