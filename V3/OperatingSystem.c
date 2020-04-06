@@ -188,7 +188,6 @@ int OperatingSystem_LongTermScheduler()
 			OperatingSystem_MoveToTheREADYState(PID);
 			continue;
 		}
-		
 	}
 	// Return the number of succesfully created processes
 	if (numberOfSuccessfullyCreatedProcesses > 0)
@@ -565,8 +564,12 @@ void OperatingSystem_HandleClockInterrupt()
 	OperatingSystem_ShowTime(INTERRUPT);
 	ComputerSystem_DebugMessage(120, INTERRUPT, numberOfClockInterrupts);
 	VAMOS_PANDA_DE_VAGOS();
-	OperatingSystem_LongTermScheduler();//V3 E3
-	procesoAlfa();//V3 E3b
+	OperatingSystem_LongTermScheduler(); //V3 E3
+	procesoAlfa();						 //V3 E3b
+	if ((numberOfNotTerminatedUserProcesses <= 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE))
+	{
+		OperatingSystem_ReadyToShutdown();
+	}
 }
 void a_dormir_ostia(int PID)
 {

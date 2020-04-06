@@ -10,7 +10,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/V3/Simulator",
-            "args": ["prog-V1-E5-C", "0"],
+            "args": ["--assertsFile=asertos.V3-ej", "--numAsserts=2500",  "prog-V3-E4", "1", "prog-V3-E4", "2", "prog-V3-E4", "4", "prog-V3-E4", "150", "prog_V3-E4", "270" ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/V3/",
             "environment": [],

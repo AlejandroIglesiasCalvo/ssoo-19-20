@@ -119,5 +119,13 @@
                 "$gcc"
             ]
         }
+        ,{
+            "label": "Test V3 Nestor",
+            "type": "shell",
+            "command": "cd V3 && ./Simulator --assertsFile=asertos.V3-ej --numAsserts=2500  prog-V3-E4 1 prog-V3-E4 2 prog-V3-E4 4 prog-V3-E4 150 prog_V3-E4 270 | head -n 400 ",
+            "problemMatcher": [
+                "$gcc"
+            ]
+        }
     ]
 }
