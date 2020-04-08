@@ -1,0 +1,781 @@
+53 Messages Loaded
+[0] User program list:
+	Program [prog-V3-E4] with arrival time [1]
+	Program [prog-V3-E4] with arrival time [2]
+	Program [prog-V3-E4] with arrival time [4]
+	Program [prog-V3-E4] with arrival time [150]
+	Program [prog-V3-E4] with arrival time [270]
+	[0] Running Process Information:
+		[--- No running process ---]
+	[0] Ready-to-run processes queue:
+		USER:
+ 		DAEMONS:
+ 	[0] SLEEPING Queue:
+		[--- empty queue ---]
+	[0] PID association with program's name:
+	[0] Arrival Time Queue:
+		[SystemIdleProcess, 0, DAEMONS]
+		[prog-V3-E4, 1, USER]
+		[prog-V3-E4, 2, USER]
+		[prog-V3-E4, 4, USER]
+		[prog-V3-E4, 150, USER]
+		[prog-V3-E4, 270, USER]
+	[0] New process [3 - SystemIdleProcess] moving to the [NEW] state
+	[0] Process [3] created from program [SystemIdleProcess]
+	[0] Process [3 - SystemIdleProcess] moving from the [NEW] state to the [READY] state
+	[0] Running Process Information:
+		[--- No running process ---]
+	[0] Ready-to-run processes queue:
+		USER:
+ 		DAEMONS: [3,100]
+	[0] SLEEPING Queue:
+		[--- empty queue ---]
+	[0] PID association with program's name:
+		PID: 3 -> SystemIdleProcess
+	[0] Arrival Time Queue:
+		[prog-V3-E4, 1, USER]
+		[prog-V3-E4, 4, USER]
+		[prog-V3-E4, 2, USER]
+		[prog-V3-E4, 270, USER]
+		[prog-V3-E4, 150, USER]
+	[0] Process [3 - SystemIdleProcess] moving from the [READY] state to the [EXECUTING] state
+	[7] New process [0 - prog-V3-E4] moving to the [NEW] state
+	[7] Process [0] created from program [prog-V3-E4]
+	[7] Process [0 - prog-V3-E4] moving from the [NEW] state to the [READY] state
+	[7] New process [1 - prog-V3-E4] moving to the [NEW] state
+	[7] Process [1] created from program [prog-V3-E4]
+	[7] Process [1 - prog-V3-E4] moving from the [NEW] state to the [READY] state
+	[7] New process [2 - prog-V3-E4] moving to the [NEW] state
+	[7] Process [2] created from program [prog-V3-E4]
+	[7] Process [2 - prog-V3-E4] moving from the [NEW] state to the [READY] state
+	[7] Running Process Information:
+		[PID: 3, Priority: 100, WakeUp: 0, Queue: DAEMONS]
+	[7] Ready-to-run processes queue:
+		USER: [0,2], [1,2], [2,2]
+		DAEMONS:
+ 	[7] SLEEPING Queue:
+		[--- empty queue ---]
+	[7] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[7] Arrival Time Queue:
+		[prog-V3-E4, 150, USER]
+		[prog-V3-E4, 270, USER]
+	[7] Process [3 - SystemIdleProcess] is thrown out of the processor by process [0 - prog-V3-E4]
+	[7] Process [3 - SystemIdleProcess] moving from the [EXECUTING] state to the [READY] state
+	[7] Process [0 - prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
+	[7] Running Process Information:
+		[PID: 0, Priority: 2, WakeUp: 0, Queue: USER]
+	[7] Ready-to-run processes queue:
+		USER: [0,2], [1,2], [2,2]
+		DAEMONS: [3,100]
+	[7] SLEEPING Queue:
+		[--- empty queue ---]
+	[7] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[7] Arrival Time Queue:
+		[prog-V3-E4, 150, USER]
+		[prog-V3-E4, 270, USER]
+	[11] Process [0 - prog-V3-E4] will transfer the control of the processor to process [0 - prog-V3-E4]
+	[11] Process [0 - prog-V3-E4] moving from the [EXECUTING] state to the [READY] state
+	[11] Process [0 - prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
+	[11] Running Process Information:
+		[PID: 0, Priority: 2, WakeUp: 0, Queue: USER]
+	[11] Ready-to-run processes queue:
+		USER: [0,2], [1,2], [2,2]
+		DAEMONS: [3,100]
+	[11] SLEEPING Queue:
+		[--- empty queue ---]
+	[11] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[11] Arrival Time Queue:
+		[prog-V3-E4, 150, USER]
+		[prog-V3-E4, 270, USER]
+	[22] Process [0 - prog-V3-E4] moving from the [EXECUTING] state to the [BLOCKED] state
+	[22] Process [0 - prog-V3-E4] moving from the [BLOCKED] state to the [EXECUTING] state
+	[22] Running Process Information:
+		[PID: 0, Priority: 2, WakeUp: 11, Queue: USER]
+	[22] Ready-to-run processes queue:
+		USER: [2,2], [1,2]
+		DAEMONS: [3,100]
+	[22] SLEEPING Queue:
+		[0, 2, 11]
+	[22] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[22] Arrival Time Queue:
+		[prog-V3-E4, 150, USER]
+		[prog-V3-E4, 270, USER]
+	[32] Process [0 - prog-V3-E4] will transfer the control of the processor to process [2 - prog-V3-E4]
+	[32] Process [0 - prog-V3-E4] moving from the [EXECUTING] state to the [READY] state
+	[32] Process [2 - prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
+	[32] Running Process Information:
+		[PID: 2, Priority: 2, WakeUp: 0, Queue: USER]
+	[32] Ready-to-run processes queue:
+		USER: [0,2], [1,2]
+		DAEMONS: [3,100]
+	[32] SLEEPING Queue:
+		[0, 2, 11]
+	[32] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[32] Arrival Time Queue:
+		[prog-V3-E4, 150, USER]
+		[prog-V3-E4, 270, USER]
+	[42] Process [2 - prog-V3-E4] will transfer the control of the processor to process [0 - prog-V3-E4]
+	[42] Process [2 - prog-V3-E4] moving from the [EXECUTING] state to the [READY] state
+	[42] Process [0 - prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
+	[42] Running Process Information:
+		[PID: 0, Priority: 2, WakeUp: 11, Queue: USER]
+	[42] Ready-to-run processes queue:
+		USER: [2,2], [1,2]
+		DAEMONS: [3,100]
+	[42] SLEEPING Queue:
+		[0, 2, 11]
+	[42] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[42] Arrival Time Queue:
+		[prog-V3-E4, 150, USER]
+		[prog-V3-E4, 270, USER]
+	[52] Process [0 - prog-V3-E4] moving from the [EXECUTING] state to the [BLOCKED] state
+	[52] Process [2 - prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
+	[52] Running Process Information:
+		[PID: 2, Priority: 2, WakeUp: 0, Queue: USER]
+	[52] Ready-to-run processes queue:
+		USER: [1,2]
+		DAEMONS: [3,100]
+	[52] SLEEPING Queue:
+		[0, 2, 17], [0, 2, 17]
+	[52] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[52] Arrival Time Queue:
+		[prog-V3-E4, 150, USER]
+		[prog-V3-E4, 270, USER]
+	[66] Process [2 - prog-V3-E4] moving from the [EXECUTING] state to the [BLOCKED] state
+	[66] Process [1 - prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
+	[66] Running Process Information:
+		[PID: 1, Priority: 2, WakeUp: 0, Queue: USER]
+	[66] Ready-to-run processes queue:
+		USER:
+ 		DAEMONS: [3,100]
+	[66] SLEEPING Queue:
+		[0, 2, 17], [0, 2, 17], [2, 2, 20]
+	[66] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[66] Arrival Time Queue:
+		[prog-V3-E4, 150, USER]
+		[prog-V3-E4, 270, USER]
+	[87] Process [1 - prog-V3-E4] moving from the [EXECUTING] state to the [BLOCKED] state
+	[87] Process [3 - SystemIdleProcess] moving from the [READY] state to the [EXECUTING] state
+	[87] Running Process Information:
+		[PID: 3, Priority: 100, WakeUp: 0, Queue: DAEMONS]
+	[87] Ready-to-run processes queue:
+		USER:
+ 		DAEMONS:
+ 	[87] SLEEPING Queue:
+		[0, 2, 17], [0, 2, 17], [2, 2, 20], [1, 2, 24]
+	[87] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[87] Arrival Time Queue:
+		[prog-V3-E4, 150, USER]
+		[prog-V3-E4, 270, USER]
+	[90] Process [0 - prog-V3-E4] moving from the [BLOCKED] state to the [READY] state
+	[90] Process [0 - prog-V3-E4] moving from the [READY] state to the [READY] state
+	[90] Running Process Information:
+		[PID: 3, Priority: 100, WakeUp: 0, Queue: DAEMONS]
+	[90] Ready-to-run processes queue:
+		USER: [0,2], [0,2]
+		DAEMONS:
+ 	[90] SLEEPING Queue:
+		[2, 2, 20], [1, 2, 24]
+	[90] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[90] Arrival Time Queue:
+		[prog-V3-E4, 150, USER]
+		[prog-V3-E4, 270, USER]
+	[90] Process [3 - SystemIdleProcess] is thrown out of the processor by process [0 - prog-V3-E4]
+	[90] Process [3 - SystemIdleProcess] moving from the [EXECUTING] state to the [READY] state
+	[90] Process [0 - prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
+	[90] Running Process Information:
+		[PID: 0, Priority: 2, WakeUp: 17, Queue: USER]
+	[90] Ready-to-run processes queue:
+		USER: [0,2], [0,2]
+		DAEMONS: [3,100]
+	[90] SLEEPING Queue:
+		[2, 2, 20], [1, 2, 24]
+	[90] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[90] Arrival Time Queue:
+		[prog-V3-E4, 150, USER]
+		[prog-V3-E4, 270, USER]
+	[97] Process [0 - prog-V3-E4] has requested to terminate
+	[97] Process [0 - prog-V3-E4] moving from the [EXECUTING] state to the [EXIT] state
+	[97] Process [0 - prog-V3-E4] moving from the [EXIT] state to the [EXECUTING] state
+	[97] Running Process Information:
+		[PID: 0, Priority: 2, WakeUp: 17, Queue: USER]
+	[97] Ready-to-run processes queue:
+		USER: [0,2]
+		DAEMONS: [3,100]
+	[97] SLEEPING Queue:
+		[2, 2, 20], [1, 2, 24]
+	[97] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[97] Arrival Time Queue:
+		[prog-V3-E4, 150, USER]
+		[prog-V3-E4, 270, USER]
+	[103] Process [2 - prog-V3-E4] moving from the [BLOCKED] state to the [READY] state
+	[103] Running Process Information:
+		[PID: 0, Priority: 2, WakeUp: 17, Queue: USER]
+	[103] Ready-to-run processes queue:
+		USER: [0,2], [2,2]
+		DAEMONS: [3,100]
+	[103] SLEEPING Queue:
+		[1, 2, 24]
+	[103] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[103] Arrival Time Queue:
+		[prog-V3-E4, 150, USER]
+		[prog-V3-E4, 270, USER]
+	[107] Process [0 - prog-V3-E4] has requested to terminate
+	[107] Process [0 - prog-V3-E4] moving from the [EXECUTING] state to the [EXIT] state
+	[107] Process [0 - prog-V3-E4] moving from the [EXIT] state to the [EXECUTING] state
+	[107] Running Process Information:
+		[PID: 0, Priority: 2, WakeUp: 17, Queue: USER]
+	[107] Ready-to-run processes queue:
+		USER: [2,2]
+		DAEMONS: [3,100]
+	[107] SLEEPING Queue:
+		[1, 2, 24]
+	[107] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[107] Arrival Time Queue:
+		[prog-V3-E4, 150, USER]
+		[prog-V3-E4, 270, USER]
+	[117] Process [0 - prog-V3-E4] has requested to terminate
+	[117] Process [0 - prog-V3-E4] moving from the [EXECUTING] state to the [EXIT] state
+	[117] Process [2 - prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
+	[117] Running Process Information:
+		[PID: 2, Priority: 2, WakeUp: 20, Queue: USER]
+	[117] Ready-to-run processes queue:
+		USER:
+ 		DAEMONS: [3,100]
+	[117] SLEEPING Queue:
+		[1, 2, 24]
+	[117] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[117] Arrival Time Queue:
+		[prog-V3-E4, 150, USER]
+		[prog-V3-E4, 270, USER]
+	[123] Process [1 - prog-V3-E4] moving from the [BLOCKED] state to the [READY] state
+	[123] Running Process Information:
+		[PID: 2, Priority: 2, WakeUp: 20, Queue: USER]
+	[123] Ready-to-run processes queue:
+		USER: [1,2]
+		DAEMONS: [3,100]
+	[123] SLEEPING Queue:
+		[--- empty queue ---]
+	[123] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[123] Arrival Time Queue:
+		[prog-V3-E4, 150, USER]
+		[prog-V3-E4, 270, USER]
+	[127] Process [2 - prog-V3-E4] will transfer the control of the processor to process [1 - prog-V3-E4]
+	[127] Process [2 - prog-V3-E4] moving from the [EXECUTING] state to the [READY] state
+	[127] Process [1 - prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
+	[127] Running Process Information:
+		[PID: 1, Priority: 2, WakeUp: 24, Queue: USER]
+	[127] Ready-to-run processes queue:
+		USER: [2,2]
+		DAEMONS: [3,100]
+	[127] SLEEPING Queue:
+		[--- empty queue ---]
+	[127] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[127] Arrival Time Queue:
+		[prog-V3-E4, 150, USER]
+		[prog-V3-E4, 270, USER]
+	[137] Process [1 - prog-V3-E4] will transfer the control of the processor to process [2 - prog-V3-E4]
+	[137] Process [1 - prog-V3-E4] moving from the [EXECUTING] state to the [READY] state
+	[137] Process [2 - prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
+	[137] Running Process Information:
+		[PID: 2, Priority: 2, WakeUp: 20, Queue: USER]
+	[137] Ready-to-run processes queue:
+		USER: [1,2]
+		DAEMONS: [3,100]
+	[137] SLEEPING Queue:
+		[--- empty queue ---]
+	[137] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[137] Arrival Time Queue:
+		[prog-V3-E4, 150, USER]
+		[prog-V3-E4, 270, USER]
+	[147] Process [2 - prog-V3-E4] moving from the [EXECUTING] state to the [BLOCKED] state
+	[147] Process [1 - prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
+	[147] Running Process Information:
+		[PID: 1, Priority: 2, WakeUp: 24, Queue: USER]
+	[147] Ready-to-run processes queue:
+		USER:
+ 		DAEMONS: [3,100]
+	[147] SLEEPING Queue:
+		[2, 2, 36]
+	[147] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[147] Arrival Time Queue:
+		[prog-V3-E4, 150, USER]
+		[prog-V3-E4, 270, USER]
+	[150] Zombie process [0 -> prog-V3-E4], with size [60] and initial address [0] is removed from system
+	[150] New process [0 - prog-V3-E4] moving to the [NEW] state
+	[150] Process [0] created from program [prog-V3-E4]
+	[150] Process [0 - prog-V3-E4] moving from the [NEW] state to the [READY] state
+	[150] Running Process Information:
+		[PID: 1, Priority: 2, WakeUp: 24, Queue: USER]
+	[150] Ready-to-run processes queue:
+		USER: [0,2]
+		DAEMONS: [3,100]
+	[150] SLEEPING Queue:
+		[2, 2, 36]
+	[150] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[150] Arrival Time Queue:
+		[prog-V3-E4, 270, USER]
+	[157] Process [1 - prog-V3-E4] moving from the [EXECUTING] state to the [BLOCKED] state
+	[157] Process [0 - prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
+	[157] Running Process Information:
+		[PID: 0, Priority: 2, WakeUp: 0, Queue: USER]
+	[157] Ready-to-run processes queue:
+		USER:
+ 		DAEMONS: [3,100]
+	[157] SLEEPING Queue:
+		[2, 2, 36], [1, 2, 38]
+	[157] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[157] Arrival Time Queue:
+		[prog-V3-E4, 270, USER]
+	[181] Process [0 - prog-V3-E4] moving from the [EXECUTING] state to the [BLOCKED] state
+	[181] Process [3 - SystemIdleProcess] moving from the [READY] state to the [EXECUTING] state
+	[181] Running Process Information:
+		[PID: 3, Priority: 100, WakeUp: 0, Queue: DAEMONS]
+	[181] Ready-to-run processes queue:
+		USER:
+ 		DAEMONS:
+ 	[181] SLEEPING Queue:
+		[2, 2, 36], [1, 2, 38], [0, 2, 43]
+	[181] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[181] Arrival Time Queue:
+		[prog-V3-E4, 270, USER]
+	[184] Process [2 - prog-V3-E4] moving from the [BLOCKED] state to the [READY] state
+	[184] Running Process Information:
+		[PID: 3, Priority: 100, WakeUp: 0, Queue: DAEMONS]
+	[184] Ready-to-run processes queue:
+		USER: [2,2]
+		DAEMONS:
+ 	[184] SLEEPING Queue:
+		[1, 2, 38], [0, 2, 43]
+	[184] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[184] Arrival Time Queue:
+		[prog-V3-E4, 270, USER]
+	[184] Process [3 - SystemIdleProcess] is thrown out of the processor by process [2 - prog-V3-E4]
+	[184] Process [3 - SystemIdleProcess] moving from the [EXECUTING] state to the [READY] state
+	[184] Process [2 - prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
+	[184] Running Process Information:
+		[PID: 2, Priority: 2, WakeUp: 36, Queue: USER]
+	[184] Ready-to-run processes queue:
+		USER: [2,2]
+		DAEMONS: [3,100]
+	[184] SLEEPING Queue:
+		[1, 2, 38], [0, 2, 43]
+	[184] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[184] Arrival Time Queue:
+		[prog-V3-E4, 270, USER]
+	[191] Process [2 - prog-V3-E4] has requested to terminate
+	[191] Process [2 - prog-V3-E4] moving from the [EXECUTING] state to the [EXIT] state
+	[191] Process [2 - prog-V3-E4] moving from the [EXIT] state to the [EXECUTING] state
+	[191] Running Process Information:
+		[PID: 2, Priority: 2, WakeUp: 36, Queue: USER]
+	[191] Ready-to-run processes queue:
+		USER:
+ 		DAEMONS: [3,100]
+	[191] SLEEPING Queue:
+		[1, 2, 38], [0, 2, 43]
+	[191] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[191] Arrival Time Queue:
+		[prog-V3-E4, 270, USER]
+	[194] Process [1 - prog-V3-E4] moving from the [BLOCKED] state to the [READY] state
+	[194] Running Process Information:
+		[PID: 2, Priority: 2, WakeUp: 36, Queue: USER]
+	[194] Ready-to-run processes queue:
+		USER: [1,2]
+		DAEMONS: [3,100]
+	[194] SLEEPING Queue:
+		[0, 2, 43]
+	[194] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[194] Arrival Time Queue:
+		[prog-V3-E4, 270, USER]
+	[201] Process [2 - prog-V3-E4] has requested to terminate
+	[201] Process [2 - prog-V3-E4] moving from the [EXECUTING] state to the [EXIT] state
+	[201] Process [1 - prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
+	[201] Running Process Information:
+		[PID: 1, Priority: 2, WakeUp: 38, Queue: USER]
+	[201] Ready-to-run processes queue:
+		USER:
+ 		DAEMONS: [3,100]
+	[201] SLEEPING Queue:
+		[0, 2, 43]
+	[201] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[201] Arrival Time Queue:
+		[prog-V3-E4, 270, USER]
+	[211] Process [1 - prog-V3-E4] has requested to terminate
+	[211] Process [1 - prog-V3-E4] moving from the [EXECUTING] state to the [EXIT] state
+	[211] Process [3 - SystemIdleProcess] moving from the [READY] state to the [EXECUTING] state
+	[211] Running Process Information:
+		[PID: 3, Priority: 100, WakeUp: 0, Queue: DAEMONS]
+	[211] Ready-to-run processes queue:
+		USER:
+ 		DAEMONS:
+ 	[211] SLEEPING Queue:
+		[0, 2, 43]
+	[211] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[211] Arrival Time Queue:
+		[prog-V3-E4, 270, USER]
+	[217] Process [0 - prog-V3-E4] moving from the [BLOCKED] state to the [READY] state
+	[217] Running Process Information:
+		[PID: 3, Priority: 100, WakeUp: 0, Queue: DAEMONS]
+	[217] Ready-to-run processes queue:
+		USER: [0,2]
+		DAEMONS:
+ 	[217] SLEEPING Queue:
+		[--- empty queue ---]
+	[217] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[217] Arrival Time Queue:
+		[prog-V3-E4, 270, USER]
+	[217] Process [3 - SystemIdleProcess] is thrown out of the processor by process [0 - prog-V3-E4]
+	[217] Process [3 - SystemIdleProcess] moving from the [EXECUTING] state to the [READY] state
+	[217] Process [0 - prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
+	[217] Running Process Information:
+		[PID: 0, Priority: 2, WakeUp: 43, Queue: USER]
+	[217] Ready-to-run processes queue:
+		USER: [0,2]
+		DAEMONS: [3,100]
+	[217] SLEEPING Queue:
+		[--- empty queue ---]
+	[217] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[217] Arrival Time Queue:
+		[prog-V3-E4, 270, USER]
+	[221] Process [0 - prog-V3-E4] will transfer the control of the processor to process [0 - prog-V3-E4]
+	[221] Process [0 - prog-V3-E4] moving from the [EXECUTING] state to the [READY] state
+	[221] Process [0 - prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
+	[221] Running Process Information:
+		[PID: 0, Priority: 2, WakeUp: 43, Queue: USER]
+	[221] Ready-to-run processes queue:
+		USER: [0,2]
+		DAEMONS: [3,100]
+	[221] SLEEPING Queue:
+		[--- empty queue ---]
+	[221] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[221] Arrival Time Queue:
+		[prog-V3-E4, 270, USER]
+	[231] Process [0 - prog-V3-E4] moving from the [EXECUTING] state to the [BLOCKED] state
+	[231] Process [0 - prog-V3-E4] moving from the [BLOCKED] state to the [EXECUTING] state
+	[231] Running Process Information:
+		[PID: 0, Priority: 2, WakeUp: 53, Queue: USER]
+	[231] Ready-to-run processes queue:
+		USER:
+ 		DAEMONS: [3,100]
+	[231] SLEEPING Queue:
+		[0, 2, 53]
+	[231] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[231] Arrival Time Queue:
+		[prog-V3-E4, 270, USER]
+	[241] Process [0 - prog-V3-E4] has requested to terminate
+	[241] Process [0 - prog-V3-E4] moving from the [EXECUTING] state to the [EXIT] state
+	[241] Process [3 - SystemIdleProcess] moving from the [READY] state to the [EXECUTING] state
+	[241] Running Process Information:
+		[PID: 3, Priority: 100, WakeUp: 0, Queue: DAEMONS]
+	[241] Ready-to-run processes queue:
+		USER:
+ 		DAEMONS:
+ 	[241] SLEEPING Queue:
+		[0, 2, 53]
+	[241] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[241] Arrival Time Queue:
+		[prog-V3-E4, 270, USER]
+	[267] Process [0 - prog-V3-E4] moving from the [EXIT] state to the [READY] state
+	[267] Running Process Information:
+		[PID: 3, Priority: 100, WakeUp: 0, Queue: DAEMONS]
+	[267] Ready-to-run processes queue:
+		USER: [0,2]
+		DAEMONS:
+ 	[267] SLEEPING Queue:
+		[--- empty queue ---]
+	[267] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[267] Arrival Time Queue:
+		[prog-V3-E4, 270, USER]
+	[267] Process [3 - SystemIdleProcess] is thrown out of the processor by process [0 - prog-V3-E4]
+	[267] Process [3 - SystemIdleProcess] moving from the [EXECUTING] state to the [READY] state
+	[267] Process [0 - prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
+	[267] Running Process Information:
+		[PID: 0, Priority: 2, WakeUp: 53, Queue: USER]
+	[267] Ready-to-run processes queue:
+		USER: [0,2]
+		DAEMONS: [3,100]
+	[267] SLEEPING Queue:
+		[--- empty queue ---]
+	[267] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[267] Arrival Time Queue:
+		[prog-V3-E4, 270, USER]
+	[271] Process [0 - prog-V3-E4] has requested to terminate
+	[271] Process [0 - prog-V3-E4] moving from the [EXECUTING] state to the [EXIT] state
+	[271] Process [0 - prog-V3-E4] moving from the [EXIT] state to the [EXECUTING] state
+	[271] Running Process Information:
+		[PID: 0, Priority: 2, WakeUp: 53, Queue: USER]
+	[271] Ready-to-run processes queue:
+		USER:
+ 		DAEMONS: [3,100]
+	[271] SLEEPING Queue:
+		[--- empty queue ---]
+	[271] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 2 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[271] Arrival Time Queue:
+		[prog-V3-E4, 270, USER]
+	[274] Zombie process [1 -> prog-V3-E4], with size [60] and initial address [60] is removed from system
+	[274] Zombie process [2 -> prog-V3-E4], with size [60] and initial address [120] is removed from system
+	[274] New process [1 - prog-V3-E4] moving to the [NEW] state
+	[274] Process [1] created from program [prog-V3-E4]
+	[274] Process [1 - prog-V3-E4] moving from the [NEW] state to the [READY] state
+	[274] Running Process Information:
+		[PID: 0, Priority: 2, WakeUp: 53, Queue: USER]
+	[274] Ready-to-run processes queue:
+		USER: [1,2]
+		DAEMONS: [3,100]
+	[274] SLEEPING Queue:
+		[--- empty queue ---]
+	[274] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[281] Process [0 - prog-V3-E4] has requested to terminate
+	[281] Process [0 - prog-V3-E4] moving from the [EXECUTING] state to the [EXIT] state
+	[281] Process [1 - prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
+	[281] Running Process Information:
+		[PID: 1, Priority: 2, WakeUp: 0, Queue: USER]
+	[281] Ready-to-run processes queue:
+		USER:
+ 		DAEMONS: [3,100]
+	[281] SLEEPING Queue:
+		[--- empty queue ---]
+	[281] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[302] Process [1 - prog-V3-E4] moving from the [EXECUTING] state to the [BLOCKED] state
+	[302] Process [3 - SystemIdleProcess] moving from the [READY] state to the [EXECUTING] state
+	[302] Running Process Information:
+		[PID: 3, Priority: 100, WakeUp: 0, Queue: DAEMONS]
+	[302] Ready-to-run processes queue:
+		USER:
+ 		DAEMONS:
+ 	[302] SLEEPING Queue:
+		[1, 2, 67]
+	[302] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[337] Process [1 - prog-V3-E4] moving from the [BLOCKED] state to the [READY] state
+	[337] Running Process Information:
+		[PID: 3, Priority: 100, WakeUp: 0, Queue: DAEMONS]
+	[337] Ready-to-run processes queue:
+		USER: [1,2]
+		DAEMONS:
+ 	[337] SLEEPING Queue:
+		[--- empty queue ---]
+	[337] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[337] Process [3 - SystemIdleProcess] is thrown out of the processor by process [1 - prog-V3-E4]
+	[337] Process [3 - SystemIdleProcess] moving from the [EXECUTING] state to the [READY] state
+	[337] Process [1 - prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
+	[337] Running Process Information:
+		[PID: 1, Priority: 2, WakeUp: 67, Queue: USER]
+	[337] Ready-to-run processes queue:
+		USER: [1,2]
+		DAEMONS: [3,100]
+	[337] SLEEPING Queue:
+		[--- empty queue ---]
+	[337] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[341] Process [1 - prog-V3-E4] will transfer the control of the processor to process [1 - prog-V3-E4]
+	[341] Process [1 - prog-V3-E4] moving from the [EXECUTING] state to the [READY] state
+	[341] Process [1 - prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
+	[341] Running Process Information:
+		[PID: 1, Priority: 2, WakeUp: 67, Queue: USER]
+	[341] Ready-to-run processes queue:
+		USER: [1,2]
+		DAEMONS: [3,100]
+	[341] SLEEPING Queue:
+		[--- empty queue ---]
+	[341] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[351] Process [1 - prog-V3-E4] moving from the [EXECUTING] state to the [BLOCKED] state
+	[351] Process [1 - prog-V3-E4] moving from the [BLOCKED] state to the [EXECUTING] state
+	[351] Running Process Information:
+		[PID: 1, Priority: 2, WakeUp: 77, Queue: USER]
+	[351] Ready-to-run processes queue:
+		USER:
+ 		DAEMONS: [3,100]
+	[351] SLEEPING Queue:
+		[1, 2, 77]
+	[351] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[361] Process [1 - prog-V3-E4] has requested to terminate
+	[361] Process [1 - prog-V3-E4] moving from the [EXECUTING] state to the [EXIT] state
+	[361] Process [3 - SystemIdleProcess] moving from the [READY] state to the [EXECUTING] state
+	[361] Running Process Information:
+		[PID: 3, Priority: 100, WakeUp: 0, Queue: DAEMONS]
+	[361] Ready-to-run processes queue:
+		USER:
+ 		DAEMONS:
+ 	[361] SLEEPING Queue:
+		[1, 2, 77]
+	[361] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[387] Process [1 - prog-V3-E4] moving from the [EXIT] state to the [READY] state
+	[387] Running Process Information:
+		[PID: 3, Priority: 100, WakeUp: 0, Queue: DAEMONS]
+	[387] Ready-to-run processes queue:
+		USER: [1,2]
+		DAEMONS:
+ 	[387] SLEEPING Queue:
+		[--- empty queue ---]
+	[387] PID association with program's name:
+		PID: 0 -> prog-V3-E4
+		PID: 1 -> prog-V3-E4
+		PID: 3 -> SystemIdleProcess
+	[387
