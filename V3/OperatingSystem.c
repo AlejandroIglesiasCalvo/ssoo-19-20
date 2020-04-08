@@ -180,13 +180,8 @@ int OperatingSystem_LongTermScheduler()
 			{
 				numberOfNotTerminatedUserProcesses++;
 			}
-			else
-			{
-				//numberOfReadyToRunProcesses[DAEMONSQUEUE]++;
-			}
-			// Move process to the ready state
 			OperatingSystem_MoveToTheREADYState(PID);
-			continue;
+			break;
 		}
 	}
 	// Return the number of succesfully created processes
