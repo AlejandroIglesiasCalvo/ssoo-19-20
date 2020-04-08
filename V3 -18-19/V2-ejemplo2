@@ -1,0 +1,7 @@
+20
+10
+ADD 15 0
+ZJUMP 3
+INC -1
+JUMP -2
+TRAP 3

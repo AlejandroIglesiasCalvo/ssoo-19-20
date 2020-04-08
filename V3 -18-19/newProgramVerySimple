@@ -1,0 +1,6 @@
+30
+5
+NOP
+ADD 10 0
+WRITE 15
+TRAP 3//Para que no apague el procesador al acabar un proceso,asi se puede ejecutar mas de uno
