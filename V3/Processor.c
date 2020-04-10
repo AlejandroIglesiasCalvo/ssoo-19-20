@@ -294,7 +294,7 @@ void Processor_ManageInterrupts()
 			// Copy PC and PSW registers in the system stack
 			Processor_CopyInSystemStack(MAINMEMORYSIZE - 1, registerPC_CPU);
 			Processor_CopyInSystemStack(MAINMEMORYSIZE - 2, registerPSW_CPU);
-			Processor_CopyInSystemStack(MAINMEMORYSIZE - 3, registerAccumulator_CPU);
+			//Processor_CopyInSystemStack(MAINMEMORYSIZE - 3, registerAccumulator_CPU);
 			// Activate protected excution mode
 			Processor_ActivatePSW_Bit(EXECUTION_MODE_BIT);
 			//V2 E3 D

@@ -102,8 +102,11 @@ void OperatingSystem_Initialize(int daemonsIndex)
 	OperatingSystem_PrintStatus();
 	// Create all user processes from the information given in the command line
 	//Ejercicio 15 V1
-	OperatingSystem_LongTermScheduler();
-
+	int creados = OperatingSystem_LongTermScheduler();
+	if (creados > 1 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE)
+	{
+		OperatingSystem_ReadyToShutdown();
+	}
 	if (strcmp(programList[processTable[sipID].programListIndex]->executableName, "SystemIdleProcess"))
 	{
 		// Show red message "FATAL ERROR: Missing SIP program!\n"
@@ -381,7 +384,8 @@ void OperatingSystem_SaveContext(int PID)
 	// Load PSW saved for interrupt manager
 	processTable[PID].copyOfPSWRegister = Processor_CopyFromSystemStack(MAINMEMORYSIZE - 2);
 	//Ejercicio 13 V1
-	processTable[PID].copyOfAccumulator = Processor_CopyFromSystemStack(MAINMEMORYSIZE - 3);
+	//processTable[PID].copyOfAccumulator = Processor_CopyFromSystemStack(MAINMEMORYSIZE - 3);
+	processTable[PID].copyOfAccumulator = Processor_GetAccumulator();
 }
 
 // Exception management routine
