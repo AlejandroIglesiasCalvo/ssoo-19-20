@@ -237,7 +237,7 @@ void Processor_DecodeAndExecuteInstruction()
 			ComputerSystem_DebugMessage(69, HARDWARE, InstructionNames[operationCode], operand1, operand2, registerPC_CPU, registerAccumulator_CPU, registerPSW_CPU, Processor_ShowPSW());
 			Processor_RaiseInterrupt(EXCEPTION_BIT);
 		}
-		return; // Note: message show before... for operating system messages after...
+		break; // Note: message show before... for operating system messages after...
 
 	// Instruction IRET
 	case IRET_INST: // Return from a interrupt handle manager call
@@ -330,4 +330,8 @@ void MegaMensajeMejorado(operationCode, operand1, operand2)
 {
 	int PID = OperatingSystem_GetExecutingProcessID(operationCode);
 	ComputerSystem_DebugMessage(130, HARDWARE, InstructionNames[operationCode], operand1, operand2, PID, registerPC_CPU, registerAccumulator_CPU, registerPSW_CPU, Processor_ShowPSW());
+}
+void limpiarProcesador()
+{
+	Processor_SetAccumulator(0);
 }

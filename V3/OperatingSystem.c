@@ -636,7 +636,7 @@ void procesoAlfa()
 		OperatingSystem_ShowTime(INTERRUPT);
 		ComputerSystem_DebugMessage(121, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, NuevoAlfa, programList[processTable[NuevoAlfa].programListIndex]->executableName);
 		OperatingSystem_PreemptRunningProcess(); //Se pira el actual
-		//OperatingSystem_ShortTermScheduler();
+		limpiarProcesador();
 		OperatingSystem_Dispatch(NuevoAlfa);
 		OperatingSystem_PrintStatus();
 	}

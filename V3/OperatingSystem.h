@@ -89,4 +89,5 @@ int OperatingSystem_GetExecutingProcessID(int);
 //V3 E2
 int llegasTarde();
 void apagarPorLaFuerza();
+
 #endif

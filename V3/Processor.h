@@ -41,4 +41,5 @@ void Processor_SetCTRL(int);
 void OperatingSystem_ShowTime_User(char section);
 
 void MegaMensajeMejorado(int,int,int);
+void limpiarProcesador();
 #endif
