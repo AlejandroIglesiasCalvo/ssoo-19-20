@@ -440,31 +440,6 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 3 -> SystemIdleProcess
 	[154] Arrival Time Queue:
 		[../programas/prog-V3-E4, 270, USER]
-Assert failed. Time: 154; Element: PSW; Expected: 32898; Real: 32900
-Assert failed. Time: 154; Element: ACC; Expected: 0; Real: -7
-Assert failed. Time: 155; Element: PSW; Expected: 2; Real: 4
-Assert failed. Time: 155; Element: ACC; Expected: 0; Real: -7
-Assert failed. Time: 157; Element: AMEM; Expected: 2; Real: 4; Memory address: 298
-Assert failed. Time: 157; Element: PSW; Expected: 32898; Real: 32900
-Assert failed. Time: 157; Element: ACC; Expected: 0; Real: -7
-Assert failed. Time: 158; Element: AMEM; Expected: 2; Real: 4; Memory address: 298
-Assert failed. Time: 158; Element: PSW; Expected: 2; Real: 4
-Assert failed. Time: 158; Element: ACC; Expected: 0; Real: -7
-Assert failed. Time: 159; Element: AMEM; Expected: 2; Real: 4; Memory address: 298
-Assert failed. Time: 159; Element: PSW; Expected: 2; Real: 4
-Assert failed. Time: 159; Element: ACC; Expected: 0; Real: -7
-Assert failed. Time: 161; Element: AMEM; Expected: 2; Real: 4; Memory address: 298
-Assert failed. Time: 161; Element: PSW; Expected: 32898; Real: 32900
-Assert failed. Time: 161; Element: ACC; Expected: 0; Real: -7
-Assert failed. Time: 162; Element: AMEM; Expected: 2; Real: 4; Memory address: 298
-Assert failed. Time: 162; Element: PSW; Expected: 2; Real: 4
-Assert failed. Time: 162; Element: ACC; Expected: 0; Real: -7
-Assert failed. Time: 164; Element: AMEM; Expected: 2; Real: 4; Memory address: 298
-Assert failed. Time: 164; Element: PSW; Expected: 32898; Real: 32900
-Assert failed. Time: 164; Element: ACC; Expected: 0; Real: -7
-Assert failed. Time: 165; Element: AMEM; Expected: 2; Real: 4; Memory address: 298
-Assert failed. Time: 165; Element: PSW; Expected: 2; Real: 4
-Assert failed. Time: 165; Element: ACC; Expected: 0; Real: -7
 	[167] Process [2 - ../programas/prog-V3-E4] moving from the [BLOCKED] state to the [READY] state
 	[167] Running Process Information:
 		[PID: 0, Priority: 2, WakeUp: 25, Queue: USER]
@@ -479,14 +454,6 @@ Assert failed. Time: 165; Element: ACC; Expected: 0; Real: -7
 		PID: 3 -> SystemIdleProcess
 	[167] Arrival Time Queue:
 		[../programas/prog-V3-E4, 270, USER]
-Assert failed. Time: 167; Element: AMEM; Expected: 2; Real: 4; Memory address: 298
-Assert failed. Time: 167; Element: PSW; Expected: 32898; Real: 32900
-Assert failed. Time: 167; Element: ACC; Expected: 0; Real: -7
-Assert failed. Time: 168; Element: AMEM; Expected: 2; Real: 4; Memory address: 298
-Assert failed. Time: 168; Element: PSW; Expected: 2; Real: 4
-Assert failed. Time: 168; Element: ACC; Expected: 0; Real: -7
-Assert failed. Time: 169; Element: AMEM; Expected: 2; Real: 4; Memory address: 298
-Assert failed. Time: 170; Element: AMEM; Expected: 2; Real: 4; Memory address: 298
 	[172] Process [0 - ../programas/prog-V3-E4] moving from the [EXECUTING] state to the [BLOCKED] state
 	[172] Process [2 - ../programas/prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
 	[172] Running Process Information:
@@ -644,35 +611,35 @@ Assert failed. Time: 272; Element: AMEM; Expected: 183; Real: 0; Memory address:
 Assert failed. Time: 272; Element: MMEM_MAR; Expected: 299; Real: 298
 Assert failed. Time: 272; Element: MMU_BS; Expected: 180; Real: 60
 Assert failed. Time: 272; Element: XPID; Expected: 3; Real: 1
-Assert failed. Time: 272; Element: PSW; Expected: 32896; Real: 32900
-Assert failed. Time: 272; Element: ACC; Expected: 1920; Real: -7
+Assert failed. Time: 272; Element: PSW; Expected: 32896; Real: 32898
+Assert failed. Time: 272; Element: ACC; Expected: 1920; Real: 0
 Assert failed. Time: 273; Element: AMEM; Expected: 128; Real: 0; Memory address: 298
 Assert failed. Time: 273; Element: AMEM; Expected: 183; Real: 0; Memory address: 299
 Assert failed. Time: 273; Element: MMU_BS; Expected: 180; Real: 60
 Assert failed. Time: 273; Element: XPID; Expected: 3; Real: 1
-Assert failed. Time: 273; Element: PSW; Expected: 128; Real: 4
-Assert failed. Time: 273; Element: ACC; Expected: 1920; Real: -7
+Assert failed. Time: 273; Element: PSW; Expected: 128; Real: 2
+Assert failed. Time: 273; Element: ACC; Expected: 1920; Real: 0
 Assert failed. Time: 274; Element: AMEM; Expected: 128; Real: 0; Memory address: 298
 Assert failed. Time: 274; Element: AMEM; Expected: 183; Real: 0; Memory address: 299
 Assert failed. Time: 274; Element: MMEM_MAR; Expected: 183; Real: 60
 Assert failed. Time: 274; Element: MMU_BS; Expected: 180; Real: 60
 Assert failed. Time: 274; Element: IR_O1; Expected: 3; Real: 4
 Assert failed. Time: 274; Element: XPID; Expected: 3; Real: 1
-Assert failed. Time: 274; Element: PSW; Expected: 128; Real: 4
-Assert failed. Time: 274; Element: ACC; Expected: 1920; Real: -7
-Assert failed. Time: 276; Element: AMEM; Expected: 32896; Real: 4; Memory address: 298
+Assert failed. Time: 274; Element: PSW; Expected: 128; Real: 2
+Assert failed. Time: 274; Element: ACC; Expected: 1920; Real: 0
+Assert failed. Time: 276; Element: AMEM; Expected: 32896; Real: 2; Memory address: 298
 Assert failed. Time: 276; Element: AMEM; Expected: 241; Real: 1; Memory address: 299
 Assert failed. Time: 276; Element: MMEM_MAR; Expected: 298; Real: 242
 Assert failed. Time: 276; Element: MMU_BS; Expected: 180; Real: 60
 Assert failed. Time: 276; Element: XPID; Expected: -1; Real: 1
-Assert failed. Time: 276; Element: PSW; Expected: 32896; Real: 32900
-Assert failed. Time: 276; Element: ACC; Expected: 1920; Real: -7
-Assert failed. Time: 277; Element: AMEM; Expected: 32896; Real: 4; Memory address: 298
+Assert failed. Time: 276; Element: PSW; Expected: 32896; Real: 32898
+Assert failed. Time: 276; Element: ACC; Expected: 1920; Real: 0
+Assert failed. Time: 277; Element: AMEM; Expected: 32896; Real: 2; Memory address: 298
 Assert failed. Time: 277; Element: AMEM; Expected: 241; Real: 1; Memory address: 299
 Assert failed. Time: 277; Element: MMU_BS; Expected: 180; Real: 60
 Assert failed. Time: 277; Element: XPID; Expected: -1; Real: 1
-Assert failed. Time: 277; Element: PSW; Expected: 32896; Real: 4
-Assert failed. Time: 277; Element: ACC; Expected: 1920; Real: -7
+Assert failed. Time: 277; Element: PSW; Expected: 32896; Real: 2
+Assert failed. Time: 277; Element: ACC; Expected: 1920; Real: 0
 Assert warning. Unchecked assert (Time: 278, Element: AMEM)
 Assert warning. Unchecked assert (Time: 278, Element: AMEM)
 Assert warning. Unchecked assert (Time: 278, Element: AMEM)

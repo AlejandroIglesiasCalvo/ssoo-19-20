@@ -267,6 +267,9 @@ void OperatingSystem_PCBInitialization(int PID, int initialPhysicalAddress, int 
 	processTable[PID].state = NEW;
 	processTable[PID].priority = priority;
 	processTable[PID].programListIndex = processPLIndex;
+	processTable[PID].copyOfAccumulator=0;
+	processTable[PID].copyOfPCRegister=0;
+	processTable[PID].copyOfPSWRegister=0;
 	// Daemons run in protected mode and MMU use real address
 	if (programList[processPLIndex]->type == DAEMONPROGRAM)
 	{
@@ -631,12 +634,14 @@ void procesoAlfa()
 	}
 	else if (executingProcessID == sipID && numberOfReadyToRunProcesses[USERPROCESSQUEUE] > 0)
 	{
-		int NuevoAlfa = Heap_poll(readyToRunQueue[processTable[posibleAlfa].queueID], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[posibleAlfa].queueID]);
+		int actual=executingProcessID;
+		//int NuevoAlfa = Heap_poll(readyToRunQueue[processTable[posibleAlfa].queueID], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[posibleAlfa].queueID]);
+		int NuevoAlfa = Heap_poll(readyToRunQueue[USERPROCESSQUEUE], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[USERPROCESSQUEUE]);
 		PID_para_Procesador = NuevoAlfa; //Para el procesador
 		OperatingSystem_ShowTime(INTERRUPT);
-		ComputerSystem_DebugMessage(121, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, NuevoAlfa, programList[processTable[NuevoAlfa].programListIndex]->executableName);
+		ComputerSystem_DebugMessage(121, SHORTTERMSCHEDULE, actual, programList[processTable[actual].programListIndex]->executableName, NuevoAlfa, programList[processTable[NuevoAlfa].programListIndex]->executableName);
 		OperatingSystem_PreemptRunningProcess(); //Se pira el actual
-		limpiarProcesador();
+		//limpiarProcesador();
 		OperatingSystem_Dispatch(NuevoAlfa);
 		OperatingSystem_PrintStatus();
 	}
