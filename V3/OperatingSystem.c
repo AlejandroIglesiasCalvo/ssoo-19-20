@@ -268,8 +268,6 @@ void OperatingSystem_PCBInitialization(int PID, int initialPhysicalAddress, int 
 	processTable[PID].priority = priority;
 	processTable[PID].programListIndex = processPLIndex;
 	processTable[PID].copyOfAccumulator=0;
-	processTable[PID].copyOfPCRegister=0;
-	processTable[PID].copyOfPSWRegister=0;
 	// Daemons run in protected mode and MMU use real address
 	if (programList[processPLIndex]->type == DAEMONPROGRAM)
 	{
