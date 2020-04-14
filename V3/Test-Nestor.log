@@ -3,7 +3,7 @@
 	Program [../programas/prog-V3-E4] with arrival time [2]
 	Program [../programas/prog-V3-E4] with arrival time [4]
 	Program [../programas/prog-V3-E4] with arrival time [150]
-	Program [../programas/prog-V3-E4] with arrival time [270]
+	Program [../programas/prog_V3-E4] with arrival time [270]
 	[0] Running Process Information:
 		[--- No running process ---]
 	[0] Ready-to-run processes queues:
@@ -18,7 +18,7 @@
 		[../programas/prog-V3-E4, 2, USER]
 		[../programas/prog-V3-E4, 4, USER]
 		[../programas/prog-V3-E4, 150, USER]
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[0] New process [3 - SystemIdleProcess] moving to the [NEW] state
 	[0] Process [3] created from program [SystemIdleProcess]
 	[0] Process [3 - SystemIdleProcess] moving from the [NEW] state to the [READY] state
@@ -35,7 +35,7 @@
 		[../programas/prog-V3-E4, 1, USER]
 		[../programas/prog-V3-E4, 4, USER]
 		[../programas/prog-V3-E4, 2, USER]
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 		[../programas/prog-V3-E4, 150, USER]
 	[0] Process [3 - SystemIdleProcess] moving from the [READY] state to the [EXECUTING] state
 	[7] New process [0 - ../programas/prog-V3-E4] moving to the [NEW] state
@@ -61,7 +61,7 @@
 		PID: 3 -> SystemIdleProcess
 	[7] Arrival Time Queue:
 		[../programas/prog-V3-E4, 150, USER]
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 Process [3 - SystemIdleProcess] will be thrown out of the processor by process [0 - ../programas/prog-V3-E4]
 	[7] Process [3 - SystemIdleProcess] moving from the [EXECUTING] state to the [READY] state
 	[7] Process [0 - ../programas/prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
@@ -79,7 +79,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 3 -> SystemIdleProcess
 	[7] Arrival Time Queue:
 		[../programas/prog-V3-E4, 150, USER]
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[11] Process [0 - ../programas/prog-V3-E4] will transfer the control of the processor to process [1 - ../programas/prog-V3-E4]
 	[11] Process [0 - ../programas/prog-V3-E4] moving from the [EXECUTING] state to the [READY] state
 	[11] Process [1 - ../programas/prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
@@ -97,7 +97,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 3 -> SystemIdleProcess
 	[11] Arrival Time Queue:
 		[../programas/prog-V3-E4, 150, USER]
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[21] Process [1 - ../programas/prog-V3-E4] will transfer the control of the processor to process [2 - ../programas/prog-V3-E4]
 	[21] Process [1 - ../programas/prog-V3-E4] moving from the [EXECUTING] state to the [READY] state
 	[21] Process [2 - ../programas/prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
@@ -115,7 +115,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 3 -> SystemIdleProcess
 	[21] Arrival Time Queue:
 		[../programas/prog-V3-E4, 150, USER]
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[31] Process [2 - ../programas/prog-V3-E4] will transfer the control of the processor to process [0 - ../programas/prog-V3-E4]
 	[31] Process [2 - ../programas/prog-V3-E4] moving from the [EXECUTING] state to the [READY] state
 	[31] Process [0 - ../programas/prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
@@ -133,7 +133,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 3 -> SystemIdleProcess
 	[31] Arrival Time Queue:
 		[../programas/prog-V3-E4, 150, USER]
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[42] Process [0 - ../programas/prog-V3-E4] moving from the [EXECUTING] state to the [BLOCKED] state
 	[42] Process [1 - ../programas/prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
 	[42] Running Process Information:
@@ -150,7 +150,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 3 -> SystemIdleProcess
 	[42] Arrival Time Queue:
 		[../programas/prog-V3-E4, 150, USER]
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[56] Process [1 - ../programas/prog-V3-E4] moving from the [EXECUTING] state to the [BLOCKED] state
 	[56] Process [2 - ../programas/prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
 	[56] Running Process Information:
@@ -167,7 +167,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 3 -> SystemIdleProcess
 	[56] Arrival Time Queue:
 		[../programas/prog-V3-E4, 150, USER]
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[67] Process [2 - ../programas/prog-V3-E4] moving from the [EXECUTING] state to the [BLOCKED] state
 	[67] Process [3 - SystemIdleProcess] moving from the [READY] state to the [EXECUTING] state
 	[67] Running Process Information:
@@ -184,7 +184,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 3 -> SystemIdleProcess
 	[67] Arrival Time Queue:
 		[../programas/prog-V3-E4, 150, USER]
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[77] Process [0 - ../programas/prog-V3-E4] moving from the [BLOCKED] state to the [READY] state
 	[77] Running Process Information:
 		[PID: 3, Priority: 100, WakeUp: 0, Queue: DAEMONS]
@@ -200,7 +200,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 3 -> SystemIdleProcess
 	[77] Arrival Time Queue:
 		[../programas/prog-V3-E4, 150, USER]
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 Process [3 - SystemIdleProcess] will be thrown out of the processor by process [0 - ../programas/prog-V3-E4]
 	[77] Process [3 - SystemIdleProcess] moving from the [EXECUTING] state to the [READY] state
 	[77] Process [0 - ../programas/prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
@@ -218,7 +218,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 3 -> SystemIdleProcess
 	[77] Arrival Time Queue:
 		[../programas/prog-V3-E4, 150, USER]
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[91] Process [0 - ../programas/prog-V3-E4] moving from the [EXECUTING] state to the [BLOCKED] state
 	[91] Process [3 - SystemIdleProcess] moving from the [READY] state to the [EXECUTING] state
 	[91] Running Process Information:
@@ -235,7 +235,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 3 -> SystemIdleProcess
 	[91] Arrival Time Queue:
 		[../programas/prog-V3-E4, 150, USER]
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[94] Process [1 - ../programas/prog-V3-E4] moving from the [BLOCKED] state to the [READY] state
 	[94] Running Process Information:
 		[PID: 3, Priority: 100, WakeUp: 0, Queue: DAEMONS]
@@ -251,7 +251,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 3 -> SystemIdleProcess
 	[94] Arrival Time Queue:
 		[../programas/prog-V3-E4, 150, USER]
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 Process [3 - SystemIdleProcess] will be thrown out of the processor by process [1 - ../programas/prog-V3-E4]
 	[94] Process [3 - SystemIdleProcess] moving from the [EXECUTING] state to the [READY] state
 	[94] Process [1 - ../programas/prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
@@ -269,7 +269,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 3 -> SystemIdleProcess
 	[94] Arrival Time Queue:
 		[../programas/prog-V3-E4, 150, USER]
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[104] Process [2 - ../programas/prog-V3-E4] moving from the [BLOCKED] state to the [READY] state
 	[104] Running Process Information:
 		[PID: 1, Priority: 2, WakeUp: 18, Queue: USER]
@@ -285,7 +285,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 3 -> SystemIdleProcess
 	[104] Arrival Time Queue:
 		[../programas/prog-V3-E4, 150, USER]
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[111] Process [1 - ../programas/prog-V3-E4] moving from the [EXECUTING] state to the [BLOCKED] state
 	[111] Process [2 - ../programas/prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
 	[111] Running Process Information:
@@ -302,7 +302,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 3 -> SystemIdleProcess
 	[111] Arrival Time Queue:
 		[../programas/prog-V3-E4, 150, USER]
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[127] Process [0 - ../programas/prog-V3-E4] moving from the [BLOCKED] state to the [READY] state
 	[127] Running Process Information:
 		[PID: 2, Priority: 2, WakeUp: 20, Queue: USER]
@@ -318,7 +318,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 3 -> SystemIdleProcess
 	[127] Arrival Time Queue:
 		[../programas/prog-V3-E4, 150, USER]
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[131] Process [2 - ../programas/prog-V3-E4] moving from the [EXECUTING] state to the [BLOCKED] state
 	[131] Process [0 - ../programas/prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
 	[131] Running Process Information:
@@ -335,7 +335,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 3 -> SystemIdleProcess
 	[131] Arrival Time Queue:
 		[../programas/prog-V3-E4, 150, USER]
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[141] Process [0 - ../programas/prog-V3-E4] has requested to terminate
 	[141] Process [0 - ../programas/prog-V3-E4] moving from the [EXECUTING] state to the [EXIT] state
 	[141] Process [3 - SystemIdleProcess] moving from the [READY] state to the [EXECUTING] state
@@ -353,7 +353,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 3 -> SystemIdleProcess
 	[141] Arrival Time Queue:
 		[../programas/prog-V3-E4, 150, USER]
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[147] Process [1 - ../programas/prog-V3-E4] moving from the [BLOCKED] state to the [READY] state
 	[147] Running Process Information:
 		[PID: 3, Priority: 100, WakeUp: 0, Queue: DAEMONS]
@@ -369,7 +369,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 3 -> SystemIdleProcess
 	[147] Arrival Time Queue:
 		[../programas/prog-V3-E4, 150, USER]
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 Process [3 - SystemIdleProcess] will be thrown out of the processor by process [1 - ../programas/prog-V3-E4]
 	[147] Process [3 - SystemIdleProcess] moving from the [EXECUTING] state to the [READY] state
 	[147] Process [1 - ../programas/prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
@@ -387,7 +387,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 3 -> SystemIdleProcess
 	[147] Arrival Time Queue:
 		[../programas/prog-V3-E4, 150, USER]
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[151] Process [1 - ../programas/prog-V3-E4] has requested to terminate
 	[151] Process [1 - ../programas/prog-V3-E4] moving from the [EXECUTING] state to the [EXIT] state
 	[151] Process [3 - SystemIdleProcess] moving from the [READY] state to the [EXECUTING] state
@@ -405,7 +405,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 3 -> SystemIdleProcess
 	[151] Arrival Time Queue:
 		[../programas/prog-V3-E4, 150, USER]
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[154] Zombie process [0 -> ../programas/prog-V3-E4], with size [60] and initial address [0] is removed from system
 	[154] Zombie process [1 -> ../programas/prog-V3-E4], with size [60] and initial address [60] is removed from system
 	[154] New process [0 - ../programas/prog-V3-E4] moving to the [NEW] state
@@ -423,7 +423,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 2 -> ../programas/prog-V3-E4
 		PID: 3 -> SystemIdleProcess
 	[154] Arrival Time Queue:
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 Process [3 - SystemIdleProcess] will be thrown out of the processor by process [0 - ../programas/prog-V3-E4]
 	[154] Process [3 - SystemIdleProcess] moving from the [EXECUTING] state to the [READY] state
 	[154] Process [0 - ../programas/prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
@@ -439,7 +439,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 2 -> ../programas/prog-V3-E4
 		PID: 3 -> SystemIdleProcess
 	[154] Arrival Time Queue:
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[167] Process [2 - ../programas/prog-V3-E4] moving from the [BLOCKED] state to the [READY] state
 	[167] Running Process Information:
 		[PID: 0, Priority: 2, WakeUp: 25, Queue: USER]
@@ -453,7 +453,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 2 -> ../programas/prog-V3-E4
 		PID: 3 -> SystemIdleProcess
 	[167] Arrival Time Queue:
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[172] Process [0 - ../programas/prog-V3-E4] moving from the [EXECUTING] state to the [BLOCKED] state
 	[172] Process [2 - ../programas/prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
 	[172] Running Process Information:
@@ -468,7 +468,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 2 -> ../programas/prog-V3-E4
 		PID: 3 -> SystemIdleProcess
 	[172] Arrival Time Queue:
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[182] Process [2 - ../programas/prog-V3-E4] has requested to terminate
 	[182] Process [2 - ../programas/prog-V3-E4] moving from the [EXECUTING] state to the [EXIT] state
 	[182] Process [3 - SystemIdleProcess] moving from the [READY] state to the [EXECUTING] state
@@ -484,7 +484,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 2 -> ../programas/prog-V3-E4
 		PID: 3 -> SystemIdleProcess
 	[182] Arrival Time Queue:
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[207] Process [0 - ../programas/prog-V3-E4] moving from the [BLOCKED] state to the [READY] state
 	[207] Running Process Information:
 		[PID: 3, Priority: 100, WakeUp: 0, Queue: DAEMONS]
@@ -498,7 +498,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 2 -> ../programas/prog-V3-E4
 		PID: 3 -> SystemIdleProcess
 	[207] Arrival Time Queue:
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 Process [3 - SystemIdleProcess] will be thrown out of the processor by process [0 - ../programas/prog-V3-E4]
 	[207] Process [3 - SystemIdleProcess] moving from the [EXECUTING] state to the [READY] state
 	[207] Process [0 - ../programas/prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
@@ -514,7 +514,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 2 -> ../programas/prog-V3-E4
 		PID: 3 -> SystemIdleProcess
 	[207] Arrival Time Queue:
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[221] Process [0 - ../programas/prog-V3-E4] moving from the [EXECUTING] state to the [BLOCKED] state
 	[221] Process [3 - SystemIdleProcess] moving from the [READY] state to the [EXECUTING] state
 	[221] Running Process Information:
@@ -529,7 +529,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 2 -> ../programas/prog-V3-E4
 		PID: 3 -> SystemIdleProcess
 	[221] Arrival Time Queue:
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[257] Process [0 - ../programas/prog-V3-E4] moving from the [BLOCKED] state to the [READY] state
 	[257] Running Process Information:
 		[PID: 3, Priority: 100, WakeUp: 0, Queue: DAEMONS]
@@ -543,7 +543,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 2 -> ../programas/prog-V3-E4
 		PID: 3 -> SystemIdleProcess
 	[257] Arrival Time Queue:
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 Process [3 - SystemIdleProcess] will be thrown out of the processor by process [0 - ../programas/prog-V3-E4]
 	[257] Process [3 - SystemIdleProcess] moving from the [EXECUTING] state to the [READY] state
 	[257] Process [0 - ../programas/prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
@@ -559,7 +559,7 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 2 -> ../programas/prog-V3-E4
 		PID: 3 -> SystemIdleProcess
 	[257] Arrival Time Queue:
-		[../programas/prog-V3-E4, 270, USER]
+		[../programas/prog_V3-E4, 270, USER]
 	[261] Process [0 - ../programas/prog-V3-E4] has requested to terminate
 	[261] Process [0 - ../programas/prog-V3-E4] moving from the [EXECUTING] state to the [EXIT] state
 	[261] Process [3 - SystemIdleProcess] moving from the [READY] state to the [EXECUTING] state
@@ -575,181 +575,15 @@ Process [3 - SystemIdleProcess] will be thrown out of the processor by process [
 		PID: 2 -> ../programas/prog-V3-E4
 		PID: 3 -> SystemIdleProcess
 	[261] Arrival Time Queue:
-		[../programas/prog-V3-E4, 270, USER]
-	[272] New process [1 - ../programas/prog-V3-E4] moving to the [NEW] state
-	[272] Process [1] created from program [../programas/prog-V3-E4]
-	[272] Process [1 - ../programas/prog-V3-E4] moving from the [NEW] state to the [READY] state
-	[272] Running Process Information:
-		[PID: 3, Priority: 100, WakeUp: 0, Queue: DAEMONS]
-	[272] Ready-to-run processes queues:
-		USER:[1,2]
-		DAEMONS:
-	[272] SLEEPING Queue:
-		[--- empty queue ---]
-	[272] PID association with program's name:
-		PID: 0 -> ../programas/prog-V3-E4
-		PID: 1 -> ../programas/prog-V3-E4
-		PID: 2 -> ../programas/prog-V3-E4
-		PID: 3 -> SystemIdleProcess
-Process [3 - SystemIdleProcess] will be thrown out of the processor by process [1 - ../programas/prog-V3-E4]
-	[272] Process [3 - SystemIdleProcess] moving from the [EXECUTING] state to the [READY] state
-	[272] Process [1 - ../programas/prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
-	[272] Running Process Information:
-		[PID: 1, Priority: 2, WakeUp: 29, Queue: USER]
-	[272] Ready-to-run processes queues:
-		USER:
-		DAEMONS:[3,100]
-	[272] SLEEPING Queue:
-		[--- empty queue ---]
-	[272] PID association with program's name:
-		PID: 0 -> ../programas/prog-V3-E4
-		PID: 1 -> ../programas/prog-V3-E4
-		PID: 2 -> ../programas/prog-V3-E4
-		PID: 3 -> SystemIdleProcess
-Assert failed. Time: 272; Element: AMEM; Expected: 128; Real: 0; Memory address: 298
-Assert failed. Time: 272; Element: AMEM; Expected: 183; Real: 0; Memory address: 299
-Assert failed. Time: 272; Element: MMEM_MAR; Expected: 299; Real: 298
-Assert failed. Time: 272; Element: MMU_BS; Expected: 180; Real: 60
-Assert failed. Time: 272; Element: XPID; Expected: 3; Real: 1
-Assert failed. Time: 272; Element: PSW; Expected: 32896; Real: 32898
-Assert failed. Time: 272; Element: ACC; Expected: 1920; Real: 0
-Assert failed. Time: 273; Element: AMEM; Expected: 128; Real: 0; Memory address: 298
-Assert failed. Time: 273; Element: AMEM; Expected: 183; Real: 0; Memory address: 299
-Assert failed. Time: 273; Element: MMU_BS; Expected: 180; Real: 60
-Assert failed. Time: 273; Element: XPID; Expected: 3; Real: 1
-Assert failed. Time: 273; Element: PSW; Expected: 128; Real: 2
-Assert failed. Time: 273; Element: ACC; Expected: 1920; Real: 0
-Assert failed. Time: 274; Element: AMEM; Expected: 128; Real: 0; Memory address: 298
-Assert failed. Time: 274; Element: AMEM; Expected: 183; Real: 0; Memory address: 299
-Assert failed. Time: 274; Element: MMEM_MAR; Expected: 183; Real: 60
-Assert failed. Time: 274; Element: MMU_BS; Expected: 180; Real: 60
-Assert failed. Time: 274; Element: IR_O1; Expected: 3; Real: 4
-Assert failed. Time: 274; Element: XPID; Expected: 3; Real: 1
-Assert failed. Time: 274; Element: PSW; Expected: 128; Real: 2
-Assert failed. Time: 274; Element: ACC; Expected: 1920; Real: 0
-Assert failed. Time: 276; Element: AMEM; Expected: 32896; Real: 2; Memory address: 298
-Assert failed. Time: 276; Element: AMEM; Expected: 241; Real: 1; Memory address: 299
-Assert failed. Time: 276; Element: MMEM_MAR; Expected: 298; Real: 242
-Assert failed. Time: 276; Element: MMU_BS; Expected: 180; Real: 60
-Assert failed. Time: 276; Element: XPID; Expected: -1; Real: 1
-Assert failed. Time: 276; Element: PSW; Expected: 32896; Real: 32898
-Assert failed. Time: 276; Element: ACC; Expected: 1920; Real: 0
-Assert failed. Time: 277; Element: AMEM; Expected: 32896; Real: 2; Memory address: 298
-Assert failed. Time: 277; Element: AMEM; Expected: 241; Real: 1; Memory address: 299
-Assert failed. Time: 277; Element: MMU_BS; Expected: 180; Real: 60
-Assert failed. Time: 277; Element: XPID; Expected: -1; Real: 1
-Assert failed. Time: 277; Element: PSW; Expected: 32896; Real: 2
-Assert failed. Time: 277; Element: ACC; Expected: 1920; Real: 0
-Assert warning. Unchecked assert (Time: 278, Element: AMEM)
-Assert warning. Unchecked assert (Time: 278, Element: AMEM)
-Assert warning. Unchecked assert (Time: 278, Element: AMEM)
-Assert warning. Unchecked assert (Time: 278, Element: MMEM_MAR)
-Assert warning. Unchecked assert (Time: 278, Element: MMU_BS)
-Assert warning. Unchecked assert (Time: 278, Element: IR_O2)
-Assert warning. Unchecked assert (Time: 278, Element: IR_O1)
-Assert warning. Unchecked assert (Time: 278, Element: IR_OP)
-Assert warning. Unchecked assert (Time: 278, Element: XPID)
-Assert warning. Unchecked assert (Time: 278, Element: PSW)
-Assert warning. Unchecked assert (Time: 278, Element: ACC)
-	[287] Process [1 - ../programas/prog-V3-E4] moving from the [EXECUTING] state to the [BLOCKED] state
-	[287] Process [3 - SystemIdleProcess] moving from the [READY] state to the [EXECUTING] state
-	[287] Running Process Information:
-		[PID: 3, Priority: 100, WakeUp: 0, Queue: DAEMONS]
-	[287] Ready-to-run processes queues:
-		USER:
-		DAEMONS:
-	[287] SLEEPING Queue:
-		[1, 2, 64]
-	[287] PID association with program's name:
-		PID: 0 -> ../programas/prog-V3-E4
-		PID: 1 -> ../programas/prog-V3-E4
-		PID: 2 -> ../programas/prog-V3-E4
-		PID: 3 -> SystemIdleProcess
-	[322] Process [1 - ../programas/prog-V3-E4] moving from the [BLOCKED] state to the [READY] state
-	[322] Running Process Information:
-		[PID: 3, Priority: 100, WakeUp: 0, Queue: DAEMONS]
-	[322] Ready-to-run processes queues:
-		USER:[1,2]
-		DAEMONS:
-	[322] SLEEPING Queue:
-		[--- empty queue ---]
-	[322] PID association with program's name:
-		PID: 0 -> ../programas/prog-V3-E4
-		PID: 1 -> ../programas/prog-V3-E4
-		PID: 2 -> ../programas/prog-V3-E4
-		PID: 3 -> SystemIdleProcess
-Process [3 - SystemIdleProcess] will be thrown out of the processor by process [1 - ../programas/prog-V3-E4]
-	[322] Process [3 - SystemIdleProcess] moving from the [EXECUTING] state to the [READY] state
-	[322] Process [1 - ../programas/prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
-	[322] Running Process Information:
-		[PID: 1, Priority: 2, WakeUp: 64, Queue: USER]
-	[322] Ready-to-run processes queues:
-		USER:
-		DAEMONS:[3,100]
-	[322] SLEEPING Queue:
-		[--- empty queue ---]
-	[322] PID association with program's name:
-		PID: 0 -> ../programas/prog-V3-E4
-		PID: 1 -> ../programas/prog-V3-E4
-		PID: 2 -> ../programas/prog-V3-E4
-		PID: 3 -> SystemIdleProcess
-	[336] Process [1 - ../programas/prog-V3-E4] moving from the [EXECUTING] state to the [BLOCKED] state
-	[336] Process [3 - SystemIdleProcess] moving from the [READY] state to the [EXECUTING] state
-	[336] Running Process Information:
-		[PID: 3, Priority: 100, WakeUp: 0, Queue: DAEMONS]
-	[336] Ready-to-run processes queues:
-		USER:
-		DAEMONS:
-	[336] SLEEPING Queue:
-		[1, 2, 74]
-	[336] PID association with program's name:
-		PID: 0 -> ../programas/prog-V3-E4
-		PID: 1 -> ../programas/prog-V3-E4
-		PID: 2 -> ../programas/prog-V3-E4
-		PID: 3 -> SystemIdleProcess
-	[372] Process [1 - ../programas/prog-V3-E4] moving from the [BLOCKED] state to the [READY] state
-	[372] Running Process Information:
-		[PID: 3, Priority: 100, WakeUp: 0, Queue: DAEMONS]
-	[372] Ready-to-run processes queues:
-		USER:[1,2]
-		DAEMONS:
-	[372] SLEEPING Queue:
-		[--- empty queue ---]
-	[372] PID association with program's name:
-		PID: 0 -> ../programas/prog-V3-E4
-		PID: 1 -> ../programas/prog-V3-E4
-		PID: 2 -> ../programas/prog-V3-E4
-		PID: 3 -> SystemIdleProcess
-Process [3 - SystemIdleProcess] will be thrown out of the processor by process [1 - ../programas/prog-V3-E4]
-	[372] Process [3 - SystemIdleProcess] moving from the [EXECUTING] state to the [READY] state
-	[372] Process [1 - ../programas/prog-V3-E4] moving from the [READY] state to the [EXECUTING] state
-	[372] Running Process Information:
-		[PID: 1, Priority: 2, WakeUp: 74, Queue: USER]
-	[372] Ready-to-run processes queues:
-		USER:
-		DAEMONS:[3,100]
-	[372] SLEEPING Queue:
-		[--- empty queue ---]
-	[372] PID association with program's name:
-		PID: 0 -> ../programas/prog-V3-E4
-		PID: 1 -> ../programas/prog-V3-E4
-		PID: 2 -> ../programas/prog-V3-E4
-		PID: 3 -> SystemIdleProcess
-	[376] Process [1 - ../programas/prog-V3-E4] has requested to terminate
-	[376] Process [1 - ../programas/prog-V3-E4] moving from the [EXECUTING] state to the [EXIT] state
-	[376] Process [3 - SystemIdleProcess] moving from the [READY] state to the [EXECUTING] state
-	[376] Running Process Information:
-		[PID: 3, Priority: 100, WakeUp: 0, Queue: DAEMONS]
-	[376] Ready-to-run processes queues:
-		USER:
-		DAEMONS:
-	[376] SLEEPING Queue:
-		[--- empty queue ---]
-	[376] PID association with program's name:
-		PID: 0 -> ../programas/prog-V3-E4
-		PID: 1 -> ../programas/prog-V3-E4
-		PID: 2 -> ../programas/prog-V3-E4
-		PID: 3 -> SystemIdleProcess
-	[379] The system will shut down now...
-	[382] The system will shut down now...
-[384] END of the simulation
+		[../programas/prog_V3-E4, 270, USER]
+	[272] ERROR: Program [../programas/prog_V3-E4] is not valid [--- it does not exist ---]
+	[272] The system will shut down now...
+Assert failed. Time: 272; Element: AMEM; Expected: 183; Real: 241; Memory address: 299
+Assert failed. Time: 273; Element: AMEM; Expected: 183; Real: 241; Memory address: 299
+Assert failed. Time: 274; Element: AMEM; Expected: 183; Real: 241; Memory address: 299
+Assert failed. Time: 274; Element: MMEM_MAR; Expected: 183; Real: 241
+Assert failed. Time: 274; Element: IR_O1; Expected: 3; Real: 0
+Assert failed. Time: 274; Element: IR_OP; Expected: TRAP; Real: HALT
+Assert failed. Time: 274; Element: PSW; Expected: 128; Real: 129
+Warning, 33 unchecked asserts in Asserts queue !!!
+[274] END of the simulation

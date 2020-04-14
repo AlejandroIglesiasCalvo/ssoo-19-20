@@ -225,7 +225,8 @@ void Processor_DecodeAndExecuteInstruction()
 			// Show final part of HARDWARE message with CPU registers
 			// Show message: " (PC: registerPC_CPU, Accumulator: registerAccumulator_CPU, PSW: registerPSW_CPU [Processor_ShowPSW()]\n
 			//OperatingSystem_ShowTime_User(HARDWARE);
-			ComputerSystem_DebugMessage(69, HARDWARE, InstructionNames[operationCode], operand1, operand2, registerPC_CPU, registerAccumulator_CPU, registerPSW_CPU, Processor_ShowPSW());
+			//ComputerSystem_DebugMessage(69, HARDWARE, InstructionNames[operationCode], operand1, operand2, registerPC_CPU, registerAccumulator_CPU, registerPSW_CPU, Processor_ShowPSW());
+			MegaMensajeMejorado(operationCode, operand1, operand2);
 			// Not all operating system code is executed in simulated processor, but really must do it...
 			OperatingSystem_InterruptLogic(operand1);
 			registerPC_CPU++;
@@ -234,10 +235,11 @@ void Processor_DecodeAndExecuteInstruction()
 		}
 		else
 		{
-			ComputerSystem_DebugMessage(69, HARDWARE, InstructionNames[operationCode], operand1, operand2, registerPC_CPU, registerAccumulator_CPU, registerPSW_CPU, Processor_ShowPSW());
+			//ComputerSystem_DebugMessage(69, HARDWARE, InstructionNames[operationCode], operand1, operand2, registerPC_CPU, registerAccumulator_CPU, registerPSW_CPU, Processor_ShowPSW());
+			MegaMensajeMejorado(operationCode, operand1, operand2);
 			Processor_RaiseInterrupt(EXCEPTION_BIT);
 		}
-		break; // Note: message show before... for operating system messages after...
+		return; // Note: message show before... for operating system messages after...
 
 	// Instruction IRET
 	case IRET_INST: // Return from a interrupt handle manager call
