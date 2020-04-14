@@ -88,10 +88,6 @@
             "label": "BuildV3",
             "type": "shell",
             "command": "cd V3 && make",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
             "problemMatcher": [
                 "$gcc"
             ]
@@ -108,38 +104,6 @@
             "label": "CleanV3",
             "type": "shell",
             "command": "cd V3 && make clean",
-            "problemMatcher": [
-                "$gcc"
-            ]
-        },
-        {
-            "label": "Crea trazas GAUSS",
-            "type": "shell",
-            "command": "cd V3 && ./Simulator --debugSections=tpsld ../programas/programV2-1a 5 ../programas/programV2-1b 3 ../programas/V2-ejemplo5 12 > GAUSS-1.log && ./Simulator --debugSections=tpsld ../programas/programV2-1a 3 ../programas/programV2-1b 8 ../programas/V2-ejemplo5 0 > GAUSS-2.log",
-            "problemMatcher": [
-                "$gcc"
-            ]
-        },
-        {
-            "label": "Test V3 Nestor",
-            "type": "shell",
-            "command": "cd V3 && ./Simulator --assertsFile=asertos.V3-ej --numAsserts=2500  ../programas/prog-V3-E4 1 ../programas/prog-V3-E4 2 ../programas/prog-V3-E4 4 ../programas/prog-V3-E4 150 ../programas/prog_V3-E4 270 | head -n 4000 ",
-            "problemMatcher": [
-                "$gcc"
-            ]
-        },
-        {
-            "label": "Test V3 Nestor con astertos log",
-            "type": "shell",
-            "command": "cd V3 && ./Simulator --debugSections=tpsld --assertsFile=asertos.V3-ej --numAsserts=2500 ../programas/prog-V3-E4 1 ../programas/prog-V3-E4 2 ../programas/prog-V3-E4 4 ../programas/prog-V3-E4 150 ../programas/prog_V3-E4 270  | head -n 4000 > Test-Nestor.log ",
-            "problemMatcher": [
-                "$gcc"
-            ]
-        },
-        {
-            "label": "Test V3 Nestor sin astertos log",
-            "type": "shell",
-            "command": "cd V3 && ./Simulator --debugSections=tpsld ../programas/prog-V3-E4 1 ../programas/prog-V3-E4 2 ../programas/prog-V3-E4 4 ../programas/prog-V3-E4 150 ../programas/prog_V3-E4 270  | head -n 4000 > Test-Nestor.log ",
             "problemMatcher": [
                 "$gcc"
             ]
@@ -172,6 +136,34 @@
             "label": "Test V3 Raul Nestor log",
             "type": "shell",
             "command": "cd V3-18-19 && ./Simulator tpsld ../programas/prog-V3-E4 1 ../programas/prog-V3-E4 2 ../programas/prog-V3-E4 4 ../programas/prog-V3-E4 150 ../programas/prog-V3-E4 270  | head -n 4000 > Test-Nestor-18-19.log ",
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "BuildV4",
+            "type": "shell",
+            "command": "cd V4 && make",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "RunV4",
+            "type": "shell",
+            "command": "cd V4 && ./Simulator ../programas/prog-V1-E11 3 ../programas/programVerySimple 9 ../programas/prog-V1-E12 6",
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "CleanV4",
+            "type": "shell",
+            "command": "cd V3 && make clean",
             "problemMatcher": [
                 "$gcc"
             ]
