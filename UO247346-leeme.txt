@@ -1,4 +1,5 @@
 Iglesias Calvo, ALejandro
+UO247346
 Ejercicios: todos
 Programas:
 prog-V1-E3: Interrepciones trap
@@ -13,4 +14,4 @@ programaEntrega-V2-3: Bucle infinito
 programFinalV1: escribe instrucciones a mano (aun no soportado) -> core fail
 los demas: programas sin mas para probar distintas formas de ejecutar y romper el SO
 
-Asumo que cuando en la entrega dices primero que el leeme es UOxxx-leeme y luego pides el leeme-uoxxx el correcto es el primero.
+Pues apago el simualdor por la fuerza porque no consegui arreglar el problema que hablamos esta mañana en la tutoria
