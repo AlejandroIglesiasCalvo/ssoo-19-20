@@ -163,7 +163,7 @@
         {
             "label": "CleanV4",
             "type": "shell",
-            "command": "cd V3 && make clean",
+            "command": "cd V4 && make clean",
             "problemMatcher": [
                 "$gcc"
             ]

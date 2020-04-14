@@ -23,8 +23,8 @@ int registerMAR_CPU;				// Memory Address Register
 BUSDATACELL registerMBR_CPU;		// Memory Buffer Register
 int registerCTRL_CPU;				// Control bus Register
 
-int registerA_CPU; // General purpose register
-
+int registerA_CPU;		// General purpose register
+int registerB_CPU;		// Another general purpose register Exercise 1-a of V4
 int interruptLines_CPU; // Processor interrupt lines
 
 // interrupt vector table: an array of handle interrupt memory addresses routines
@@ -137,7 +137,8 @@ void Processor_DecodeAndExecuteInstruction()
 	// Instruction DIV
 	case DIV_INST:
 		if (operand2 == 0)
-			Processor_RaiseInterrupt(EXCEPTION_BIT);
+			//Processor_RaiseInterrupt(EXCEPTION_BIT);
+			Processor_RaiseException(DIVISIONBYZERO);
 		else
 		{
 			registerAccumulator_CPU = operand1 / operand2;
@@ -214,7 +215,8 @@ void Processor_DecodeAndExecuteInstruction()
 		}
 		else
 		{
-			Processor_RaiseInterrupt(EXCEPTION_BIT);
+			//Processor_RaiseInterrupt(EXCEPTION_BIT);
+			Processor_RaiseException(INVALIDPROCESSORMODE);
 		}
 		break;
 
@@ -237,7 +239,8 @@ void Processor_DecodeAndExecuteInstruction()
 		{
 			//ComputerSystem_DebugMessage(69, HARDWARE, InstructionNames[operationCode], operand1, operand2, registerPC_CPU, registerAccumulator_CPU, registerPSW_CPU, Processor_ShowPSW());
 			MegaMensajeMejorado(operationCode, operand1, operand2);
-			Processor_RaiseInterrupt(EXCEPTION_BIT);
+			//Processor_RaiseInterrupt(EXCEPTION_BIT);
+			Processor_RaiseException(INVALIDPROCESSORMODE);
 		}
 		return; // Note: message show before... for operating system messages after...
 
@@ -250,23 +253,25 @@ void Processor_DecodeAndExecuteInstruction()
 		}
 		else
 		{
-			Processor_RaiseInterrupt(EXCEPTION_BIT);
+			//Processor_RaiseInterrupt(EXCEPTION_BIT);
+			Processor_RaiseException(INVALIDPROCESSORMODE);
 		}
 		break;
 
 	case MEMADD_INST:
 		// Tell the main memory controller from where
-		registerMAR_CPU = operand2;				  //De donde leo (operando 1)
-		Buses_write_AddressBus_From_To(CPU, MMU); //Indicar donde tengo que leer, usando bus de escritura
-		registerCTRL_CPU = CTRLREAD;			  //Indicar que lea de forma controlada
-		Buses_write_ControlBus_From_To(CPU, MMU); //Enviar la operacion a la memoria
+		registerMAR_CPU = operand2;								   //De donde leo (operando 1)
+		Buses_write_AddressBus_From_To(CPU, MMU);				   //Indicar donde tengo que leer, usando bus de escritura
+		registerCTRL_CPU = CTRLREAD;							   //Indicar que lea de forma controlada
+		Buses_write_ControlBus_From_To(CPU, MMU);				   //Enviar la operacion a la memoria
 		registerAccumulator_CPU = registerMBR_CPU.cell + operand1; //Sumar el resultado al operador 1
-		Processor_CheckOverflow(registerMBR_CPU.cell, operand1);//comprueba con el acumulador, es importante que este despues
+		Processor_CheckOverflow(registerMBR_CPU.cell, operand1);   //comprueba con el acumulador, es importante que este despues
 		registerPC_CPU++;
 		break;
 	// Unknown instruction
 	default:
-		registerPC_CPU++;
+		Processor_RaiseException(INVALIDINSTRUCTION);
+		//registerPC_CPU++;
 		break;
 	}
 

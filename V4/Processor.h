@@ -7,7 +7,7 @@
 #define INTERRUPTTYPES 10
 #define CPU_SUCCESS 1
 #define CPU_FAIL 0
-
+#define MULTIPLE_EXCEPTIONS //V4
 // Enumerated type that connects bit positions in the PSW register with
 // processor events and status
 enum PSW_BITS
@@ -17,7 +17,7 @@ enum PSW_BITS
     NEGATIVE_BIT = 2,
     OVERFLOW_BIT = 3,
     EXECUTION_MODE_BIT = 7,
-    INTERRUPT_MASKED_BIT=15
+    INTERRUPT_MASKED_BIT = 15
 };
 
 // Enumerated type that connects bit positions in the interruptLines with
@@ -28,7 +28,13 @@ enum INT_BITS
     EXCEPTION_BIT = 6,
     CLOCKINT_BIT = 9
 };
-
+enum EXCEPTIONS
+{
+    DIVISIONBYZERO,
+    INVALIDPROCESSORMODE,
+    INVALIDADDRESS,
+    INVALIDINSTRUCTION
+};
 // Functions prototypes
 void Processor_InitializeInterruptVectorTable();
 void Processor_InstructionCycleLoop();
@@ -40,6 +46,6 @@ void Processor_SetCTRL(int);
 
 void OperatingSystem_ShowTime_User(char section);
 
-void MegaMensajeMejorado(int,int,int);
+void MegaMensajeMejorado(int, int, int);
 void limpiarProcesador();
 #endif
