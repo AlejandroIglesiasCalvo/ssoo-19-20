@@ -103,7 +103,7 @@ void OperatingSystem_Initialize(int daemonsIndex)
 	// Create all user processes from the information given in the command line
 	//Ejercicio 15 V1
 	int creados = OperatingSystem_LongTermScheduler();
-	if (creados > 1 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE)
+	if (creados == 1 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE)
 	{
 		OperatingSystem_ReadyToShutdown();
 	}
@@ -267,7 +267,7 @@ void OperatingSystem_PCBInitialization(int PID, int initialPhysicalAddress, int 
 	processTable[PID].state = NEW;
 	processTable[PID].priority = priority;
 	processTable[PID].programListIndex = processPLIndex;
-	processTable[PID].copyOfAccumulator=0;
+	processTable[PID].copyOfAccumulator = 0;
 	// Daemons run in protected mode and MMU use real address
 	if (programList[processPLIndex]->type == DAEMONPROGRAM)
 	{
@@ -418,7 +418,7 @@ void OperatingSystem_TerminateProcess()
 	{
 		//numberOfReadyToRunProcesses[DAEMONSQUEUE]--;
 	}
-
+	// if (numberOfNotTerminatedUserProcesses <= 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE)
 	if (numberOfNotTerminatedUserProcesses <= 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE)
 	{
 		if (executingProcessID == sipID)
@@ -432,6 +432,7 @@ void OperatingSystem_TerminateProcess()
 		// Simulation must finish, telling sipID to finish
 		OperatingSystem_ReadyToShutdown();
 	}
+	
 	// Select the next process to execute (sipID if no more user processes)
 	selectedProcess = OperatingSystem_ShortTermScheduler();
 	// Assign the processor to that process
@@ -632,7 +633,7 @@ void procesoAlfa()
 	}
 	else if (executingProcessID == sipID && numberOfReadyToRunProcesses[USERPROCESSQUEUE] > 0)
 	{
-		int actual=executingProcessID;
+		int actual = executingProcessID;
 		//int NuevoAlfa = Heap_poll(readyToRunQueue[processTable[posibleAlfa].queueID], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[posibleAlfa].queueID]);
 		int NuevoAlfa = Heap_poll(readyToRunQueue[USERPROCESSQUEUE], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[USERPROCESSQUEUE]);
 		PID_para_Procesador = NuevoAlfa; //Para el procesador
