@@ -33,7 +33,7 @@
 //
 //
 //
-130, %s %d %d (PID: @G%d@@, PC: @R%d@@, Accumulator: @R%d@@, PSW: @R%d@@ [@R%s@@]\n
+130, %s %d %d (PID: @G%d@@, PC: @R%d@@, Accumulator: @R%d@@, PSW: @R%x@@ [@R%s@@]\n
 //
 //
 //

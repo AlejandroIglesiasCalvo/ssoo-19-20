@@ -17,6 +17,10 @@
 
 #define NOPROCESS -1
 #define SLEEPINGQUEUE
+
+// Partitions configuration file name definition
+#define MEMCONFIG "MemConfig" // in OperatingSystem.h 
+
 // Contains the possible type of programs
 enum ProgramTypes
 {
