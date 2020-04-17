@@ -48,4 +48,5 @@ void OperatingSystem_ShowTime_User(char section);
 
 void MegaMensajeMejorado(int, int, int);
 void limpiarProcesador();
+int getExcepcion();
 #endif

@@ -414,17 +414,15 @@ void OperatingSystem_TerminateProcess()
 		numberOfNotTerminatedUserProcesses--;
 		//numberOfReadyToRunProcesses[USERPROCESSQUEUE]--;
 	}
-	else if (programList[processTable[executingProcessID].programListIndex]->type == DAEMONPROGRAM)
-	{
-		//numberOfReadyToRunProcesses[DAEMONSQUEUE]--;
-	}
+	
 	// if (numberOfNotTerminatedUserProcesses <= 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE)
-	if (numberOfNotTerminatedUserProcesses <= 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE)
+	if (numberOfNotTerminatedUserProcesses == 0)
 	{
 		if (executingProcessID == sipID)
 		{
 			// finishing sipID, change PC to address of OS HALT instruction
-			Processor_CopyInSystemStack(MAINMEMORYSIZE - 1, OS_address_base + 1);
+			//Processor_CopyInSystemStack(MAINMEMORYSIZE - 1, OS_address_base + 1);
+			OperatingSystem_TerminatingSIP();
 			OperatingSystem_ShowTime(SHUTDOWN);
 			ComputerSystem_DebugMessage(99, SHUTDOWN, "The system will shut down now...\n");
 			return; // Don't dispatch any process
@@ -567,9 +565,10 @@ void OperatingSystem_HandleClockInterrupt()
 	VAMOS_PANDA_DE_VAGOS();
 	OperatingSystem_LongTermScheduler(); //V3 E3
 	procesoAlfa();						 //V3 E3b
-	if ((numberOfNotTerminatedUserProcesses <= 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE))
+	if ((numberOfNotTerminatedUserProcesses == 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE))
 	{
-		apagarPorLaFuerza();
+		//apagarPorLaFuerza();
+		OperatingSystem_ReadyToShutdown();
 	}
 }
 void a_dormir_ostia(int PID)
@@ -631,6 +630,7 @@ void procesoAlfa()
 		OperatingSystem_Dispatch(NuevoAlfa);
 		OperatingSystem_PrintStatus();
 	}
+	//cambiar la comprobacion a daemen
 	else if (executingProcessID == sipID && numberOfReadyToRunProcesses[USERPROCESSQUEUE] > 0)
 	{
 		int actual = executingProcessID;

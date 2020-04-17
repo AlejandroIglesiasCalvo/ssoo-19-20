@@ -267,19 +267,21 @@ void OperatingSystem_PCBInitialization(int PID, int initialPhysicalAddress, int 
 	processTable[PID].state = NEW;
 	processTable[PID].priority = priority;
 	processTable[PID].programListIndex = processPLIndex;
-	processTable[PID].copyOfAccumulator = 0;
+
 	// Daemons run in protected mode and MMU use real address
 	if (programList[processPLIndex]->type == DAEMONPROGRAM)
 	{
 		processTable[PID].copyOfPCRegister = initialPhysicalAddress;
 		processTable[PID].copyOfPSWRegister = ((unsigned int)1) << EXECUTION_MODE_BIT;
 		processTable[PID].queueID = DAEMONSQUEUE;
+		processTable[PID].copyOfAccumulator = 0;
 	}
 	else
 	{
 		processTable[PID].copyOfPCRegister = 0;
 		processTable[PID].copyOfPSWRegister = 0;
 		processTable[PID].queueID = USERPROCESSQUEUE;
+		processTable[PID].copyOfAccumulator = 0;
 	}
 }
 
@@ -395,7 +397,24 @@ void OperatingSystem_HandleException()
 
 	// Show message "Process [executingProcessID] has generated an exception and is terminating\n"
 	OperatingSystem_ShowTime(SYSPROC);
-	ComputerSystem_DebugMessage(71, SYSPROC, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName);
+	//ComputerSystem_DebugMessage(71, SYSPROC, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName);
+	//ComputerSystem_DebugMessage(140, SYSPROC, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, getExcepcion());
+	switch (getExcepcion())
+	{
+	case DIVISIONBYZERO:
+		ComputerSystem_DebugMessage(140, SYSPROC, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, "division by zero");
+		break;
+	case INVALIDPROCESSORMODE:
+		ComputerSystem_DebugMessage(140, SYSPROC, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, "invalid processor mode");
+		break;
+	case INVALIDADDRESS:
+		ComputerSystem_DebugMessage(140, SYSPROC, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, "invalid address");
+		break;
+	case INVALIDINSTRUCTION:
+		ComputerSystem_DebugMessage(140, INTERRUPT, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, "invalid instruction");
+		break;
+	}
+
 	OperatingSystem_TerminateProcess();
 	OperatingSystem_PrintStatus();
 }
@@ -414,17 +433,15 @@ void OperatingSystem_TerminateProcess()
 		numberOfNotTerminatedUserProcesses--;
 		//numberOfReadyToRunProcesses[USERPROCESSQUEUE]--;
 	}
-	else if (programList[processTable[executingProcessID].programListIndex]->type == DAEMONPROGRAM)
-	{
-		//numberOfReadyToRunProcesses[DAEMONSQUEUE]--;
-	}
+
 	// if (numberOfNotTerminatedUserProcesses <= 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE)
-	if (numberOfNotTerminatedUserProcesses <= 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE)
+	if (numberOfNotTerminatedUserProcesses == 0)
 	{
 		if (executingProcessID == sipID)
 		{
 			// finishing sipID, change PC to address of OS HALT instruction
-			Processor_CopyInSystemStack(MAINMEMORYSIZE - 1, OS_address_base + 1);
+			//Processor_CopyInSystemStack(MAINMEMORYSIZE - 1, OS_address_base + 1);
+			OperatingSystem_TerminatingSIP();
 			OperatingSystem_ShowTime(SHUTDOWN);
 			ComputerSystem_DebugMessage(99, SHUTDOWN, "The system will shut down now...\n");
 			return; // Don't dispatch any process
@@ -432,7 +449,7 @@ void OperatingSystem_TerminateProcess()
 		// Simulation must finish, telling sipID to finish
 		OperatingSystem_ReadyToShutdown();
 	}
-	
+
 	// Select the next process to execute (sipID if no more user processes)
 	selectedProcess = OperatingSystem_ShortTermScheduler();
 	// Assign the processor to that process
@@ -469,6 +486,12 @@ void OperatingSystem_HandleSystemCall()
 	case SYSCALL_SLEEP:							  //v2 E5
 		PID_para_Procesador = executingProcessID; //V3 E1
 		a_dormir_ostia(executingProcessID);
+		OperatingSystem_PrintStatus();
+		break;
+	default:
+		OperatingSystem_ShowTime(INTERRUPT);
+		ComputerSystem_DebugMessage(141, INTERRUPT, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, systemCallID);
+		OperatingSystem_TerminateProcess();
 		OperatingSystem_PrintStatus();
 		break;
 	}
@@ -567,9 +590,10 @@ void OperatingSystem_HandleClockInterrupt()
 	VAMOS_PANDA_DE_VAGOS();
 	OperatingSystem_LongTermScheduler(); //V3 E3
 	procesoAlfa();						 //V3 E3b
-	if ((numberOfNotTerminatedUserProcesses <= 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE))
+	if ((numberOfNotTerminatedUserProcesses == 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE))
 	{
-		apagarPorLaFuerza();
+		//apagarPorLaFuerza();
+		OperatingSystem_ReadyToShutdown();
 	}
 }
 void a_dormir_ostia(int PID)

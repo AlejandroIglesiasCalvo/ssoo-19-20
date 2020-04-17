@@ -34,3 +34,9 @@
 //
 //
 130, %s %d %d (PID: @G%d@@, PC: @R%d@@, Accumulator: @R%d@@, PSW: @R%d@@ [@R%s@@]\n
+//
+//
+//
+//
+140,Process [@R%d - %s@@] has caused an exception (@R%s@@) and is being terminated\n
+141,Process [@R%d - %s@@] has made an invalid system call (@R%d@@) and is being terminated\n

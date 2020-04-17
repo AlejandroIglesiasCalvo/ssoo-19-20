@@ -22,10 +22,7 @@ void MMU_SetCTRL(int ctrl)
 	case CTRLREAD:
 		if (Processor_PSW_BitState(EXECUTION_MODE_BIT))
 		{ // Protected mode
-			if (registerMAR_MMU < registerBase_MMU || registerMAR_MMU > registerLimit_MMU)
-			{
-				Processor_RaiseException(INVALIDADDRESS);
-			}
+
 			if (registerMAR_MMU < MAINMEMORYSIZE)
 			{
 				// Send to the main memory HW the physical address to write in
@@ -39,15 +36,16 @@ void MMU_SetCTRL(int ctrl)
 			else
 			{
 				// Fail
+				if (registerMAR_MMU < 0 || registerMAR_MMU > registerLimit_MMU)
+				{
+					Processor_RaiseException(INVALIDADDRESS);
+				}
 				registerCTRL_MMU |= CTRL_FAIL;
 			}
 		}
 		else
 		{ // Non-Protected mode
-			if (registerMAR_MMU < registerBase_MMU || registerMAR_MMU > registerLimit_MMU)
-			{
-				Processor_RaiseException(INVALIDADDRESS);
-			}
+
 			if (registerMAR_MMU < registerLimit_MMU)
 			{
 				// Physical address = logical address + base register
@@ -63,6 +61,10 @@ void MMU_SetCTRL(int ctrl)
 			else
 			{
 				// Fail
+				if (registerMAR_MMU < registerBase_MMU || registerMAR_MMU > registerLimit_MMU)
+				{
+					Processor_RaiseException(INVALIDADDRESS);
+				}
 				registerCTRL_MMU |= CTRL_FAIL;
 			}
 		}
@@ -71,10 +73,7 @@ void MMU_SetCTRL(int ctrl)
 	case CTRLWRITE:
 		if (Processor_PSW_BitState(EXECUTION_MODE_BIT))
 		{ // Protected mode
-			if (registerMAR_MMU < registerBase_MMU || registerMAR_MMU > registerLimit_MMU)
-			{
-				Processor_RaiseException(INVALIDADDRESS);
-			}
+
 			if (registerMAR_MMU < MAINMEMORYSIZE)
 			{
 				// Send to the main memory HW the physical address to write in
@@ -88,15 +87,17 @@ void MMU_SetCTRL(int ctrl)
 			else
 			{
 				// Fail
+				// Fail
+				if (registerMAR_MMU < 0 || registerMAR_MMU > registerLimit_MMU)
+				{
+					Processor_RaiseException(INVALIDADDRESS);
+				}
 				registerCTRL_MMU |= CTRL_FAIL;
 			}
 		}
 		else
 		{ // Non-Protected mode
-			if (registerMAR_MMU < registerBase_MMU || registerMAR_MMU > registerLimit_MMU)
-			{
-				Processor_RaiseException(INVALIDADDRESS);
-			}
+
 			if (registerMAR_MMU < registerLimit_MMU)
 			{
 				// Physical address = logical address + base register
@@ -111,7 +112,10 @@ void MMU_SetCTRL(int ctrl)
 			}
 			else
 			{
-				// Fail
+				if (registerMAR_MMU < registerBase_MMU || registerMAR_MMU > registerLimit_MMU)
+				{
+					Processor_RaiseException(INVALIDADDRESS);
+				}
 				registerCTRL_MMU |= CTRL_FAIL;
 			}
 		}

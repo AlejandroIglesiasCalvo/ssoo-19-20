@@ -342,3 +342,7 @@ void limpiarProcesador()
 {
 	Processor_SetAccumulator(0);
 }
+int getExcepcion()
+{
+	return registerB_CPU;
+}
