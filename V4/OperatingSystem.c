@@ -269,6 +269,8 @@ void OperatingSystem_PCBInitialization(int PID, int initialPhysicalAddress, int 
 	processTable[PID].state = NEW;
 	processTable[PID].priority = priority;
 	processTable[PID].programListIndex = processPLIndex;
+	processTable[PID].whenToWakeUp=0;
+	processTable[PID].copyOfAccumulator = 0;
 
 	// Daemons run in protected mode and MMU use real address
 	if (programList[processPLIndex]->type == DAEMONPROGRAM)
@@ -276,14 +278,12 @@ void OperatingSystem_PCBInitialization(int PID, int initialPhysicalAddress, int 
 		processTable[PID].copyOfPCRegister = initialPhysicalAddress;
 		processTable[PID].copyOfPSWRegister = ((unsigned int)1) << EXECUTION_MODE_BIT;
 		processTable[PID].queueID = DAEMONSQUEUE;
-		processTable[PID].copyOfAccumulator = 0;
 	}
 	else
 	{
 		processTable[PID].copyOfPCRegister = 0;
 		processTable[PID].copyOfPSWRegister = 0;
-		processTable[PID].queueID = USERPROCESSQUEUE;
-		processTable[PID].copyOfAccumulator = 0;
+		processTable[PID].queueID = USERPROCESSQUEUE;	
 	}
 }
 
@@ -695,14 +695,14 @@ int llegasTarde()
 void apagarPorLaFuerza()
 {
 	int selectedProcess;
-	if (executingProcessID == sipID)
-	{
-		// finishing sipID, change PC to address of OS HALT instruction
-		Processor_CopyInSystemStack(MAINMEMORYSIZE - 1, OS_address_base + 1);
-		OperatingSystem_ShowTime(SHUTDOWN);
-		ComputerSystem_DebugMessage(99, SHUTDOWN, "The system will shut down now...\n");
-		return; // Don't dispatch any process
-	}
+	// if (executingProcessID == sipID)
+	// {
+	// 	// finishing sipID, change PC to address of OS HALT instruction
+	// 	Processor_CopyInSystemStack(MAINMEMORYSIZE - 1, OS_address_base + 1);
+	// 	OperatingSystem_ShowTime(SHUTDOWN);
+	// 	ComputerSystem_DebugMessage(99, SHUTDOWN, "The system will shut down now...\n");
+	// 	return; // Don't dispatch any process
+	// }
 	// Simulation must finish, telling sipID to finish
 	OperatingSystem_ReadyToShutdown();
 

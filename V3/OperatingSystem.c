@@ -669,14 +669,14 @@ int llegasTarde()
 void apagarPorLaFuerza()
 {
 	int selectedProcess;
-	if (executingProcessID == sipID)
-	{
-		// finishing sipID, change PC to address of OS HALT instruction
-		Processor_CopyInSystemStack(MAINMEMORYSIZE - 1, OS_address_base + 1);
-		OperatingSystem_ShowTime(SHUTDOWN);
-		ComputerSystem_DebugMessage(99, SHUTDOWN, "The system will shut down now...\n");
-		return; // Don't dispatch any process
-	}
+	// if (executingProcessID == sipID)
+	// {
+	// 	// finishing sipID, change PC to address of OS HALT instruction
+	// 	Processor_CopyInSystemStack(MAINMEMORYSIZE - 1, OS_address_base + 1);
+	// 	OperatingSystem_ShowTime(SHUTDOWN);
+	// 	ComputerSystem_DebugMessage(99, SHUTDOWN, "The system will shut down now...\n");
+	// 	return; // Don't dispatch any process
+	// }
 	// Simulation must finish, telling sipID to finish
 	OperatingSystem_ReadyToShutdown();
 
