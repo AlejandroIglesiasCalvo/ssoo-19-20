@@ -74,6 +74,7 @@ heapItem sleepingProcessesQueue[PROCESSTABLEMAXSIZE];
 int numberOfSleepingProcesses = 0;
 //V3 E1
 int PID_para_Procesador = -99;
+int NumeroDeParticionesCreadas;
 // Initial set of tasks of the OS
 void OperatingSystem_Initialize(int daemonsIndex)
 {
@@ -101,7 +102,7 @@ void OperatingSystem_Initialize(int daemonsIndex)
 	ComputerSystem_FillInArrivalTimeQueue();
 	OperatingSystem_PrintStatus();
 
-	OperatingSystem_InitializePartitionTable();
+	NumeroDeParticionesCreadas = OperatingSystem_InitializePartitionTable();
 	// Create all user processes from the information given in the command line
 	//Ejercicio 15 V1
 	int creados = OperatingSystem_LongTermScheduler();
@@ -255,7 +256,10 @@ int OperatingSystem_ObtainMainMemory(int processSize, int PID)
 
 	if (processSize > MAINMEMORYSECTIONSIZE)
 		return TOOBIGPROCESS;
-
+	//llamada a la anueva funcion de ajuste de memoria
+	//Pensare un nombre guay
+	// int posicion = elegir_Zapatos(processSize, PID);
+	// return posicion;
 	return PID * MAINMEMORYSECTIONSIZE;
 }
 
@@ -269,7 +273,7 @@ void OperatingSystem_PCBInitialization(int PID, int initialPhysicalAddress, int 
 	processTable[PID].state = NEW;
 	processTable[PID].priority = priority;
 	processTable[PID].programListIndex = processPLIndex;
-	processTable[PID].whenToWakeUp=0;
+	processTable[PID].whenToWakeUp = 0;
 	processTable[PID].copyOfAccumulator = 0;
 
 	// Daemons run in protected mode and MMU use real address
@@ -283,7 +287,7 @@ void OperatingSystem_PCBInitialization(int PID, int initialPhysicalAddress, int 
 	{
 		processTable[PID].copyOfPCRegister = 0;
 		processTable[PID].copyOfPSWRegister = 0;
-		processTable[PID].queueID = USERPROCESSQUEUE;	
+		processTable[PID].queueID = USERPROCESSQUEUE;
 	}
 }
 
@@ -710,4 +714,47 @@ void apagarPorLaFuerza()
 	selectedProcess = OperatingSystem_ShortTermScheduler();
 	// Assign the processor to that process
 	OperatingSystem_Dispatch(selectedProcess);
+}
+int elegir_Zapatos(talla, PIE)
+{
+	int zapatito = -1;		   //El mas ajustado
+	int barcaza = -1;		   //Entra, pero no es la mas ajustada
+	int tendero;			   //El contador
+	int noHayZapatos = -1;	   //Entradas libres en la tabla
+	int tallaDeZapato = talla; //Tamaño del proceso
+	for (tendero = 0; tendero < NumeroDeParticionesCreadas; tendero++)
+	{
+		int hayAlgoEnLaCaja = partitionsTable[tendero].PID;
+		//Los zapatos estan, podemos probar a ver si valen
+		//(en no subnormal, no hay procesos en la memoria, esta libre)
+		if (hayAlgoEnLaCaja == NOPROCESS)
+		{
+			noHayZapatos = 1;
+			int elDeLaCaja = partitionsTable[tendero].size; //Sacamos el zapato
+			if (tallaDeZapato <= elDeLaCaja)				//Entra en el zapato
+			{
+				if (barcaza == -1) //Inicializamos en el que entra
+				{
+					zapatito = tendero; //El minimo en el que entra
+				}
+				else
+				{
+					barcaza = partitionsTable[zapatito].size; //Obtenemos el tamaño del que entra
+					if (elDeLaCaja < barcaza)
+					{ //Si el de la caja es mas pequeño que el actual, sera el nuevo zapatito
+						zapatito = tendero;
+					}
+				}
+			}
+		}
+	}
+	if (zapatito == -1)
+	{
+		return TOOBIGPROCESS;
+	}
+	if (noHayZapatos == -1)
+	{
+		return MEMORYFULL;
+	}
+	return zapatito;
 }

@@ -20,7 +20,7 @@
 
 // Partitions configuration file name definition
 #define MEMCONFIG "MemConfig" // in OperatingSystem.h 
-
+#define MEMORYFULL -5 // In OperatingSystem.h
 // Contains the possible type of programs
 enum ProgramTypes
 {
@@ -93,5 +93,6 @@ int OperatingSystem_GetExecutingProcessID(int);
 //V3 E2
 int llegasTarde();
 void apagarPorLaFuerza();
-
+//V4 E6
+int elegir_Zapatos(int processSize, int PID);
 #endif
