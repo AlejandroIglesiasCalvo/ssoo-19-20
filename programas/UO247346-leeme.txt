@@ -1,0 +1,9 @@
+Programas:
+    Prueban exactamente el ejercicio que indica su nombre
+Simulaciones:
+    ./Simulator pro-V4-E1 0
+    ./Simulator pro-V4-E2-1 0
+    ./Simulator pro-V4-E2-2 0
+    ./Simulator pro-V4-E2-3 0
+    ./Simulator pro-V4-E3 0
+    ./Simulator pro-V4-E4 0
