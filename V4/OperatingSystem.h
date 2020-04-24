@@ -96,4 +96,5 @@ int llegasTarde();
 void apagarPorLaFuerza();
 //V4 E6
 int elegir_Zapatos(int processSize);
+void OperatingSystem_ReleaseMainMemory();
 #endif

@@ -449,7 +449,8 @@ void OperatingSystem_TerminateProcess()
 	int selectedProcess;
 	Change_State(executingProcessID, EXECUTING, EXIT);
 	processTable[executingProcessID].state = EXIT;
-	partitionsTable[processTable[executingProcessID].particion].PID = NOPROCESS;
+	//partitionsTable[processTable[executingProcessID].particion].PID = NOPROCESS;
+	OperatingSystem_ReleaseMainMemory();
 	if (programList[processTable[executingProcessID].programListIndex]->type == USERPROGRAM)
 	{
 		// One more user process that has terminated
@@ -779,4 +780,9 @@ int elegir_Zapatos(talla)
 		return MEMORYFULL;
 	}
 	return zapatito;
+}
+void OperatingSystem_ReleaseMainMemory() {
+	OperatingSystem_ShowPartitionTable("before releasing memory");
+	partitionsTable[processTable[executingProcessID].particion].PID = NOPROCESS;
+	OperatingSystem_ShowPartitionTable("after releasing memory");
 }
