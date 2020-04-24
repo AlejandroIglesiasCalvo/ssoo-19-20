@@ -178,7 +178,13 @@ int OperatingSystem_LongTermScheduler()
 			continue;
 		case TOOBIGPROCESS:
 			OperatingSystem_ShowTime(ERROR);
-			ComputerSystem_DebugMessage(105, ERROR, programList[nuevoProceso]->executableName);
+			//ComputerSystem_DebugMessage(105, ERROR, programList[nuevoProceso]->executableName);
+			ComputerSystem_DebugMessage(144, ERROR, "TOOBIGPROCESS");
+			continue;
+		case MEMORYFULL:
+			OperatingSystem_ShowTime(ERROR);
+			//ComputerSystem_DebugMessage(105, ERROR, programList[nuevoProceso]->executableName);
+			ComputerSystem_DebugMessage(144, ERROR, "MEMORYFULL");
 			continue;
 		default:
 			numberOfSuccessfullyCreatedProcesses++;
@@ -203,7 +209,6 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 
 	int PID;
 	int processSize;
-	int loadingPhysicalAddress;
 	int priority;
 	FILE *programFile;
 	PROGRAMS_DATA *executableProgram = programList[indexOfExecutableProgram];
@@ -227,22 +232,32 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 		return PROGRAMNOTVALID;
 	}
 	// Obtain enough memory space
-	loadingPhysicalAddress = OperatingSystem_ObtainMainMemory(processSize, PID);
-	if (loadingPhysicalAddress == TOOBIGPROCESS)
+	ComputerSystem_DebugMessage(142, SYSMEM, PID, executableProgram->executableName, processSize);
+	int particion = OperatingSystem_ObtainMainMemory(processSize, PID);
+	if (particion == TOOBIGPROCESS)
 	{
 		return TOOBIGPROCESS;
 	}
+	if (particion == MEMORYFULL)
+	{
+		return MEMORYFULL;
+	}
+
 	// Load program in the allocated memory
 	int Mierda;
-	Mierda = OperatingSystem_LoadProgram(programFile, loadingPhysicalAddress, processSize);
+	Mierda = OperatingSystem_LoadProgram(programFile, particion, processSize);
 	if (Mierda == TOOBIGPROCESS)
 	{
 		return TOOBIGPROCESS;
 	}
 	// PCB initialization
-	OperatingSystem_PCBInitialization(PID, loadingPhysicalAddress, processSize, priority, indexOfExecutableProgram);
+	OperatingSystem_ShowPartitionTable("before allocating memory");
+	OperatingSystem_PCBInitialization(PID, particion, processSize, priority, indexOfExecutableProgram);
+	OperatingSystem_ShowPartitionTable("after allocating memory");
 	Change_State(PID, NEW, -1);
 	// Show message "Process [PID] created from program [executableName]\n"
+	OperatingSystem_ShowTime(INIT);
+	ComputerSystem_DebugMessage(143, SYSMEM, processTable[PID].particion, processTable[PID].initialPhysicalAddress, partitionsTable[processTable[PID].particion].size, PID, executableProgram->executableName);
 	OperatingSystem_ShowTime(INIT);
 	ComputerSystem_DebugMessage(70, INIT, PID, executableProgram->executableName);
 
@@ -254,32 +269,34 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 int OperatingSystem_ObtainMainMemory(int processSize, int PID)
 {
 
-	if (processSize > MAINMEMORYSECTIONSIZE)
-		return TOOBIGPROCESS;
+	// if (processSize > MAINMEMORYSECTIONSIZE)
+	// 	return TOOBIGPROCESS;
 	//llamada a la anueva funcion de ajuste de memoria
 	//Pensare un nombre guay
-	// int posicion = elegir_Zapatos(processSize, PID);
-	// return posicion;
-	return PID * MAINMEMORYSECTIONSIZE;
+	int posicion = elegir_Zapatos(processSize);
+	return posicion;
+
+	//return PID * MAINMEMORYSECTIONSIZE;
 }
 
 // Assign initial values to all fields inside the PCB
-void OperatingSystem_PCBInitialization(int PID, int initialPhysicalAddress, int processSize, int priority, int processPLIndex)
+void OperatingSystem_PCBInitialization(int PID, int particion, int processSize, int priority, int processPLIndex)
 {
 
 	processTable[PID].busy = 1;
-	processTable[PID].initialPhysicalAddress = initialPhysicalAddress;
+	processTable[PID].initialPhysicalAddress = partitionsTable[particion].initAddress;
 	processTable[PID].processSize = processSize;
 	processTable[PID].state = NEW;
 	processTable[PID].priority = priority;
 	processTable[PID].programListIndex = processPLIndex;
 	processTable[PID].whenToWakeUp = 0;
 	processTable[PID].copyOfAccumulator = 0;
-
+	processTable[PID].particion = particion;
+	partitionsTable[particion].PID = PID;
 	// Daemons run in protected mode and MMU use real address
 	if (programList[processPLIndex]->type == DAEMONPROGRAM)
 	{
-		processTable[PID].copyOfPCRegister = initialPhysicalAddress;
+		processTable[PID].copyOfPCRegister = partitionsTable[particion].initAddress;
 		processTable[PID].copyOfPSWRegister = ((unsigned int)1) << EXECUTION_MODE_BIT;
 		processTable[PID].queueID = DAEMONSQUEUE;
 	}
@@ -432,7 +449,7 @@ void OperatingSystem_TerminateProcess()
 	int selectedProcess;
 	Change_State(executingProcessID, EXECUTING, EXIT);
 	processTable[executingProcessID].state = EXIT;
-
+	partitionsTable[processTable[executingProcessID].particion].PID = NOPROCESS;
 	if (programList[processTable[executingProcessID].programListIndex]->type == USERPROGRAM)
 	{
 		// One more user process that has terminated
@@ -715,8 +732,9 @@ void apagarPorLaFuerza()
 	// Assign the processor to that process
 	OperatingSystem_Dispatch(selectedProcess);
 }
-int elegir_Zapatos(talla, PIE)
+int elegir_Zapatos(talla)
 {
+
 	int zapatito = -1;		   //El mas ajustado
 	int barcaza = -1;		   //Entra, pero no es la mas ajustada
 	int tendero;			   //El contador
@@ -735,7 +753,7 @@ int elegir_Zapatos(talla, PIE)
 			{
 				if (barcaza == -1) //Inicializamos en el que entra
 				{
-					zapatito = tendero; //El minimo en el que entra
+					barcaza = tendero; //El minimo en el que entra
 				}
 				else
 				{
@@ -744,6 +762,10 @@ int elegir_Zapatos(talla, PIE)
 					{ //Si el de la caja es mas pequeño que el actual, sera el nuevo zapatito
 						zapatito = tendero;
 					}
+				}
+				if (zapatito == -1 && barcaza != -1)
+				{
+					zapatito = barcaza;
 				}
 			}
 		}

@@ -155,7 +155,7 @@
         {
             "label": "RunV4",
             "type": "shell",
-            "command": "cd V4 && ./Simulator ../programas/prog-V1-E11 3 ../programas/prog-V1-E12 6 | head -n 1000",
+            "command": "cd V4 && ./Simulator ../programas/prog-V3-E4 1 ../programas/prog-V3-E4 2 ../programas/prog-V3-E4 4 ../programas/prog-V3-E4 150 ../programas/prog-V3-E4 270 | head -n 1000",
             "problemMatcher": [
                 "$gcc"
             ]

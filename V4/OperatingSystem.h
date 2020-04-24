@@ -61,6 +61,7 @@ typedef struct
 	int queueID;
 	int copyOfAccumulator;//Ejercicio 13 V1
 	int whenToWakeUp; // Exercise 5-a of V2
+	int particion;
 
 } PCB;
 
@@ -94,5 +95,5 @@ int OperatingSystem_GetExecutingProcessID(int);
 int llegasTarde();
 void apagarPorLaFuerza();
 //V4 E6
-int elegir_Zapatos(int processSize, int PID);
+int elegir_Zapatos(int processSize);
 #endif
