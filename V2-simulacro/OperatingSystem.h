@@ -40,7 +40,7 @@ enum SystemCallIdentifiers
 	SYSCALL_END = 3,
 	SYSCALL_YIELD = 4,
 	SYSCALL_PRINTEXECPID = 5,
-	SYSCALL_SLEEP=7
+	SYSCALL_SLEEP = 7
 };
 
 // A PCB contains all of the information about a process that is needed by the OS
@@ -55,9 +55,21 @@ typedef struct
 	unsigned int copyOfPSWRegister;
 	int programListIndex;
 	int queueID;
-	int copyOfAccumulator;//Ejercicio 13 V1
-	int whenToWakeUp; // Exercise 5-a of V2
+	int copyOfAccumulator; //Ejercicio 13 V1
+	int whenToWakeUp;	   // Exercise 5-a of V2
+	//simulacro de examen
+	int TRespuesta;
+	// tiempo de respuesta: número de tics de reloj que han transcurrido desde que el proceso ha sido
+	// creado y la primera vez que el proceso pasa a ejecutarse. Listo
 
+	int TRetorno;
+	//  número de tics de reloj que han transcurrido desde que el proceso ha sido
+	//  creado y el proceso termina. listo
+
+	int TEspera;
+	//  número de tics que el proceso pasa en el estado listo para ejecución. Recuerda
+	// que el proceso puede pasar varias veces durante su vida por este estado
+	int ControlTESpera;
 } PCB;
 
 // These "extern" declaration enables other source code files to gain access

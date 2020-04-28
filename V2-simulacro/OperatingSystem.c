@@ -182,7 +182,8 @@ int OperatingSystem_LongTermScheduler()
 			{
 				//numberOfReadyToRunProcesses[DAEMONSQUEUE]++;
 			}
-
+			processTable[PID].TRespuesta = Clock_GetTime();
+			processTable[PID].TRetorno = Clock_GetTime();
 			// Move process to the ready state
 			OperatingSystem_MoveToTheREADYState(PID);
 			continue;
@@ -270,6 +271,11 @@ void OperatingSystem_PCBInitialization(int PID, int initialPhysicalAddress, int 
 	processTable[PID].state = NEW;
 	processTable[PID].priority = priority;
 	processTable[PID].programListIndex = processPLIndex;
+	//Simulacro de examen
+	processTable[PID].TRespuesta = -1;
+	processTable[PID].TRetorno = -1;
+	processTable[PID].TEspera = -1;
+	processTable[PID].ControlTESpera = 0;
 	// Daemons run in protected mode and MMU use real address
 	if (programList[processPLIndex]->type == DAEMONPROGRAM)
 	{
@@ -290,6 +296,14 @@ void OperatingSystem_PCBInitialization(int PID, int initialPhysicalAddress, int 
 // Heap_add(int info, heapItem heap[], int queueType, int *numElem, int limit)
 void OperatingSystem_MoveToTheREADYState(int PID)
 {
+	//Primera vez en espera para ejecutar
+	if (processTable[PID].TEspera == -1)
+	{
+		processTable[PID].TEspera = 0;
+	}
+	//Empezamos a contar el tiempo
+	processTable[PID].ControlTESpera = Clock_GetTime();
+
 	int estadoAntiguo = processTable[PID].state;
 	if (Heap_add(PID, readyToRunQueue[processTable[PID].queueID], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[PID].queueID], PROCESSTABLEMAXSIZE) >= 0)
 	{
@@ -342,6 +356,13 @@ void OperatingSystem_Dispatch(int PID)
 
 	// The process identified by PID becomes the current executing process
 	executingProcessID = PID;
+	int TiempoDeRespuesta = Clock_GetTime() - processTable[PID].TRespuesta; //Calculo del tiempo de respuesta
+	processTable[PID].TRespuesta = TiempoDeRespuesta;						//Asignacion final del tiempo e respuesta
+	//Calculos para el timepo de espera
+	int AcumulacionDeTiempo = Clock_GetTime() - processTable[PID].ControlTESpera; //Esto nos da esta pausa
+	int SumatorioDeLaEspera = processTable[PID].TEspera + AcumulacionDeTiempo;	  //Sumamos el tiempo total a la espera parcial
+	processTable[PID].TEspera = SumatorioDeLaEspera;							  //Asignamos el sumatorio a la variable, ahora contiene el tiempo total de espera
+
 	// Change the process' state
 	processTable[PID].state = EXECUTING;
 	Change_State(PID, READY, EXECUTING);
@@ -408,6 +429,15 @@ void OperatingSystem_TerminateProcess()
 	int selectedProcess;
 	Change_State(executingProcessID, EXECUTING, EXIT);
 	processTable[executingProcessID].state = EXIT;
+	int TiempoDeRetorno = Clock_GetTime() - processTable[executingProcessID].TRetorno; //Calculo del tiempo de retorno
+	processTable[executingProcessID].TRetorno = TiempoDeRetorno;					   //Asignacion final del tiempo de retorno
+	//Simulacro de examen
+	OperatingSystem_ShowTime(SYSPROC);
+	ComputerSystem_DebugMessage(550, SYSPROC, "response time", executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, processTable[executingProcessID].TRespuesta);
+	OperatingSystem_ShowTime(SYSPROC);
+	ComputerSystem_DebugMessage(550, SYSPROC, "return time", executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, processTable[executingProcessID].TRetorno);
+	OperatingSystem_ShowTime(SYSPROC);
+	ComputerSystem_DebugMessage(550, SYSPROC, "waiting time", executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, processTable[executingProcessID].TEspera);
 
 	if (programList[processTable[executingProcessID].programListIndex]->type == USERPROGRAM)
 	{
@@ -549,7 +579,7 @@ void la_Magia_Del_Yield(executingProcessID)
 void ceder_voluntariamente_el_control_del_procesador(executingProcessID, cadidatoOoOoOo)
 {
 	int elNUevo;
-	elNUevo=Heap_poll(readyToRunQueue[processTable[cadidatoOoOoOo].queueID],QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[cadidatoOoOoOo].queueID]);
+	elNUevo = Heap_poll(readyToRunQueue[processTable[cadidatoOoOoOo].queueID], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[cadidatoOoOoOo].queueID]);
 	OperatingSystem_ShowTime(SHORTTERMSCHEDULE);
 	ComputerSystem_DebugMessage(115, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, elNUevo, programList[processTable[elNUevo].programListIndex]->executableName);
 	OperatingSystem_PreemptRunningProcess();
