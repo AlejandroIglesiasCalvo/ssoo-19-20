@@ -1,0 +1,47 @@
+	[0] New process [3 - SystemIdleProcess] moving to the [NEW] state
+	[0] Process [3 - SystemIdleProcess] moving from the [NEW] state to the [READY] state
+	[0] New process [0 - p2] moving to the [NEW] state
+	[0] Process [0 - p2] moving from the [NEW] state to the [READY] state
+	[0] New process [1 - p3] moving to the [NEW] state
+	[0] Process [1 - p3] moving from the [NEW] state to the [READY] state
+	[0] New process [2 - p4] moving to the [NEW] state
+	[0] Process [2 - p4] moving from the [NEW] state to the [READY] state
+	[0] Process [0 - p2] moving from the [READY] state to the [EXECUTING] state
+	[5] Process [0 - p2] moving from the [EXECUTING] state to the [READY] state
+	[5] Process [1 - p3] moving from the [READY] state to the [EXECUTING] state
+	[16] Process [1 - p3] moving from the [EXECUTING] state to the [READY] state
+	[16] Process [2 - p4] moving from the [READY] state to the [EXECUTING] state
+	[27] Process [2 - p4] moving from the [EXECUTING] state to the [BLOCKED] state
+	[27] Process [0 - p2] moving from the [READY] state to the [EXECUTING] state
+	[37] Process [0 - p2] has requested to terminate
+	[37] Process [0 - p2] moving from the [EXECUTING] state to the [EXIT] state
+	[37] The response time for process [0 - p2] is 0.
+	[37] The return time for process [0 - p2] is 37.
+	[37] The waiting time for process [0 - p2] is 22.
+	[37] Process [1 - p3] moving from the [READY] state to the [EXECUTING] state
+	[47] Process [1 - p3] has requested to terminate
+	[47] Process [1 - p3] moving from the [EXECUTING] state to the [EXIT] state
+	[47] The response time for process [1 - p3] is 5.
+	[47] The return time for process [1 - p3] is 47.
+	[47] The waiting time for process [1 - p3] is 26.
+	[47] Process [3 - SystemIdleProcess] moving from the [READY] state to the [EXECUTING] state
+	[92] Process [2 - p4] moving from the [BLOCKED] state to the [READY] state
+	[92] Process [3 - SystemIdleProcess] moving from the [EXECUTING] state to the [READY] state
+	[92] Process [0 - p2] moving from the [READY] state to the [EXECUTING] state
+	[96] Process [0 - p2] has requested to terminate
+	[96] Process [0 - p2] moving from the [EXECUTING] state to the [EXIT] state
+	[96] The response time for process [0 - p2] is 0.
+	[96] The return time for process [0 - p2] is 59.
+	[96] The waiting time for process [0 - p2] is 109.
+	[96] Process [2 - p4] moving from the [READY] state to the [EXECUTING] state
+	[106] Process [2 - p4] has requested to terminate
+	[106] Process [2 - p4] moving from the [EXECUTING] state to the [EXIT] state
+	[106] The response time for process [2 - p4] is 16.
+	[106] The return time for process [2 - p4] is 106.
+	[106] The waiting time for process [2 - p4] is 20.
+	[106] Process [3 - SystemIdleProcess] moving from the [READY] state to the [EXECUTING] state
+	[116] Process [3 - SystemIdleProcess] has requested to terminate
+	[116] Process [3 - SystemIdleProcess] moving from the [EXECUTING] state to the [EXIT] state
+	[116] The response time for process [3 - SystemIdleProcess] is 47.
+	[116] The return time for process [3 - SystemIdleProcess] is 116.
+	[116] The waiting time for process [3 - SystemIdleProcess] is 61.
