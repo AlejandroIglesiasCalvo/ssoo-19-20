@@ -692,6 +692,17 @@ void procesoAlfa()
 		OperatingSystem_Dispatch(NuevoAlfa);
 		OperatingSystem_PrintStatus();
 	}
+	else if (numberOfReadyToRunProcesses[DAEMONPROGRAM] > 0 && prioridadAlfa < actual)
+	{
+		PID_para_Procesador = posibleAlfa; //Para el procesador
+		OperatingSystem_ShowTime(INTERRUPT);
+		ComputerSystem_DebugMessage(121, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, posibleAlfa, programList[processTable[posibleAlfa].programListIndex]->executableName);
+		OperatingSystem_PreemptRunningProcess(); //Se pira el actual
+		//OperatingSystem_ShortTermScheduler();
+		int NuevoAlfa = Heap_poll(readyToRunQueue[processTable[posibleAlfa].queueID], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[posibleAlfa].queueID]);
+		OperatingSystem_Dispatch(NuevoAlfa);
+		OperatingSystem_PrintStatus();
+	}
 }
 int OperatingSystem_GetExecutingProcessID(operationCode)
 {
@@ -781,7 +792,8 @@ int elegir_Zapatos(talla)
 	}
 	return zapatito;
 }
-void OperatingSystem_ReleaseMainMemory() {
+void OperatingSystem_ReleaseMainMemory()
+{
 	OperatingSystem_ShowPartitionTable("before releasing memory");
 	partitionsTable[processTable[executingProcessID].particion].PID = NOPROCESS;
 	OperatingSystem_ShowPartitionTable("after releasing memory");
