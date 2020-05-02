@@ -153,9 +153,17 @@
             ]
         },
         {
-            "label": "RunV4",
+            "label": "Test Nestor V4",
             "type": "shell",
-            "command": "cd V4 && ./Simulator programVerySimpleTest 100  | head -n 3000",
+            "command": "cd V4 && ./script-V4-teacher-test",
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Test Nestor V4 como programas",
+            "type": "shell",
+            "command": "cd V4 && ./Simulator ../programas/p1 10 ../programas/p2 11 ../programas/p3 12 | head -n 1000",
             "problemMatcher": [
                 "$gcc"
             ]

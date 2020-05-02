@@ -639,10 +639,13 @@ void VAMOS_PANDA_DE_VAGOS()
 {
 	int vanderaAaAaA = 0;
 	int vagos;
+	if(numberOfSleepingProcesses>0){
+		int pausa=1;
+	}
 	for (vagos = 0; vagos < numberOfSleepingProcesses; vagos++)
 	{
 		int madrugador = Heap_getFirst(sleepingProcessesQueue, numberOfSleepingProcesses);
-		if (processTable[madrugador].whenToWakeUp == numberOfClockInterrupts)
+		if (processTable[madrugador].whenToWakeUp <= numberOfClockInterrupts)
 		{
 			vanderaAaAaA = -1;
 			int levantado = Heap_poll(sleepingProcessesQueue, QUEUE_WAKEUP, &numberOfSleepingProcesses);
@@ -692,7 +695,7 @@ void procesoAlfa()
 		OperatingSystem_Dispatch(NuevoAlfa);
 		OperatingSystem_PrintStatus();
 	}
-	else if (numberOfReadyToRunProcesses[DAEMONPROGRAM] > 0 && prioridadAlfa < actual)
+	if (numberOfReadyToRunProcesses[DAEMONPROGRAM] > 0 && executingProcessID == sipID && prioridadAlfa < actual)
 	{
 		PID_para_Procesador = posibleAlfa; //Para el procesador
 		OperatingSystem_ShowTime(INTERRUPT);

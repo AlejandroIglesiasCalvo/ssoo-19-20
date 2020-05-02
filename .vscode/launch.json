@@ -10,10 +10,8 @@
             "request": "launch",
             "program": "${workspaceFolder}/V4/Simulator",
             "args": [
-                "--debugSections=a",
                 "programVerySimpleTest",
-                "100",
-                "2>&1"
+                "100"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/V4/",
