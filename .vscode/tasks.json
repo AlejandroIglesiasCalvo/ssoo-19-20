@@ -175,6 +175,14 @@
             "problemMatcher": [
                 "$gcc"
             ]
+        },
+        {
+            "label": "RunV4",
+            "type": "shell",
+            "command": "cd V4 && ./Simulator ../programas/prog-V1-E11 3 ../programas/programVerySimple-V3 9 ../programas/prog-V1-E12 6 | head -n 1000",
+            "problemMatcher": [
+                "$gcc"
+            ]
         }
     ]
 }

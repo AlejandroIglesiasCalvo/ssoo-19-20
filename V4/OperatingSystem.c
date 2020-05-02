@@ -641,9 +641,9 @@ void VAMOS_PANDA_DE_VAGOS()
 {
 	int vanderaAaAaA = 0;
 	int vagos;
-	if(numberOfSleepingProcesses>0){
-		int pausa=1;
-	}
+	// if(numberOfSleepingProcesses>0){
+	// 	int pausa=1;
+	// }
 	for (vagos = 0; vagos < numberOfSleepingProcesses; vagos++)
 	{
 		int madrugador = Heap_getFirst(sleepingProcessesQueue, numberOfSleepingProcesses);
