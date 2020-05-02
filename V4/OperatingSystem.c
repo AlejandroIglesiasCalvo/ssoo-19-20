@@ -232,6 +232,7 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 		return PROGRAMNOTVALID;
 	}
 	// Obtain enough memory space
+	OperatingSystem_ShowTime(SYSMEM);
 	ComputerSystem_DebugMessage(142, SYSMEM, PID, executableProgram->executableName, processSize);
 	int particion = OperatingSystem_ObtainMainMemory(processSize, PID);
 	if (particion == TOOBIGPROCESS)
@@ -257,9 +258,10 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 	Change_State(PID, NEW, -1);
 	// Show message "Process [PID] created from program [executableName]\n"
 	OperatingSystem_ShowTime(INIT);
-	ComputerSystem_DebugMessage(143, SYSMEM, processTable[PID].particion, processTable[PID].initialPhysicalAddress, partitionsTable[processTable[PID].particion].size, PID, executableProgram->executableName);
-	OperatingSystem_ShowTime(INIT);
 	ComputerSystem_DebugMessage(70, INIT, PID, executableProgram->executableName);
+	OperatingSystem_ShowTime(INIT);
+	ComputerSystem_DebugMessage(143, SYSMEM, processTable[PID].particion, processTable[PID].initialPhysicalAddress, partitionsTable[processTable[PID].particion].size, PID, executableProgram->executableName);
+	
 
 	return PID;
 }
@@ -459,7 +461,7 @@ void OperatingSystem_TerminateProcess()
 	}
 
 	// if (numberOfNotTerminatedUserProcesses <= 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE)
-	if (numberOfNotTerminatedUserProcesses == 0)
+	if (numberOfNotTerminatedUserProcesses == 0 && numberOfReadyToRunProcesses[DAEMONPROGRAM]<=1)
 	{
 		if (executingProcessID == sipID)
 		{
@@ -614,7 +616,7 @@ void OperatingSystem_HandleClockInterrupt()
 	VAMOS_PANDA_DE_VAGOS();
 	OperatingSystem_LongTermScheduler(); //V3 E3
 	procesoAlfa();						 //V3 E3b
-	if ((numberOfNotTerminatedUserProcesses == 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE))
+	if ((numberOfNotTerminatedUserProcesses == 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE && numberOfReadyToRunProcesses[DAEMONPROGRAM]<=1))
 	{
 		//apagarPorLaFuerza();
 		OperatingSystem_ReadyToShutdown();
