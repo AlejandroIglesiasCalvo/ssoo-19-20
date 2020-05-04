@@ -234,6 +234,7 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 	// Obtain enough memory space
 	OperatingSystem_ShowTime(SYSMEM);
 	ComputerSystem_DebugMessage(142, SYSMEM, PID, executableProgram->executableName, processSize);
+	OperatingSystem_ShowPartitionTable("before allocating memory");
 	int particion = OperatingSystem_ObtainMainMemory(processSize, PID);
 	if (particion == TOOBIGPROCESS)
 	{
@@ -243,6 +244,8 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 	{
 		return MEMORYFULL;
 	}
+	OperatingSystem_ShowTime(INIT);
+	ComputerSystem_DebugMessage(143, SYSMEM, particion, partitionsTable[particion].initAddress, partitionsTable[particion].size, PID, executableProgram->executableName);
 
 	// Load program in the allocated memory
 	int Mierda;
@@ -252,16 +255,14 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 		return TOOBIGPROCESS;
 	}
 	// PCB initialization
-	OperatingSystem_ShowPartitionTable("before allocating memory");
+
 	OperatingSystem_PCBInitialization(PID, particion, processSize, priority, indexOfExecutableProgram);
-	OperatingSystem_ShowPartitionTable("after allocating memory");
+
 	Change_State(PID, NEW, -1);
+	OperatingSystem_ShowPartitionTable("after allocating memory");
 	// Show message "Process [PID] created from program [executableName]\n"
 	OperatingSystem_ShowTime(INIT);
 	ComputerSystem_DebugMessage(70, INIT, PID, executableProgram->executableName);
-	OperatingSystem_ShowTime(INIT);
-	ComputerSystem_DebugMessage(143, SYSMEM, processTable[PID].particion, processTable[PID].initialPhysicalAddress, partitionsTable[processTable[PID].particion].size, PID, executableProgram->executableName);
-	
 
 	return PID;
 }
@@ -461,7 +462,8 @@ void OperatingSystem_TerminateProcess()
 	}
 
 	// if (numberOfNotTerminatedUserProcesses <= 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE)
-	if (numberOfNotTerminatedUserProcesses == 0 && numberOfReadyToRunProcesses[DAEMONPROGRAM]<=1)
+	//if (numberOfNotTerminatedUserProcesses == 0 && numberOfReadyToRunProcesses[DAEMONPROGRAM]<=1)
+	if ((numberOfNotTerminatedUserProcesses == 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE && numberOfReadyToRunProcesses[DAEMONPROGRAM] <= 1))
 	{
 		if (executingProcessID == sipID)
 		{
@@ -616,10 +618,10 @@ void OperatingSystem_HandleClockInterrupt()
 	VAMOS_PANDA_DE_VAGOS();
 	OperatingSystem_LongTermScheduler(); //V3 E3
 	procesoAlfa();						 //V3 E3b
-	if ((numberOfNotTerminatedUserProcesses == 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE && numberOfReadyToRunProcesses[DAEMONPROGRAM]<=1))
+	if ((numberOfNotTerminatedUserProcesses == 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE && numberOfReadyToRunProcesses[DAEMONPROGRAM] <= 1))
 	{
-		//apagarPorLaFuerza();
-		OperatingSystem_ReadyToShutdown();
+		apagarPorLaFuerza();
+		//OperatingSystem_ReadyToShutdown();
 	}
 }
 void a_dormir_ostia(int PID)
@@ -732,7 +734,7 @@ int llegasTarde()
 }
 void apagarPorLaFuerza()
 {
-	int selectedProcess;
+	// int selectedProcess;
 	// if (executingProcessID == sipID)
 	// {
 	// 	// finishing sipID, change PC to address of OS HALT instruction
@@ -742,12 +744,23 @@ void apagarPorLaFuerza()
 	// 	return; // Don't dispatch any process
 	// }
 	// Simulation must finish, telling sipID to finish
+	if (executingProcessID == sipID)
+	{
+		// finishing sipID, change PC to address of OS HALT instruction
+		//Processor_CopyInSystemStack(MAINMEMORYSIZE - 1, OS_address_base + 1);
+		OperatingSystem_TerminatingSIP();
+		OperatingSystem_ShowTime(SHUTDOWN);
+		ComputerSystem_DebugMessage(99, SHUTDOWN, "The system will shut down now...\n");
+		return; // Don't dispatch any process
+	}
+	// Simulation must finish, telling sipID to finish
+
 	OperatingSystem_ReadyToShutdown();
 
 	//Select the next process to execute (sipID if no more user processes)
-	selectedProcess = OperatingSystem_ShortTermScheduler();
-	// Assign the processor to that process
-	OperatingSystem_Dispatch(selectedProcess);
+	// selectedProcess = OperatingSystem_ShortTermScheduler();
+	// // Assign the processor to that process
+	// OperatingSystem_Dispatch(selectedProcess);
 }
 int elegir_Zapatos(talla)
 {
