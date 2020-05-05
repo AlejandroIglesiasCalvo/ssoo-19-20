@@ -1328,6 +1328,7 @@
 		[4] [128 -> 64][1 - daemon2]
 		[5] [192 -> 16][AVAILABLE]
 		[6] [208 -> 32][0 - daemon1]
+	[497] Partition [3: 32 -> 96] used by process [2 - daemon3] has been released
 	[497] Main memory state (after releasing memory):
 		[0] [0 -> 4][3 - SystemIdleProcess]
 		[1] [4 -> 12][AVAILABLE]
@@ -1517,6 +1518,7 @@
 		[4] [128 -> 64][1 - daemon2]
 		[5] [192 -> 16][AVAILABLE]
 		[6] [208 -> 32][0 - daemon1]
+	[586] Partition [4: 128 -> 64] used by process [1 - daemon2] has been released
 	[586] Main memory state (after releasing memory):
 		[0] [0 -> 4][3 - SystemIdleProcess]
 		[1] [4 -> 12][AVAILABLE]
@@ -1567,6 +1569,7 @@
 		[4] [128 -> 64][AVAILABLE]
 		[5] [192 -> 16][AVAILABLE]
 		[6] [208 -> 32][0 - daemon1]
+	[606] Partition [6: 208 -> 32] used by process [0 - daemon1] has been released
 	[606] Main memory state (after releasing memory):
 		[0] [0 -> 4][3 - SystemIdleProcess]
 		[1] [4 -> 12][AVAILABLE]
@@ -1607,6 +1610,7 @@
 		[4] [128 -> 64][AVAILABLE]
 		[5] [192 -> 16][AVAILABLE]
 		[6] [208 -> 32][AVAILABLE]
+	[616] Partition [0: 0 -> 4] used by process [3 - SystemIdleProcess] has been released
 	[616] Main memory state (after releasing memory):
 		[0] [0 -> 4][AVAILABLE]
 		[1] [4 -> 12][AVAILABLE]

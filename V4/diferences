@@ -2,11 +2,3 @@
 < 20 messages loaded from file messagesSTD.txt
 ---
 > 23 messages loaded from file messagesSTD.txt
-1331d1330
-< 	[497] Partition [3: 32 -> 96] used by process [2 - daemon3] has been released
-1521d1519
-< 	[586] Partition [4: 128 -> 64] used by process [1 - daemon2] has been released
-1572d1569
-< 	[606] Partition [6: 208 -> 32] used by process [0 - daemon1] has been released
-1613d1609
-< 	[616] Partition [0: 0 -> 4] used by process [3 - SystemIdleProcess] has been released

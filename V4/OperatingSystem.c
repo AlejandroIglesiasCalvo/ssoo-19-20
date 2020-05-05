@@ -813,6 +813,8 @@ int elegir_Zapatos(talla)
 void OperatingSystem_ReleaseMainMemory()
 {
 	OperatingSystem_ShowPartitionTable("before releasing memory");
+	OperatingSystem_ShowTime(SYSMEM);
+	ComputerSystem_DebugMessage(145,SYSMEM,processTable[executingProcessID].particion, partitionsTable[processTable[executingProcessID].particion].initAddress, partitionsTable[processTable[executingProcessID].particion].size, partitionsTable[processTable[executingProcessID].particion].PID, programList[processTable[executingProcessID].programListIndex]->executableName);
 	partitionsTable[processTable[executingProcessID].particion].PID = NOPROCESS;
 	OperatingSystem_ShowPartitionTable("after releasing memory");
 }
