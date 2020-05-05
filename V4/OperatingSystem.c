@@ -249,7 +249,7 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 
 	// Load program in the allocated memory
 	int Mierda;
-	Mierda = OperatingSystem_LoadProgram(programFile, particion, processSize);
+	Mierda = OperatingSystem_LoadProgram(programFile, partitionsTable[particion].initAddress, processSize);
 	if (Mierda == TOOBIGPROCESS)
 	{
 		return TOOBIGPROCESS;
