@@ -618,7 +618,7 @@ void OperatingSystem_HandleClockInterrupt()
 	VAMOS_PANDA_DE_VAGOS();
 	OperatingSystem_LongTermScheduler(); //V3 E3
 	procesoAlfa();						 //V3 E3b
-	if (numberOfNotTerminatedUserProcesses == 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE )
+	if (numberOfNotTerminatedUserProcesses == 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE)
 	{
 		apagarPorLaFuerza();
 		//OperatingSystem_ReadyToShutdown();
@@ -675,7 +675,7 @@ void procesoAlfa()
 		prioridadAlfa = -1;
 	}
 
-	if (prioridadAlfa > actual)
+	if (prioridadAlfa < actual && prioridadAlfa>0)
 	{
 		PID_para_Procesador = posibleAlfa; //Para el procesador
 		OperatingSystem_ShowTime(INTERRUPT);
@@ -686,7 +686,7 @@ void procesoAlfa()
 		OperatingSystem_Dispatch(NuevoAlfa);
 		OperatingSystem_PrintStatus();
 	}
-	else if (executingProcessID == sipID && numberOfReadyToRunProcesses[USERPROCESSQUEUE] > 0)
+	else if (processTable[executingProcessID].queueID == DAEMONSQUEUE && numberOfReadyToRunProcesses[USERPROCESSQUEUE] > 0)
 	{
 		int actual = executingProcessID;
 		//int NuevoAlfa = Heap_poll(readyToRunQueue[processTable[posibleAlfa].queueID], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[posibleAlfa].queueID]);
@@ -699,7 +699,7 @@ void procesoAlfa()
 		OperatingSystem_Dispatch(NuevoAlfa);
 		OperatingSystem_PrintStatus();
 	}
-	if (numberOfReadyToRunProcesses[DAEMONPROGRAM] > 0 && executingProcessID == sipID && prioridadAlfa < actual)
+	else if (numberOfReadyToRunProcesses[DAEMONPROGRAM] > 0 && prioridadAlfa < actual)
 	{
 		PID_para_Procesador = posibleAlfa; //Para el procesador
 		OperatingSystem_ShowTime(INTERRUPT);
@@ -744,15 +744,15 @@ void apagarPorLaFuerza()
 	// 	return; // Don't dispatch any process
 	// }
 	// Simulation must finish, telling sipID to finish
-	if (executingProcessID == sipID)
-	{
-		// finishing sipID, change PC to address of OS HALT instruction
-		//Processor_CopyInSystemStack(MAINMEMORYSIZE - 1, OS_address_base + 1);
-		OperatingSystem_TerminatingSIP();
-		OperatingSystem_ShowTime(SHUTDOWN);
-		ComputerSystem_DebugMessage(99, SHUTDOWN, "The system will shut down now...\n");
-		return; // Don't dispatch any process
-	}
+	// if (executingProcessID == sipID)
+	// {
+	// 	// finishing sipID, change PC to address of OS HALT instruction
+	// 	//Processor_CopyInSystemStack(MAINMEMORYSIZE - 1, OS_address_base + 1);
+	// 	OperatingSystem_TerminatingSIP();
+	// 	OperatingSystem_ShowTime(SHUTDOWN);
+	// 	ComputerSystem_DebugMessage(99, SHUTDOWN, "The system will shut down now...\n");
+	// 	return; // Don't dispatch any process
+	// }
 	// Simulation must finish, telling sipID to finish
 
 	OperatingSystem_ReadyToShutdown();
