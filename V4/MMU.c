@@ -23,7 +23,7 @@ void MMU_SetCTRL(int ctrl)
 		if (Processor_PSW_BitState(EXECUTION_MODE_BIT))
 		{ // Protected mode
 
-			if (registerMAR_MMU < MAINMEMORYSIZE)
+			if (registerMAR_MMU < MAINMEMORYSIZE && registerMAR_MMU >= 0)
 			{
 				// Send to the main memory HW the physical address to write in
 				Buses_write_AddressBus_From_To(MMU, MAINMEMORY);
@@ -36,10 +36,7 @@ void MMU_SetCTRL(int ctrl)
 			else
 			{
 				// Fail
-				if (registerMAR_MMU < 0 || registerMAR_MMU > registerLimit_MMU)
-				{
-					Processor_RaiseException(INVALIDADDRESS);
-				}
+				Processor_RaiseException(INVALIDADDRESS);
 				registerCTRL_MMU |= CTRL_FAIL;
 			}
 		}
@@ -60,11 +57,7 @@ void MMU_SetCTRL(int ctrl)
 			}
 			else
 			{
-				// Fail
-				if (registerMAR_MMU < registerBase_MMU || registerMAR_MMU > registerLimit_MMU)
-				{
-					Processor_RaiseException(INVALIDADDRESS);
-				}
+				Processor_RaiseException(INVALIDADDRESS);
 				registerCTRL_MMU |= CTRL_FAIL;
 			}
 		}
@@ -74,7 +67,7 @@ void MMU_SetCTRL(int ctrl)
 		if (Processor_PSW_BitState(EXECUTION_MODE_BIT))
 		{ // Protected mode
 
-			if (registerMAR_MMU < MAINMEMORYSIZE)
+			if (registerMAR_MMU < MAINMEMORYSIZE && registerMAR_MMU >= 0)
 			{
 				// Send to the main memory HW the physical address to write in
 				Buses_write_AddressBus_From_To(MMU, MAINMEMORY);
@@ -87,11 +80,7 @@ void MMU_SetCTRL(int ctrl)
 			else
 			{
 				// Fail
-				// Fail
-				if (registerMAR_MMU < 0 || registerMAR_MMU > registerLimit_MMU)
-				{
-					Processor_RaiseException(INVALIDADDRESS);
-				}
+				Processor_RaiseException(INVALIDADDRESS);
 				registerCTRL_MMU |= CTRL_FAIL;
 			}
 		}
@@ -112,10 +101,7 @@ void MMU_SetCTRL(int ctrl)
 			}
 			else
 			{
-				if (registerMAR_MMU < registerBase_MMU || registerMAR_MMU > registerLimit_MMU)
-				{
-					Processor_RaiseException(INVALIDADDRESS);
-				}
+				Processor_RaiseException(INVALIDADDRESS);
 				registerCTRL_MMU |= CTRL_FAIL;
 			}
 		}

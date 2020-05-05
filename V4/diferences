@@ -2,22 +2,6 @@
 < 20 messages loaded from file messagesSTD.txt
 ---
 > 23 messages loaded from file messagesSTD.txt
-21c21
-< 	[0] Main memory state (before allocating memory):
----
->  	[0] Main memory state (before allocating memory):
-69c69
-< 	[12] Main memory state (before allocating memory):
----
->  	[12] Main memory state (before allocating memory):
-90c90
-< 	[12] Main memory state (before allocating memory):
----
->  	[12] Main memory state (before allocating memory):
-111c111
-< 	[12] Main memory state (before allocating memory):
----
->  	[12] Main memory state (before allocating memory):
 163,1323c163,167
 < [14] {04 004 000} TRAP 4 0 (PID: 2, PC: 33, Accumulator: 0, PSW: 0082 [--------X-----Z-])
 < [15] {0C 002 000} OS 2 0 (PID: 2, PC: 242, Accumulator: 0, PSW: 8082 [M-------X-----Z-])
@@ -1569,7 +1553,7 @@
 > 	[102] Zombie process [1 -> daemon2], with size [32] and initial address [128] is removed from system
 > 	[102] Zombie process [2 -> daemon3], with size [32] and initial address [32] is removed from system
 > 	[102] Process [0 - programVerySimpleTest] requests [30] memory positions
->  	[102] Main memory state (before allocating memory):
+> 	[102] Main memory state (before allocating memory):
 1571,1573c393,396
 < 		[6] [208 -> 32][0 - daemon1]
 < 	[606] Partition [6: 208 -> 32] used by process [0 - daemon1] has been released

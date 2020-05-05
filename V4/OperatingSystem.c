@@ -463,7 +463,7 @@ void OperatingSystem_TerminateProcess()
 
 	// if (numberOfNotTerminatedUserProcesses <= 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE)
 	//if (numberOfNotTerminatedUserProcesses == 0 && numberOfReadyToRunProcesses[DAEMONPROGRAM]<=1)
-	if ((numberOfNotTerminatedUserProcesses == 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE && numberOfReadyToRunProcesses[DAEMONPROGRAM] <= 1))
+	if (numberOfNotTerminatedUserProcesses == 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE)
 	{
 		if (executingProcessID == sipID)
 		{
@@ -618,7 +618,7 @@ void OperatingSystem_HandleClockInterrupt()
 	VAMOS_PANDA_DE_VAGOS();
 	OperatingSystem_LongTermScheduler(); //V3 E3
 	procesoAlfa();						 //V3 E3b
-	if ((numberOfNotTerminatedUserProcesses == 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE && numberOfReadyToRunProcesses[DAEMONPROGRAM] <= 1))
+	if (numberOfNotTerminatedUserProcesses == 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE )
 	{
 		apagarPorLaFuerza();
 		//OperatingSystem_ReadyToShutdown();

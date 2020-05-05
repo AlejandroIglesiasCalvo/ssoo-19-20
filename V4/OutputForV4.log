@@ -18,7 +18,7 @@
 		[programVerySimpleTest, 100, USER]
 		[daemon3, 12, DAEMONS]
 	[0] Process [3 - SystemIdleProcess] requests [4] memory positions
- 	[0] Main memory state (before allocating memory):
+	[0] Main memory state (before allocating memory):
 		[0] [0 -> 4][AVAILABLE]
 		[1] [4 -> 12][AVAILABLE]
 		[2] [16 -> 16][AVAILABLE]
@@ -66,7 +66,7 @@
 [11] {0C 009 000} OS 9 0 (PID: 3, PC: 246, Accumulator: 1920, PSW: 8080 [M-------X-------])
 	[12] Clock interrupt number [2] has occurred
 	[12] Process [0 - daemon1] requests [32] memory positions
- 	[12] Main memory state (before allocating memory):
+	[12] Main memory state (before allocating memory):
 		[0] [0 -> 4][3 - SystemIdleProcess]
 		[1] [4 -> 12][AVAILABLE]
 		[2] [16 -> 16][AVAILABLE]
@@ -87,7 +87,7 @@
 	[12] Process [0] created from program [daemon1]
 	[12] Process [0 - daemon1] moving from the [NEW] state to the [READY] state
 	[12] Process [1 - daemon2] requests [32] memory positions
- 	[12] Main memory state (before allocating memory):
+	[12] Main memory state (before allocating memory):
 		[0] [0 -> 4][3 - SystemIdleProcess]
 		[1] [4 -> 12][AVAILABLE]
 		[2] [16 -> 16][AVAILABLE]
@@ -108,7 +108,7 @@
 	[12] Process [1] created from program [daemon2]
 	[12] Process [1 - daemon2] moving from the [NEW] state to the [READY] state
 	[12] Process [2 - daemon3] requests [32] memory positions
- 	[12] Main memory state (before allocating memory):
+	[12] Main memory state (before allocating memory):
 		[0] [0 -> 4][3 - SystemIdleProcess]
 		[1] [4 -> 12][AVAILABLE]
 		[2] [16 -> 16][AVAILABLE]
@@ -383,7 +383,7 @@
 	[102] Zombie process [1 -> daemon2], with size [32] and initial address [128] is removed from system
 	[102] Zombie process [2 -> daemon3], with size [32] and initial address [32] is removed from system
 	[102] Process [0 - programVerySimpleTest] requests [30] memory positions
- 	[102] Main memory state (before allocating memory):
+	[102] Main memory state (before allocating memory):
 		[0] [0 -> 4][3 - SystemIdleProcess]
 		[1] [4 -> 12][AVAILABLE]
 		[2] [16 -> 16][AVAILABLE]
