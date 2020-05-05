@@ -1,6 +1,11 @@
 Iglesias Calvo, ALejandro
 UO247346
-Ejercicios: todos
+Simulaciones:
+./Simulator ../programas/prog-V1-E11 3 ../programas/programVerySimple-V3 9 ../programas/prog-V1-E12 6 | head -n 1000
+El que venia por defecto
+./script-V4-teacher-test
+El que creas en el script
+
 Programas:
 prog-V1-E3: Interrepciones trap
 prog-V1-E6: Tamaño muy grande en memoria
@@ -14,4 +19,4 @@ programaEntrega-V2-3: Bucle infinito
 programFinalV1: escribe instrucciones a mano (aun no soportado) -> core fail
 los demas: programas sin mas para probar distintas formas de ejecutar y romper el SO
 
-Pues apago el simualdor por la fuerza porque no consegui arreglar el problema que hablamos esta mañana en la tutoria
+Creo que esta todo bien
