@@ -248,7 +248,8 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 	OperatingSystem_ShowTime(INIT);
 	ComputerSystem_DebugMessage(143, SYSMEM, particion, partitionsTable[particion].initAddress, partitionsTable[particion].size, PID, executableProgram->executableName);
 
-	// Load program in the allocated memory
+	// Load program in the allocated memory 
+	//
 	int Mierda;
 	Mierda = OperatingSystem_LoadProgram(programFile, partitionsTable[particion].initAddress, processSize);
 	if (Mierda == TOOBIGPROCESS)
