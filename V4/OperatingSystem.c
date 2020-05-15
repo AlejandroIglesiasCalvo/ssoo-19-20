@@ -234,7 +234,7 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 	// Obtain enough memory space
 	OperatingSystem_ShowTime(SYSMEM);
 	ComputerSystem_DebugMessage(142, SYSMEM, PID, executableProgram->executableName, processSize);
-	OperatingSystem_ShowPartitionTable("before allocating memory");
+	
 	int particion = OperatingSystem_ObtainMainMemory(processSize, PID);
 	if (particion == TOOBIGPROCESS)
 	{
@@ -244,6 +244,7 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 	{
 		return MEMORYFULL;
 	}
+	OperatingSystem_ShowPartitionTable("before allocating memory");
 	OperatingSystem_ShowTime(INIT);
 	ComputerSystem_DebugMessage(143, SYSMEM, particion, partitionsTable[particion].initAddress, partitionsTable[particion].size, PID, executableProgram->executableName);
 
@@ -276,6 +277,8 @@ int OperatingSystem_ObtainMainMemory(int processSize, int PID)
 	// 	return TOOBIGPROCESS;
 	//llamada a la anueva funcion de ajuste de memoria
 	//Pensare un nombre guay
+	//Mensajes de memoria
+	
 	int posicion = elegir_Zapatos(processSize);
 	return posicion;
 
@@ -699,7 +702,7 @@ void procesoAlfa()
 		OperatingSystem_Dispatch(NuevoAlfa);
 		OperatingSystem_PrintStatus();
 	}
-	else if (numberOfReadyToRunProcesses[DAEMONPROGRAM] > 0 && prioridadAlfa < actual)
+	else if (numberOfReadyToRunProcesses[DAEMONPROGRAM] > 0 && prioridadAlfa < actual && prioridadAlfa!=-1 && posibleAlfa !=-1) 
 	{
 		PID_para_Procesador = posibleAlfa; //Para el procesador
 		OperatingSystem_ShowTime(INTERRUPT);

@@ -10,8 +10,8 @@
             "request": "launch",
             "program": "${workspaceFolder}/V4/Simulator",
             "args": [
-                "programVerySimpleTes",
-                "100"
+                "../programas/V2-ejemplo8","0",
+                "../programas/V2-ejemplo8","0"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/V4/",
