@@ -257,6 +257,7 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 		return TOOBIGPROCESS;
 	}
 	// PCB initialization
+	// 
 
 	OperatingSystem_PCBInitialization(PID, particion, processSize, priority, indexOfExecutableProgram);
 
