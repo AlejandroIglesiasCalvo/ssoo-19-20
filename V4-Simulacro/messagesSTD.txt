@@ -44,3 +44,6 @@
 143,Partition [@G%d@@: @G%d@@ -> @G%d@@] has been assigned to process [@G%d - %s@@]\n
 144,@RERROR: A process could not be created from program [%s] because an appropriate partition is not available@@\n
 145,Partition [@G%d@@: @G%d@@ -> @G%d@@] used by process [@G%d - %s@@] has been released\n
+//
+//
+666,Process creation for program [@G%s@@] has been postponed.\n
