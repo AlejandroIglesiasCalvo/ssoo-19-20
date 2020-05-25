@@ -2,7 +2,7 @@
 23 messages loaded from file messagesSTD.txt
 0 Asserts Loaded
 [0] User program list:
-	Program [programVerySimpleTest] with arrival time [100]
+	Program [../programas/MUYGRANDE] with arrival time [0]
 	[0] Running Process Information:
 		[--- No running process ---]
 	[0] Ready-to-run processes queues:
@@ -13,9 +13,9 @@
 	[0] PID association with program's name:
 	[0] Arrival Time Queue:
 		[SystemIdleProcess, 0, DAEMONS]
-		[daemon2, 11, DAEMONS]
+		[../programas/MUYGRANDE, 0, USER]
 		[daemon1, 10, DAEMONS]
-		[programVerySimpleTest, 100, USER]
+		[daemon2, 11, DAEMONS]
 		[daemon3, 12, DAEMONS]
 	[0] Process [3 - SystemIdleProcess] requests [4] memory positions
 	[0] Main memory state (before allocating memory):
@@ -38,6 +38,16 @@
 		[6] [208 -> 32][AVAILABLE]
 	[0] Process [3] created from program [SystemIdleProcess]
 	[0] Process [3 - SystemIdleProcess] moving from the [NEW] state to the [READY] state
+	[0] Process [0 - ../programas/MUYGRANDE] requests [500] memory positions
+	[0] Main memory state (before allocating memory):
+		[0] [0 -> 4][3 - SystemIdleProcess]
+		[1] [4 -> 12][AVAILABLE]
+		[2] [16 -> 16][AVAILABLE]
+		[3] [32 -> 96][AVAILABLE]
+		[4] [128 -> 64][AVAILABLE]
+		[5] [192 -> 16][AVAILABLE]
+		[6] [208 -> 32][AVAILABLE]
+	[0] ERROR: A process could not be created from program [TOOBIGPROCESS] because an appropriate partition is not available
 	[0] Running Process Information:
 		[--- No running process ---]
 	[0] Ready-to-run processes queues:
@@ -51,7 +61,6 @@
 		[daemon1, 10, DAEMONS]
 		[daemon2, 11, DAEMONS]
 		[daemon3, 12, DAEMONS]
-		[programVerySimpleTest, 100, USER]
 	[0] Process [3 - SystemIdleProcess] moving from the [READY] state to the [EXECUTING] state
 [1] {0D 000 000} IRET 0 0 (PID: 3, PC: 0, Accumulator: 0, PSW: 0082 [--------X-----Z-])
 [2] {01 517 269} ADD 1303 617 (PID: 3, PC: 1, Accumulator: 1920, PSW: 0080 [--------X-------])
@@ -140,8 +149,6 @@
 		PID: 1 -> daemon2
 		PID: 2 -> daemon3
 		PID: 3 -> SystemIdleProcess
-	[12] Arrival Time Queue:
-		[programVerySimpleTest, 100, USER]
 	[12] Process [3 - SystemIdleProcess] will be thrown out of the processor by process [2 - daemon3]
 	[12] Process [3 - SystemIdleProcess] moving from the [EXECUTING] state to the [READY] state
 	[12] Process [2 - daemon3] moving from the [READY] state to the [EXECUTING] state
@@ -157,8 +164,6 @@
 		PID: 1 -> daemon2
 		PID: 2 -> daemon3
 		PID: 3 -> SystemIdleProcess
-	[12] Arrival Time Queue:
-		[programVerySimpleTest, 100, USER]
 [13] {0D 000 000} IRET 0 0 (PID: 2, PC: 32, Accumulator: 0, PSW: 0082 [--------X-----Z-])
 [14] {04 004 000} TRAP 4 0 (PID: 2, PC: 33, Accumulator: 0, PSW: 0082 [--------X-----Z-])
 [15] {0C 002 000} OS 2 0 (PID: 2, PC: 242, Accumulator: 0, PSW: 8082 [M-------X-----Z-])
@@ -195,8 +200,6 @@
 		PID: 1 -> daemon2
 		PID: 2 -> daemon3
 		PID: 3 -> SystemIdleProcess
-	[36] Arrival Time Queue:
-		[programVerySimpleTest, 100, USER]
 [37] {0D 000 000} IRET 0 0 (PID: 0, PC: 208, Accumulator: 0, PSW: 0082 [--------X-----Z-])
 [38] {0C 009 000} OS 9 0 (PID: 0, PC: 246, Accumulator: 0, PSW: 8082 [M-------X-----Z-])
 	[39] Clock interrupt number [7] has occurred
@@ -222,8 +225,6 @@
 		PID: 1 -> daemon2
 		PID: 2 -> daemon3
 		PID: 3 -> SystemIdleProcess
-	[47] Arrival Time Queue:
-		[programVerySimpleTest, 100, USER]
 [48] {0D 000 000} IRET 0 0 (PID: 1, PC: 128, Accumulator: 0, PSW: 0082 [--------X-----Z-])
 [49] {0C 009 000} OS 9 0 (PID: 1, PC: 246, Accumulator: 0, PSW: 8082 [M-------X-----Z-])
 	[50] Clock interrupt number [9] has occurred
@@ -252,8 +253,6 @@
 		PID: 1 -> daemon2
 		PID: 2 -> daemon3
 		PID: 3 -> SystemIdleProcess
-	[61] Arrival Time Queue:
-		[programVerySimpleTest, 100, USER]
 [62] {0D 000 000} IRET 0 0 (PID: 0, PC: 210, Accumulator: 10, PSW: 0080 [--------X-------])
 [63] {0C 009 000} OS 9 0 (PID: 0, PC: 246, Accumulator: 10, PSW: 8080 [M-------X-------])
 	[64] Clock interrupt number [12] has occurred
@@ -284,8 +283,6 @@
 		PID: 1 -> daemon2
 		PID: 2 -> daemon3
 		PID: 3 -> SystemIdleProcess
-	[77] Arrival Time Queue:
-		[programVerySimpleTest, 100, USER]
 [78] {0D 000 000} IRET 0 0 (PID: 1, PC: 130, Accumulator: -10, PSW: 0084 [--------X----N--])
 [79] {0C 009 000} OS 9 0 (PID: 1, PC: 246, Accumulator: -10, PSW: 8084 [M-------X----N--])
 	[80] Clock interrupt number [15] has occurred
@@ -314,8 +311,6 @@
 		PID: 1 -> daemon2
 		PID: 2 -> daemon3
 		PID: 3 -> SystemIdleProcess
-	[92] Arrival Time Queue:
-		[programVerySimpleTest, 100, USER]
 	[92] Process [1 - daemon2] will be thrown out of the processor by process [2 - daemon3]
 	[92] Process [1 - daemon2] moving from the [EXECUTING] state to the [READY] state
 	[92] Process [2 - daemon3] moving from the [READY] state to the [EXECUTING] state
@@ -331,8 +326,6 @@
 		PID: 1 -> daemon2
 		PID: 2 -> daemon3
 		PID: 3 -> SystemIdleProcess
-	[92] Arrival Time Queue:
-		[programVerySimpleTest, 100, USER]
 [93] {0D 000 000} IRET 0 0 (PID: 2, PC: 38, Accumulator: 11, PSW: 0080 [--------X-------])
 [94] {0A 801 000} INC -1 0 (PID: 2, PC: 39, Accumulator: 10, PSW: 0080 [--------X-------])
 [95] {07 002 000} ZJUMP 2 0 (PID: 2, PC: 40, Accumulator: 10, PSW: 0080 [--------X-------])
@@ -356,12 +349,9 @@
 		PID: 1 -> daemon2
 		PID: 2 -> daemon3
 		PID: 3 -> SystemIdleProcess
-	[102] Arrival Time Queue:
-		[programVerySimpleTest, 100, USER]
 [103] {0D 000 000} IRET 0 0 (PID: 0, PC: 210, Accumulator: 9, PSW: 0080 [--------X-------])
 [104] {0C 009 000} OS 9 0 (PID: 0, PC: 246, Accumulator: 9, PSW: 8080 [M-------X-------])
 	[105] Clock interrupt number [20] has occurred
-	[105] ERROR: There are not free entries in the process table for the program [programVerySimpleTest]
 [106] {0D 000 000} IRET 0 0 (PID: 0, PC: 210, Accumulator: 9, PSW: 0080 [--------X-------])
 [107] {0C 009 000} OS 9 0 (PID: 0, PC: 246, Accumulator: 9, PSW: 8080 [M-------X-------])
 	[108] Clock interrupt number [21] has occurred
