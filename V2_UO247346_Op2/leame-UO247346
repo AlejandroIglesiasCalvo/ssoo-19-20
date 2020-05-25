@@ -1,0 +1,36 @@
+Mensajes:
+// Examen-Mayo 2020 
+122, (%d):
+
+OperativeSystem:
+// Examen-Mayo 2020
+void OperatingSystem_PrintReadyToRunQueue()
+{
+	OperatingSystem_ShowTime(SHORTTERMSCHEDULE);
+	ComputerSystem_DebugMessage(112, SHORTTERMSCHEDULE, "");
+	int cuentaColas;
+	for (cuentaColas = 0; cuentaColas < NUMBEROFQUEUES; cuentaColas++)
+	{
+		int CuentaMierda;
+		ComputerSystem_DebugMessage(113, SHORTTERMSCHEDULE, queueNames[cuentaColas]);
+		ComputerSystem_DebugMessage(122, SHORTTERMSCHEDULE, numberOfReadyToRunProcesses[cuentaColas]);
+		for (CuentaMierda = 0; CuentaMierda < numberOfReadyToRunProcesses[cuentaColas]; CuentaMierda++)
+		{
+			int proceso = readyToRunQueue[cuentaColas][CuentaMierda].info; //Proceso es el PID
+			ComputerSystem_DebugMessage(107, SHORTTERMSCHEDULE, proceso, processTable[proceso].priority);
+			if (CuentaMierda == numberOfReadyToRunProcesses[cuentaColas] - 1)
+			{
+				//ComputerSystem_DebugMessage(109, SHORTTERMSCHEDULE);
+			}
+			else
+			{
+				ComputerSystem_DebugMessage(108, SHORTTERMSCHEDULE);
+			}
+		}
+		ComputerSystem_DebugMessage(109, SHORTTERMSCHEDULE);
+	}
+}
+
+prueba:
+./Simulator programVerySimple-V2
+./Simulator programVerySimple-V2 programVerySimple-V2

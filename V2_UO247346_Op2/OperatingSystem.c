@@ -490,6 +490,7 @@ void OperatingSystem_InterruptLogic(int entryPoint)
 	}
 }
 
+// Examen-Mayo 2020
 void OperatingSystem_PrintReadyToRunQueue()
 {
 	OperatingSystem_ShowTime(SHORTTERMSCHEDULE);
@@ -499,6 +500,7 @@ void OperatingSystem_PrintReadyToRunQueue()
 	{
 		int CuentaMierda;
 		ComputerSystem_DebugMessage(113, SHORTTERMSCHEDULE, queueNames[cuentaColas]);
+		ComputerSystem_DebugMessage(122, SHORTTERMSCHEDULE, numberOfReadyToRunProcesses[cuentaColas]);
 		for (CuentaMierda = 0; CuentaMierda < numberOfReadyToRunProcesses[cuentaColas]; CuentaMierda++)
 		{
 			int proceso = readyToRunQueue[cuentaColas][CuentaMierda].info; //Proceso es el PID
@@ -549,7 +551,7 @@ void la_Magia_Del_Yield(executingProcessID)
 void ceder_voluntariamente_el_control_del_procesador(executingProcessID, cadidatoOoOoOo)
 {
 	int elNUevo;
-	elNUevo=Heap_poll(readyToRunQueue[processTable[cadidatoOoOoOo].queueID],QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[cadidatoOoOoOo].queueID]);
+	elNUevo = Heap_poll(readyToRunQueue[processTable[cadidatoOoOoOo].queueID], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[cadidatoOoOoOo].queueID]);
 	OperatingSystem_ShowTime(SHORTTERMSCHEDULE);
 	ComputerSystem_DebugMessage(115, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, elNUevo, programList[processTable[elNUevo].programListIndex]->executableName);
 	OperatingSystem_PreemptRunningProcess();
