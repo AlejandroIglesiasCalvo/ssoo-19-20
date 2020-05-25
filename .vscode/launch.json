@@ -8,12 +8,12 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/V2-Simulacro-Abril/Simulator",
+            "program": "${workspaceFolder}/V2_UO247346_Op4/Simulator",
             "args": [
                 "../programas/V2-ejemplo5"
             ],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/V2-Simulacro-Abril/",
+            "cwd": "${workspaceFolder}/V2_UO247346_Op4/",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",

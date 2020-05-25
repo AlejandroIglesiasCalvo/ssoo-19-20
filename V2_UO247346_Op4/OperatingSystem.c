@@ -580,6 +580,8 @@ void a_dormir_ostia(int PID)
 	executingProcessID = NOPROCESS;
 	OperatingSystem_Dispatch(OperatingSystem_ShortTermScheduler());
 }
+
+// Examen-Mayo 2020 
 void VAMOS_PANDA_DE_VAGOS()
 {
 	int vanderaAaAaA = 0;
@@ -593,6 +595,9 @@ void VAMOS_PANDA_DE_VAGOS()
 			int levantado = Heap_poll(sleepingProcessesQueue, QUEUE_WAKEUP, &numberOfSleepingProcesses);
 			OperatingSystem_MoveToTheREADYState(levantado);
 		}
+		if (vanderaAaAaA!=0){//Se desperto uno
+			vagos=numberOfSleepingProcesses;//Acabamos el bucle
+		}
 	}
 	if (vanderaAaAaA != 0)
 	{
@@ -600,6 +605,7 @@ void VAMOS_PANDA_DE_VAGOS()
 	}
 	procesoAlfa();
 }
+
 void procesoAlfa()
 {
 	int actual = processTable[executingProcessID].priority;
