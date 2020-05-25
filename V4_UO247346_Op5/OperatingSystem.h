@@ -47,6 +47,7 @@ enum SystemCallIdentifiers
 	SYSCALL_SLEEP=7
 };
 
+// Examen-Mayo 2020 
 // A PCB contains all of the information about a process that is needed by the OS
 typedef struct
 {
@@ -62,6 +63,7 @@ typedef struct
 	int copyOfAccumulator;//Ejercicio 13 V1
 	int whenToWakeUp; // Exercise 5-a of V2
 	int particion;
+	int TiempoEspera;//Para guardar el tiempo de espera
 
 } PCB;
 
@@ -97,4 +99,6 @@ void apagarPorLaFuerza();
 //V4 E6
 int elegir_Zapatos(int processSize);
 void OperatingSystem_ReleaseMainMemory();
+// Examen-Mayo 2020 
+void Lentos();
 #endif

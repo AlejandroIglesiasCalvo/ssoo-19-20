@@ -151,6 +151,7 @@ void OperatingSystem_PrepareDaemons(int programListDaemonsBase)
 // The LTS is responsible of the admission of new processes in the system.
 // Initially, it creates a process from each program specified in the
 // 			command lineand daemons programs
+// Examen-Mayo 2020
 int OperatingSystem_LongTermScheduler()
 {
 
@@ -188,6 +189,8 @@ int OperatingSystem_LongTermScheduler()
 			continue;
 		default:
 			numberOfSuccessfullyCreatedProcesses++;
+			//Aqui guardamos el tiempo menos el tiempo de llegada, es decir, lo que espero
+			processTable[PID].TiempoEspera = Clock_GetTime() - programList[processTable[PID].programListIndex]->arrivalTime; // Examen-Mayo 2020
 			if (programList[nuevoProceso]->type == USERPROGRAM)
 			{
 				numberOfNotTerminatedUserProcesses++;
@@ -234,7 +237,7 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 	// Obtain enough memory space
 	OperatingSystem_ShowTime(SYSMEM);
 	ComputerSystem_DebugMessage(142, SYSMEM, PID, executableProgram->executableName, processSize);
-	
+
 	int particion = OperatingSystem_ObtainMainMemory(processSize, PID);
 	if (particion == TOOBIGPROCESS)
 	{
@@ -248,7 +251,7 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 	OperatingSystem_ShowTime(INIT);
 	ComputerSystem_DebugMessage(143, SYSMEM, particion, partitionsTable[particion].initAddress, partitionsTable[particion].size, PID, executableProgram->executableName);
 
-	// Load program in the allocated memory 
+	// Load program in the allocated memory
 	//
 	int Mierda;
 	Mierda = OperatingSystem_LoadProgram(programFile, partitionsTable[particion].initAddress, processSize);
@@ -257,7 +260,7 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 		return TOOBIGPROCESS;
 	}
 	// PCB initialization
-	// 
+	//
 
 	OperatingSystem_PCBInitialization(PID, particion, processSize, priority, indexOfExecutableProgram);
 
@@ -280,13 +283,13 @@ int OperatingSystem_ObtainMainMemory(int processSize, int PID)
 	//llamada a la anueva funcion de ajuste de memoria
 	//Pensare un nombre guay
 	//Mensajes de memoria
-	
+
 	int posicion = elegir_Zapatos(processSize);
 	return posicion;
 
 	//return PID * MAINMEMORYSECTIONSIZE;
 }
-
+// Examen-Mayo 2020
 // Assign initial values to all fields inside the PCB
 void OperatingSystem_PCBInitialization(int PID, int particion, int processSize, int priority, int processPLIndex)
 {
@@ -301,6 +304,7 @@ void OperatingSystem_PCBInitialization(int PID, int particion, int processSize, 
 	processTable[PID].copyOfAccumulator = 0;
 	processTable[PID].particion = particion;
 	partitionsTable[particion].PID = PID;
+	processTable[PID].TiempoEspera = 0;
 	// Daemons run in protected mode and MMU use real address
 	if (programList[processPLIndex]->type == DAEMONPROGRAM)
 	{
@@ -449,7 +453,7 @@ void OperatingSystem_HandleException()
 	OperatingSystem_TerminateProcess();
 	OperatingSystem_PrintStatus();
 }
-
+// Examen-Mayo 2020 
 // All tasks regarding the removal of the process
 void OperatingSystem_TerminateProcess()
 {
@@ -475,11 +479,13 @@ void OperatingSystem_TerminateProcess()
 			// finishing sipID, change PC to address of OS HALT instruction
 			//Processor_CopyInSystemStack(MAINMEMORYSIZE - 1, OS_address_base + 1);
 			OperatingSystem_TerminatingSIP();
+			Lentos();// Examen-Mayo 2020 
 			OperatingSystem_ShowTime(SHUTDOWN);
 			ComputerSystem_DebugMessage(99, SHUTDOWN, "The system will shut down now...\n");
 			return; // Don't dispatch any process
 		}
 		// Simulation must finish, telling sipID to finish
+		
 		OperatingSystem_ReadyToShutdown();
 	}
 
@@ -680,7 +686,7 @@ void procesoAlfa()
 		prioridadAlfa = -1;
 	}
 
-	if (prioridadAlfa < actual && prioridadAlfa>0)
+	if (prioridadAlfa < actual && prioridadAlfa > 0)
 	{
 		PID_para_Procesador = posibleAlfa; //Para el procesador
 		OperatingSystem_ShowTime(INTERRUPT);
@@ -704,7 +710,7 @@ void procesoAlfa()
 		OperatingSystem_Dispatch(NuevoAlfa);
 		OperatingSystem_PrintStatus();
 	}
-	else if (numberOfReadyToRunProcesses[DAEMONPROGRAM] > 0 && prioridadAlfa < actual && prioridadAlfa!=-1 && posibleAlfa !=-1) 
+	else if (numberOfReadyToRunProcesses[DAEMONPROGRAM] > 0 && prioridadAlfa < actual && prioridadAlfa != -1 && posibleAlfa != -1)
 	{
 		PID_para_Procesador = posibleAlfa; //Para el procesador
 		OperatingSystem_ShowTime(INTERRUPT);
@@ -819,7 +825,22 @@ void OperatingSystem_ReleaseMainMemory()
 {
 	OperatingSystem_ShowPartitionTable("before releasing memory");
 	OperatingSystem_ShowTime(SYSMEM);
-	ComputerSystem_DebugMessage(145,SYSMEM,processTable[executingProcessID].particion, partitionsTable[processTable[executingProcessID].particion].initAddress, partitionsTable[processTable[executingProcessID].particion].size, partitionsTable[processTable[executingProcessID].particion].PID, programList[processTable[executingProcessID].programListIndex]->executableName);
+	ComputerSystem_DebugMessage(145, SYSMEM, processTable[executingProcessID].particion, partitionsTable[processTable[executingProcessID].particion].initAddress, partitionsTable[processTable[executingProcessID].particion].size, partitionsTable[processTable[executingProcessID].particion].PID, programList[processTable[executingProcessID].programListIndex]->executableName);
 	partitionsTable[processTable[executingProcessID].particion].PID = NOPROCESS;
 	OperatingSystem_ShowPartitionTable("after releasing memory");
+}
+// Examen-Mayo 2020
+void Lentos()
+{
+	int cont;
+	int resultado = 0;
+	for (cont = 0; cont < PROCESSTABLEMAXSIZE-1; cont++)
+	{
+		if (processTable[cont].TiempoEspera >= 2)
+		{
+			resultado++;
+		}
+	}
+	OperatingSystem_ShowTime(SYSPROC);
+	ComputerSystem_DebugMessage(146, SYSPROC, resultado);
 }

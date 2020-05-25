@@ -8,14 +8,17 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/V2_UO247346_Op5/Simulator",
+            "program": "${workspaceFolder}/V4_UO247346_Op5/Simulator",
             "args": [
-                "../programas/V2-ejemplo5",
-                "../programas/V2-ejemplo5",
-                "../programas/V2-ejemplo5"
+                "../programas/prog-V1-E11",
+                "3",
+                "../programas/programVerySimple-V3",
+                "9",
+                "../programas/prog-V1-E12",
+                "6"
             ],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/V2_UO247346_Op5/",
+            "cwd": "${workspaceFolder}/V4_UO247346_Op5/",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",

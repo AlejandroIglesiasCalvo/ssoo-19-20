@@ -257,15 +257,20 @@ void Processor_DecodeAndExecuteInstruction()
 			Processor_RaiseException(INVALIDPROCESSORMODE);
 		}
 		break;
-
+		// Examen-Mayo 2020
 	case MEMADD_INST:
 		// Tell the main memory controller from where
-		registerMAR_CPU = operand2;								   //De donde leo (operando 1)
-		Buses_write_AddressBus_From_To(CPU, MMU);				   //Indicar donde tengo que leer, usando bus de escritura
-		registerCTRL_CPU = CTRLREAD;							   //Indicar que lea de forma controlada
-		Buses_write_ControlBus_From_To(CPU, MMU);				   //Enviar la operacion a la memoria
-		registerAccumulator_CPU = registerMBR_CPU.cell + operand1; //Sumar el resultado al operador 1
-		Processor_CheckOverflow(registerMBR_CPU.cell, operand1);   //comprueba con el acumulador, es importante que este despues
+		registerMAR_CPU = operand1;												  //De donde leo (operando 1)
+		Buses_write_AddressBus_From_To(CPU, MMU);								  //Indicar donde tengo que leer, usando bus de escritura
+		registerCTRL_CPU = CTRLREAD;											  //Indicar que lea de forma controlada
+		Buses_write_ControlBus_From_To(CPU, MMU);								  //Enviar la operacion a la memoria
+		registerAccumulator_CPU = registerMBR_CPU.cell;							  //Guardamos el primer valor
+		registerMAR_CPU = operand2;												  //De donde leo (operando 1)
+		Buses_write_AddressBus_From_To(CPU, MMU);								  //Indicar donde tengo que leer, usando bus de escritura
+		registerCTRL_CPU = CTRLREAD;											  //Indicar que lea de forma controlada
+		Buses_write_ControlBus_From_To(CPU, MMU);								  //Enviar la operacion a la memoria
+		registerAccumulator_CPU = registerAccumulator_CPU + registerMBR_CPU.cell; //Sumamos los dos
+		//Processor_CheckOverflow(registerMBR_CPU.cell, operand1);				  //comprueba con el acumulador, es importante que este despues
 		registerPC_CPU++;
 		break;
 	// Unknown instruction

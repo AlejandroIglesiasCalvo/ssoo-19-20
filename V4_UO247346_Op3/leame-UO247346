@@ -1,5 +1,5 @@
 Pruebas:
-./Simulator ../programas/prog-V1-E11 3 ../programas/programVerySimple-V3 9 ../programas/prog-V1-E12 6
+./Simulator prog-V1-E11 3 programVerySimple-V3 9 prog-V1-E12 6
 
 OperatingSystem:
 // Examen-Mayo 2020

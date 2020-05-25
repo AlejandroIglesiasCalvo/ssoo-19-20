@@ -1,0 +1,175 @@
+Pruebas:
+./Simulator prog-V1-E11 3 programVerySimple-V3 9 prog-V1-E12 6
+Mensajes:
+// Examen-Mayo 2020 
+146,%d processes have been created 2 or more tics after their arrival.\n
+OperatingSystem.h:
+// Examen-Mayo 2020 
+// A PCB contains all of the information about a process that is needed by the OS
+typedef struct
+{
+	int busy;
+	int initialPhysicalAddress;
+	int processSize;
+	int state;
+	int priority;
+	int copyOfPCRegister;
+	unsigned int copyOfPSWRegister;
+	int programListIndex;
+	int queueID;
+	int copyOfAccumulator;//Ejercicio 13 V1
+	int whenToWakeUp; // Exercise 5-a of V2
+	int particion;
+	int TiempoEspera;//Para guardar el tiempo de espera
+
+} PCB;
+// Examen-Mayo 2020 
+void Lentos();
+
+OperatingSystem.c:
+// Examen-Mayo 2020 
+// Assign initial values to all fields inside the PCB
+void OperatingSystem_PCBInitialization(int PID, int particion, int processSize, int priority, int processPLIndex)
+{
+
+	processTable[PID].busy = 1;
+	processTable[PID].initialPhysicalAddress = partitionsTable[particion].initAddress;
+	processTable[PID].processSize = processSize;
+	processTable[PID].state = NEW;
+	processTable[PID].priority = priority;
+	processTable[PID].programListIndex = processPLIndex;
+	processTable[PID].whenToWakeUp = 0;
+	processTable[PID].copyOfAccumulator = 0;
+	processTable[PID].particion = particion;
+	partitionsTable[particion].PID = PID;
+	processTable[PID].TiempoEspera=0;
+	// Daemons run in protected mode and MMU use real address
+	if (programList[processPLIndex]->type == DAEMONPROGRAM)
+	{
+		processTable[PID].copyOfPCRegister = partitionsTable[particion].initAddress;
+		processTable[PID].copyOfPSWRegister = ((unsigned int)1) << EXECUTION_MODE_BIT;
+		processTable[PID].queueID = DAEMONSQUEUE;
+	}
+	else
+	{
+		processTable[PID].copyOfPCRegister = 0;
+		processTable[PID].copyOfPSWRegister = 0;
+		processTable[PID].queueID = USERPROCESSQUEUE;
+	}
+}
+
+// The LTS is responsible of the admission of new processes in the system.
+// Initially, it creates a process from each program specified in the
+// 			command lineand daemons programs
+// Examen-Mayo 2020 
+int OperatingSystem_LongTermScheduler()
+{
+
+	int PID, nuevoProceso, numberOfSuccessfullyCreatedProcesses = 0;
+
+	int existe = OperatingSystem_IsThereANewProgram();
+	while (existe == YES)
+	{
+		nuevoProceso = llegasTarde();
+		existe = OperatingSystem_IsThereANewProgram();
+		PID = OperatingSystem_CreateProcess(nuevoProceso);
+		switch (PID)
+		{
+		case NOFREEENTRY:
+			OperatingSystem_ShowTime(ERROR);
+			ComputerSystem_DebugMessage(103, ERROR, programList[nuevoProceso]->executableName);
+			continue;
+		case PROGRAMDOESNOTEXIST:
+			OperatingSystem_ShowTime(ERROR);
+			ComputerSystem_DebugMessage(104, ERROR, programList[nuevoProceso]->executableName, "it does not exist");
+			continue;
+		case PROGRAMNOTVALID:
+			OperatingSystem_ShowTime(ERROR);
+			ComputerSystem_DebugMessage(104, ERROR, programList[nuevoProceso]->executableName, "invalid priority or size");
+			continue;
+		case TOOBIGPROCESS:
+			OperatingSystem_ShowTime(ERROR);
+			//ComputerSystem_DebugMessage(105, ERROR, programList[nuevoProceso]->executableName);
+			ComputerSystem_DebugMessage(144, ERROR, "TOOBIGPROCESS");
+			continue;
+		case MEMORYFULL:
+			OperatingSystem_ShowTime(ERROR);
+			//ComputerSystem_DebugMessage(105, ERROR, programList[nuevoProceso]->executableName);
+			ComputerSystem_DebugMessage(144, ERROR, "MEMORYFULL");
+			continue;
+		default:
+			numberOfSuccessfullyCreatedProcesses++;
+			//Aqui guardamos el tiempo menos el tiempo de llegada, es decir, lo que espero
+			processTable[PID].TiempoEspera=Clock_GetTime()-programList[processTable[PID].programListIndex]->arrivalTime;// Examen-Mayo 2020 
+			if (programList[nuevoProceso]->type == USERPROGRAM)
+			{
+				numberOfNotTerminatedUserProcesses++;
+			}
+			OperatingSystem_MoveToTheREADYState(PID);
+			break;
+		}
+	}
+	// Return the number of succesfully created processes
+	if (numberOfSuccessfullyCreatedProcesses > 0)
+	{
+		OperatingSystem_PrintStatus();
+	}
+	return numberOfSuccessfullyCreatedProcesses;
+}
+// Examen-Mayo 2020
+void Lentos()
+{
+	int cont;
+	int resultado = 0;
+	for (cont = 0; cont < PROCESSTABLEMAXSIZE-1; cont++)
+	{
+		if (processTable[cont].TiempoEspera >= 2)
+		{
+			resultado++;
+		}
+	}
+	OperatingSystem_ShowTime(SYSPROC);
+	ComputerSystem_DebugMessage(146, SYSPROC, resultado);
+}
+
+// Examen-Mayo 2020 
+// All tasks regarding the removal of the process
+void OperatingSystem_TerminateProcess()
+{
+
+	int selectedProcess;
+	Change_State(executingProcessID, EXECUTING, EXIT);
+	processTable[executingProcessID].state = EXIT;
+	//partitionsTable[processTable[executingProcessID].particion].PID = NOPROCESS;
+	OperatingSystem_ReleaseMainMemory();
+	if (programList[processTable[executingProcessID].programListIndex]->type == USERPROGRAM)
+	{
+		// One more user process that has terminated
+		numberOfNotTerminatedUserProcesses--;
+		//numberOfReadyToRunProcesses[USERPROCESSQUEUE]--;
+	}
+
+	// if (numberOfNotTerminatedUserProcesses <= 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE)
+	//if (numberOfNotTerminatedUserProcesses == 0 && numberOfReadyToRunProcesses[DAEMONPROGRAM]<=1)
+	if (numberOfNotTerminatedUserProcesses == 0 && OperatingSystem_IsThereANewProgram() == EMPTYQUEUE)
+	{
+		if (executingProcessID == sipID)
+		{
+			// finishing sipID, change PC to address of OS HALT instruction
+			//Processor_CopyInSystemStack(MAINMEMORYSIZE - 1, OS_address_base + 1);
+			OperatingSystem_TerminatingSIP();
+			Lentos();// Examen-Mayo 2020 
+			OperatingSystem_ShowTime(SHUTDOWN);
+			ComputerSystem_DebugMessage(99, SHUTDOWN, "The system will shut down now...\n");
+			return; // Don't dispatch any process
+		}
+		// Simulation must finish, telling sipID to finish
+		
+		OperatingSystem_ReadyToShutdown();
+	}
+
+	// Select the next process to execute (sipID if no more user processes)
+	selectedProcess = OperatingSystem_ShortTermScheduler();
+	// Assign the processor to that process
+	OperatingSystem_Dispatch(selectedProcess);
+}
