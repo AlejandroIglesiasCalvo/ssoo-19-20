@@ -549,7 +549,7 @@ void la_Magia_Del_Yield(executingProcessID)
 void ceder_voluntariamente_el_control_del_procesador(executingProcessID, cadidatoOoOoOo)
 {
 	int elNUevo;
-	elNUevo=Heap_poll(readyToRunQueue[processTable[cadidatoOoOoOo].queueID],QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[cadidatoOoOoOo].queueID]);
+	elNUevo = Heap_poll(readyToRunQueue[processTable[cadidatoOoOoOo].queueID], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[cadidatoOoOoOo].queueID]);
 	OperatingSystem_ShowTime(SHORTTERMSCHEDULE);
 	ComputerSystem_DebugMessage(115, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, elNUevo, programList[processTable[elNUevo].programListIndex]->executableName);
 	OperatingSystem_PreemptRunningProcess();
@@ -581,23 +581,30 @@ void a_dormir_ostia(int PID)
 	OperatingSystem_Dispatch(OperatingSystem_ShortTermScheduler());
 }
 
-// Examen-Mayo 2020 
+// Examen-Mayo 2020
 void VAMOS_PANDA_DE_VAGOS()
 {
 	int vanderaAaAaA = 0;
 	int vagos;
+	int contador = 0;
 	for (vagos = 0; vagos < numberOfSleepingProcesses; vagos++)
 	{
 		int madrugador = Heap_getFirst(sleepingProcessesQueue, numberOfSleepingProcesses);
-		if (processTable[madrugador].whenToWakeUp == numberOfClockInterrupts)
+		if (processTable[madrugador].whenToWakeUp == numberOfClockInterrupts && vanderaAaAaA == 0)
 		{
 			vanderaAaAaA = -1;
 			int levantado = Heap_poll(sleepingProcessesQueue, QUEUE_WAKEUP, &numberOfSleepingProcesses);
 			OperatingSystem_MoveToTheREADYState(levantado);
 		}
-		if (vanderaAaAaA!=0){//Se desperto uno
-			vagos=numberOfSleepingProcesses;//Acabamos el bucle
+		if (vanderaAaAaA != 0)
+		{
+			contador++;
 		}
+	}
+	if (contador > 1)
+	{ //Si no se despertaron todos los que debian
+		OperatingSystem_ShowTime(INTERRUPT);
+		ComputerSystem_DebugMessage(122, INTERRUPT);
 	}
 	if (vanderaAaAaA != 0)
 	{

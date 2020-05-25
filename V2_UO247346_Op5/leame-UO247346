@@ -1,0 +1,76 @@
+Mensajes:
+// Examen-Mayo 2020 
+122, Process [@G%d - %s@@] is forced to abort because reiterate yield operations\n
+OperatingSystem.h:
+typedef struct
+{
+	int busy;
+	int initialPhysicalAddress;
+	int processSize;
+	int state;
+	int priority;
+	int copyOfPCRegister;
+	unsigned int copyOfPSWRegister;
+	int programListIndex;
+	int queueID;
+	int copyOfAccumulator;//Ejercicio 13 V1
+	int whenToWakeUp; // Exercise 5-a of V2
+	int V2OP5; // Examen-Mayo 2020 
+
+} PCB;
+OperatingSystem.c:
+// Assign initial values to all fields inside the PCB
+void OperatingSystem_PCBInitialization(int PID, int initialPhysicalAddress, int processSize, int priority, int processPLIndex)
+{
+
+	processTable[PID].busy = 1;
+	processTable[PID].initialPhysicalAddress = initialPhysicalAddress;
+	processTable[PID].processSize = processSize;
+	processTable[PID].state = NEW;
+	processTable[PID].priority = priority;
+	processTable[PID].programListIndex = processPLIndex;
+	processTable[PID].V2OP5 = 0;// Examen-Mayo 2020 
+	// Daemons run in protected mode and MMU use real address
+	if (programList[processPLIndex]->type == DAEMONPROGRAM)
+	{
+		processTable[PID].copyOfPCRegister = initialPhysicalAddress;
+		processTable[PID].copyOfPSWRegister = ((unsigned int)1) << EXECUTION_MODE_BIT;
+		processTable[PID].queueID = DAEMONSQUEUE;
+	}
+	else
+	{
+		processTable[PID].copyOfPCRegister = 0;
+		processTable[PID].copyOfPSWRegister = 0;
+		processTable[PID].queueID = USERPROCESSQUEUE;
+	}
+}
+
+// Examen-Mayo 2020
+void la_Magia_Del_Yield(executingProcessID)
+{
+	int prioridadEjecutando = processTable[executingProcessID].priority;
+	int colaEjecutando = processTable[executingProcessID].queueID;
+	//Heap_getFirst(heapItem heap[], int numElem)
+	//-1 si peta
+	int cadidatoOoOoOo = Heap_getFirst(readyToRunQueue[colaEjecutando], numberOfReadyToRunProcesses[colaEjecutando]);
+	if (cadidatoOoOoOo != -1)
+	{
+		int prioridadCandidato = processTable[cadidatoOoOoOo].priority;
+		if (prioridadEjecutando == prioridadCandidato && executingProcessID != cadidatoOoOoOo)
+		{
+			if (processTable[executingProcessID].V2OP5 == 0) //Si nunca cedio el procesador
+			{
+				processTable[executingProcessID].V2OP5 = 1; //Lo marcamos como cedido
+				ceder_voluntariamente_el_control_del_procesador(executingProcessID, cadidatoOoOoOo);
+			}
+			else
+			{
+				OperatingSystem_ShowTime(SHORTTERMSCHEDULE);//MOstramos el mensaje de que no se puede
+				ComputerSystem_DebugMessage(122, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName);
+			}
+		}
+	}
+}
+
+Ejecuciones:
+./Simulator V2-ejemplo5 V2-ejemplo5-1

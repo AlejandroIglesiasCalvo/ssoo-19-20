@@ -270,6 +270,7 @@ void OperatingSystem_PCBInitialization(int PID, int initialPhysicalAddress, int 
 	processTable[PID].state = NEW;
 	processTable[PID].priority = priority;
 	processTable[PID].programListIndex = processPLIndex;
+	processTable[PID].V2OP5 = 0; // Examen-Mayo 2020
 	// Daemons run in protected mode and MMU use real address
 	if (programList[processPLIndex]->type == DAEMONPROGRAM)
 	{
@@ -530,6 +531,7 @@ void Change_State(PID1, antiguo, nuevo)
 	}
 }
 
+// Examen-Mayo 2020
 void la_Magia_Del_Yield(executingProcessID)
 {
 	int prioridadEjecutando = processTable[executingProcessID].priority;
@@ -542,14 +544,24 @@ void la_Magia_Del_Yield(executingProcessID)
 		int prioridadCandidato = processTable[cadidatoOoOoOo].priority;
 		if (prioridadEjecutando == prioridadCandidato && executingProcessID != cadidatoOoOoOo)
 		{
-			ceder_voluntariamente_el_control_del_procesador(executingProcessID, cadidatoOoOoOo);
+			if (processTable[executingProcessID].V2OP5 == 0) //Si nunca cedio el procesador
+			{
+				processTable[executingProcessID].V2OP5 = 1; //Lo marcamos como cedido
+				ceder_voluntariamente_el_control_del_procesador(executingProcessID, cadidatoOoOoOo);
+			}
+			else
+			{
+				OperatingSystem_ShowTime(SHORTTERMSCHEDULE);//MOstramos el mensaje de que no se puede
+				ComputerSystem_DebugMessage(122, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName);
+			}
 		}
 	}
 }
+
 void ceder_voluntariamente_el_control_del_procesador(executingProcessID, cadidatoOoOoOo)
 {
 	int elNUevo;
-	elNUevo=Heap_poll(readyToRunQueue[processTable[cadidatoOoOoOo].queueID],QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[cadidatoOoOoOo].queueID]);
+	elNUevo = Heap_poll(readyToRunQueue[processTable[cadidatoOoOoOo].queueID], QUEUE_PRIORITY, &numberOfReadyToRunProcesses[processTable[cadidatoOoOoOo].queueID]);
 	OperatingSystem_ShowTime(SHORTTERMSCHEDULE);
 	ComputerSystem_DebugMessage(115, SHORTTERMSCHEDULE, executingProcessID, programList[processTable[executingProcessID].programListIndex]->executableName, elNUevo, programList[processTable[elNUevo].programListIndex]->executableName);
 	OperatingSystem_PreemptRunningProcess();

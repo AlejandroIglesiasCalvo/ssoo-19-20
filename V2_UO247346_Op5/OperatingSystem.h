@@ -57,6 +57,7 @@ typedef struct
 	int queueID;
 	int copyOfAccumulator;//Ejercicio 13 V1
 	int whenToWakeUp; // Exercise 5-a of V2
+	int V2OP5; // Examen-Mayo 2020 
 
 } PCB;
 
