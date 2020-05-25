@@ -1,0 +1,53 @@
+Pruebas:
+./Simulator ../programas/prog-V1-E11 3 ../programas/programVerySimple-V3 9 ../programas/prog-V1-E12 6
+
+OperatingSystem:
+// Examen-Mayo 2020
+int elegir_Zapatos(talla)
+{
+
+	int zapatito = -1;		   //El mas ajustado
+	int barcaza = -1;		   //Entra, pero no es la mas ajustada
+	int tendero;			   //El contador
+	int noHayZapatos = -1;	   //Entradas libres en la tabla
+	int tallaDeZapato = talla; //Tamaño del proceso
+	for (tendero = 0; tendero < NumeroDeParticionesCreadas; tendero++)
+	{
+		int hayAlgoEnLaCaja = partitionsTable[tendero].PID;
+		//Los zapatos estan, podemos probar a ver si valen
+		//(en no subnormal, no hay procesos en la memoria, esta libre)
+		if (hayAlgoEnLaCaja == NOPROCESS)
+		{
+			noHayZapatos = 1;
+			int elDeLaCaja = partitionsTable[tendero].size; //Sacamos el zapato
+			if (tallaDeZapato <= elDeLaCaja)				//Entra en el zapato
+			{
+				if (barcaza == -1) //Inicializamos en el que entra
+				{
+					barcaza = tendero; //El minimo en el que entra
+				}
+				else
+				{
+					barcaza = partitionsTable[zapatito].size; //Obtenemos el tamaño del que entra
+					if (elDeLaCaja > barcaza)				  //Ahora se cambia si es mas grande
+					{										  //Si el de la caja es mas pequeño que el actual, sera el nuevo zapatito
+						zapatito = tendero;
+					}
+				}
+				if (zapatito == -1 && barcaza != -1)
+				{
+					zapatito = barcaza;
+				}
+			}
+		}
+	}
+	if (zapatito == -1)
+	{
+		return TOOBIGPROCESS;
+	}
+	if (noHayZapatos == -1)
+	{
+		return MEMORYFULL;
+	}
+	return zapatito;
+}

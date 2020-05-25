@@ -234,7 +234,7 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 	// Obtain enough memory space
 	OperatingSystem_ShowTime(SYSMEM);
 	ComputerSystem_DebugMessage(142, SYSMEM, PID, executableProgram->executableName, processSize);
-	
+
 	int particion = OperatingSystem_ObtainMainMemory(processSize, PID);
 	if (particion == TOOBIGPROCESS)
 	{
@@ -248,7 +248,7 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 	OperatingSystem_ShowTime(INIT);
 	ComputerSystem_DebugMessage(143, SYSMEM, particion, partitionsTable[particion].initAddress, partitionsTable[particion].size, PID, executableProgram->executableName);
 
-	// Load program in the allocated memory 
+	// Load program in the allocated memory
 	//
 	int Mierda;
 	Mierda = OperatingSystem_LoadProgram(programFile, partitionsTable[particion].initAddress, processSize);
@@ -257,7 +257,7 @@ int OperatingSystem_CreateProcess(int indexOfExecutableProgram)
 		return TOOBIGPROCESS;
 	}
 	// PCB initialization
-	// 
+	//
 
 	OperatingSystem_PCBInitialization(PID, particion, processSize, priority, indexOfExecutableProgram);
 
@@ -280,7 +280,7 @@ int OperatingSystem_ObtainMainMemory(int processSize, int PID)
 	//llamada a la anueva funcion de ajuste de memoria
 	//Pensare un nombre guay
 	//Mensajes de memoria
-	
+
 	int posicion = elegir_Zapatos(processSize);
 	return posicion;
 
@@ -680,7 +680,7 @@ void procesoAlfa()
 		prioridadAlfa = -1;
 	}
 
-	if (prioridadAlfa < actual && prioridadAlfa>0)
+	if (prioridadAlfa < actual && prioridadAlfa > 0)
 	{
 		PID_para_Procesador = posibleAlfa; //Para el procesador
 		OperatingSystem_ShowTime(INTERRUPT);
@@ -704,7 +704,7 @@ void procesoAlfa()
 		OperatingSystem_Dispatch(NuevoAlfa);
 		OperatingSystem_PrintStatus();
 	}
-	else if (numberOfReadyToRunProcesses[DAEMONPROGRAM] > 0 && prioridadAlfa < actual && prioridadAlfa!=-1 && posibleAlfa !=-1) 
+	else if (numberOfReadyToRunProcesses[DAEMONPROGRAM] > 0 && prioridadAlfa < actual && prioridadAlfa != -1 && posibleAlfa != -1)
 	{
 		PID_para_Procesador = posibleAlfa; //Para el procesador
 		OperatingSystem_ShowTime(INTERRUPT);
@@ -767,6 +767,8 @@ void apagarPorLaFuerza()
 	// // Assign the processor to that process
 	// OperatingSystem_Dispatch(selectedProcess);
 }
+
+// Examen-Mayo 2020
 int elegir_Zapatos(talla)
 {
 
@@ -793,8 +795,8 @@ int elegir_Zapatos(talla)
 				else
 				{
 					barcaza = partitionsTable[zapatito].size; //Obtenemos el tamaño del que entra
-					if (elDeLaCaja < barcaza)
-					{ //Si el de la caja es mas pequeño que el actual, sera el nuevo zapatito
+					if (elDeLaCaja > barcaza)				  //Ahora se cambia si es mas grande
+					{										  //Si el de la caja es mas pequeño que el actual, sera el nuevo zapatito
 						zapatito = tendero;
 					}
 				}
@@ -819,7 +821,7 @@ void OperatingSystem_ReleaseMainMemory()
 {
 	OperatingSystem_ShowPartitionTable("before releasing memory");
 	OperatingSystem_ShowTime(SYSMEM);
-	ComputerSystem_DebugMessage(145,SYSMEM,processTable[executingProcessID].particion, partitionsTable[processTable[executingProcessID].particion].initAddress, partitionsTable[processTable[executingProcessID].particion].size, partitionsTable[processTable[executingProcessID].particion].PID, programList[processTable[executingProcessID].programListIndex]->executableName);
+	ComputerSystem_DebugMessage(145, SYSMEM, processTable[executingProcessID].particion, partitionsTable[processTable[executingProcessID].particion].initAddress, partitionsTable[processTable[executingProcessID].particion].size, partitionsTable[processTable[executingProcessID].particion].PID, programList[processTable[executingProcessID].programListIndex]->executableName);
 	partitionsTable[processTable[executingProcessID].particion].PID = NOPROCESS;
 	OperatingSystem_ShowPartitionTable("after releasing memory");
 }
