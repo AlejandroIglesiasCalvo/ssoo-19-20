@@ -1,0 +1,21 @@
+Pegar debajo de la línea el resultado de obtener el hash MD5 del archivo con el escritorio grabado
+
+certutil -hashfile SSOO-Mayo-Apellido1Apellido2Nombre-UOxxxxx-Video.mp4 MD5
+o
+md5sum SSOO-Mayo-Apellido1Apellido2Nombre-UOxxxxx-Video.mp4
+------------------------------------------------------------------------------------------------
+7c0cb9d2aa2d125679062841039a0537
+
+
+
+
+
+
+
+
+Si hay más de una parte del fichero del escritorio grabado (archivos separados), pegar los resultados para todos debajo (cambia ? por números sucesivos).
+
+certutil -hashfile SSOO-Mayo-Apellido1Apellido2Nombre-UOxxxxx-Video?.mp4 MD5
+o
+md5sum SSOO-Mayo-Apellido1Apellido2Nombre-UOxxxxx-Video?.mp4
+---------------------------------------------------------------------------------------------------------
